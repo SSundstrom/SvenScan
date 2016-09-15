@@ -5,4 +5,3 @@
 * We have zero tolerance for bullying
 * Don’t dismiss other people’s opinions, instead listen and try to understand their point of view.
 * Ask for help
-* Phone and face to face conversations with customers / other team members over emails.
