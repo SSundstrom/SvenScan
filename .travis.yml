@@ -5,5 +5,7 @@ android:
     - build-tools-23.0.3
     - platform-tools
     - tools
+  licences:
+    - 'android-sdk-license-.+'
 
 jdk: oraclejdk8
