@@ -1,11 +1,14 @@
 language: android
-
 android:
   components:
-    - build-tools-23.0.3
-    - platform-tools
     - tools
-  licences:
-    - 'android-sdk-license-.+'
+    - platform-tools
+    - build-tools-23.0.2
+    - android-23
+    - extra-android-m2repository
 
-jdk: oraclejdk8
+script:
+   - ./gradlew build connectedCheck
+
+jdk:
+  - oraclejdk8
