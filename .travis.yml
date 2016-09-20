@@ -3,4 +3,5 @@ android:
   components:
     - android-15
     - build-tools-22.0.1
-    
+jdk:
+  - oraclejdk8
