@@ -3,5 +3,9 @@ android:
   components:
     - android-15
     - build-tools-22.0.1
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 jdk:
   - oraclejdk8
