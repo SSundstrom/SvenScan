@@ -9,22 +9,29 @@ public class FavoriteWords {
     private List<String> favorites = new ArrayList<String>();
 
     public void addFavorite(String s){
-        favorites.add(s);
+        if(!isFavoriteWord(s)){
+            favorites.add(s);
+        }
     }
     
-    //TODO: fix if word doesn't exist, maybe send back boolean?
     public void removeFavorite(String s){
+        if(isFavoriteWord(s)){
+            favorites.remove(s);
+        }
+    }
+    public boolean isFavoriteWord(String s){
         Iterator<String> iter = favorites.listIterator();
 
         if(!favorites.isEmpty()) {
             while(iter.hasNext()) {
                 if (iter.next().equals(s)) {
-                    favorites.remove(s);
-                    break;
+                    return true;
                 }
             }
         }
+        return false;
     }
+
     public void viewAll(){
 
     }
