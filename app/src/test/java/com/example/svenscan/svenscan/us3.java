@@ -21,15 +21,20 @@ public class US3 {
 
     @Test
     public void testAddFavorite(){
-        favoriteWords.addFavorite("stol");
-        favoriteWords.addFavorite("bord");
+        String word = "stol";
+        favoriteWords.addFavorite(word);
 
-        
+        assertTrue(favoriteWords.isFavoriteWord(word));
     }
 
     @Test
     public void testRemoveFavorite(){
+        String word = "stol";
+        favoriteWords.removeFavorite(word);
+        favoriteWords.addFavorite(word);
+        favoriteWords.removeFavorite(word);
 
+        assertTrue(favorites.isEmpty());
     }
 
     @Test
