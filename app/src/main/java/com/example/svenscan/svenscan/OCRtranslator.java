@@ -11,6 +11,7 @@ public class OCRtranslator {
 
     public OCRtranslator(){
         tess = new TessBaseAPI();
+        //tess.init()
     }
 
     public void setImage(Bitmap bitmap) {
