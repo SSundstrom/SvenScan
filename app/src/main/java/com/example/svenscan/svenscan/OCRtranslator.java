@@ -18,6 +18,7 @@ public class OCRtranslator {
         tess = new TessBaseAPI();
 //        tess.init("/", null);
 //        tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");  Should make OCR only take numbers
+
     }
 
     public void setImage(Bitmap bitmap) {
