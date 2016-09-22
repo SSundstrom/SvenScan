@@ -15,6 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PlayPronounciation"
+            android:label="@string/title_activity_play_pronunciation"></activity>
     </application>
 
 </manifest>
