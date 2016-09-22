@@ -23,29 +23,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startOCR();
+        ocr = new OCRtranslator(getApplication());
     }
 
-    private void startOCR() {
-        System.out.println("startOCR");
 
-        try {
-            saveOCRDataFileToStorage();
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-
-        String langPath = getApplicationContext().getFilesDir() + "/";
-        System.out.println(langPath);
-
-        System.out.println((new File(langPath + "tessdata/")).listFiles().length);
-
-        ocr = new OCRtranslator(langPath);
-    }
-
-    public void seeWord(View view) {
-        String text = ocr.getTextIfAvailable();
+    public void setText(String text) {
         TextView textBox = ((TextView)findViewById(R.id.textView));
         if(text != null) {
             textBox.setText(text);
@@ -56,37 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void chooseImage(View view) {
         Bitmap picture = BitmapFactory.decodeResource(getResources(), R.drawable.test);
-        ocr.setImage(picture);
         ImageView mainView = (ImageView)findViewById((R.id.imageView));
         mainView.setImageBitmap(picture);
-    }
-
-
-    public void saveOCRDataFileToStorage() throws IOException {
-        InputStream in = null;
-        BufferedOutputStream fout = null;
-        try {
-            in = getResources().openRawResource(R.raw.swe);
-            String path = this.getApplicationContext().getFilesDir() + "/tessdata/";
-            File file = new File(path);
-            file.mkdirs();
-
-            path += "swe.traineddata";
-
-            fout = new BufferedOutputStream(new FileOutputStream(path, true));
-
-            final byte data[] = new byte[1024];
-            int count;
-            while ((count = in.read(data, 0, 1024)) != -1) {
-                fout.write(data, 0, count);
-            }
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (fout != null) {
-                fout.close();
-            }
-        }
+        setText(ocr.getStringFromImageWithEnchance(picture));
     }
 }
