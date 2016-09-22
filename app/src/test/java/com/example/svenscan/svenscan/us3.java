@@ -7,11 +7,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class US3 {
 
     FavoriteWords favoriteWords;
-    List<String> favorites;
+    Map<String, Word> favorites;
 
     @Before
     public void before(){

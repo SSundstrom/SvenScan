@@ -1,35 +1,31 @@
 package com.example.svenscan.svenscan.favorite;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.example.svenscan.svenscan.Word;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FavoriteWords {
 
-    private List<String> favorites = new ArrayList<String>();
+    private Map<String, Word> favorites = new HashMap<>();
 
     public void addFavorite(String s){
-        if(!isFavoriteWord(s)){
-            favorites.add(s);
+        if(!favorites.containsKey(s)){
+            favorites.put(s, new Word());
         }
+
+        //TODO remove
+        System.out.println("Words in the list: " + favorites.keySet());
     }
     
     public void removeFavorite(String s){
-        if(isFavoriteWord(s)){
+        if(favorites.containsKey(s)){
             favorites.remove(s);
         }
     }
-    public boolean isFavoriteWord(String s){
-        Iterator<String> iter = favorites.listIterator();
 
-        if(!favorites.isEmpty()) {
-            while(iter.hasNext()) {
-                if (iter.next().equals(s)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public boolean isFavoriteWord(String word){
+        return favorites.containsKey(word);
     }
 
     public void viewAll(){
@@ -39,7 +35,7 @@ public class FavoriteWords {
 
     }
 
-    public List<String> getFavorites(){
+    public Map<String, Word> getFavorites(){
         return this.favorites;
     }
 }
