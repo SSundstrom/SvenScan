@@ -11,7 +11,6 @@ public class OCRtranslator {
 
     public OCRtranslator(String path){
         tess = new TessBaseAPI();
-
         tess.init(path, "swe");
         //tess.init()
     }
@@ -19,7 +18,7 @@ public class OCRtranslator {
     public void setImage(Bitmap bitmap) {
         tess.setImage(bitmap);
         text = tess.getUTF8Text();
-        tess.end();
+        tess.clear();
     }
 
     public String getTextIfAvailable() {

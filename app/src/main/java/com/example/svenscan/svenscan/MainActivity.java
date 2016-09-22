@@ -1,12 +1,17 @@
 package com.example.svenscan.svenscan;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.media.ImageReader;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.widget.ImageView;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startOCR();
+    }
+
+    private void startOCR() {
+        System.out.println("startOCR");
+
         try {
             saveOCRDataFileToStorage();
         } catch(IOException e) {
@@ -35,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        String langPath = Environment.getExternalStorageDirectory().getAbsolutePath().concat("/tessdata");
+        String langPath = getApplicationContext().getFilesDir() + "/";
+        System.out.println(langPath);
+
+        System.out.println((new File(langPath + "tessdata/")).listFiles().length);
+
         ocr = new OCRtranslator(langPath);
     }
 
@@ -54,29 +71,19 @@ public class MainActivity extends AppCompatActivity {
         mainView.setImageBitmap(picture);
     }
 
+
     public void saveOCRDataFileToStorage() throws IOException {
         InputStream in = null;
-        FileOutputStream fout = null;
+        BufferedOutputStream fout = null;
         try {
             in = getResources().openRawResource(R.raw.swe);
-            String folderName = "tessdata";
+            String path = this.getApplicationContext().getFilesDir() + "/tessdata/";
+            File file = new File(path);
+            file.mkdirs();
 
-            File folder = new File(Environment.getExternalStorageDirectory(), folderName);
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
+            path += "swe.traineddata";
 
-            String filename = "swe.traineddata";
-            File file = new File(folder.getAbsolutePath() + filename);
-
-            if (!file.exists()) {
-                boolean created = file.createNewFile();
-                if (!created) {
-                    System.out.println("wäh");
-                }
-            }
-
-            fout = new FileOutputStream(file);
+            fout = new BufferedOutputStream(new FileOutputStream(path, true));
 
             final byte data[] = new byte[1024];
             int count;
