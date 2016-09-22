@@ -1,7 +1,5 @@
 package com.example.svenscan.svenscan;
 
-import android.graphics.Bitmap;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +14,6 @@ public class US1 {
 
     @Test
     public void findingWord() {
-//        Bitmap picture = mainActivity.getCamera.snapPicture();
 
     }
 }
