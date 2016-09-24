@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class PlayPronounciation extends AppCompatActivity {
+public class PlayPronunciation extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
