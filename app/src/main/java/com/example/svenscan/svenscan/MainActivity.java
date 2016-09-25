@@ -1,6 +1,5 @@
 package com.example.svenscan.svenscan;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,11 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialcamera.MaterialCamera;
-
-import java.io.File;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private OCRtranslator ocr;
     private Camera camera;
 
@@ -23,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        camera = new Camera(this, this::onCameraCapture);
+        camera = new Camera(this, this);
         ocr = new OCRtranslator(getApplication());
 
     }
@@ -38,14 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void chooseImage(View view) {
         camera.show();
-        /*Bitmap picture = BitmapFactory.decodeResource(getResources(), R.drawable.test);
-        ImageView mainView = (ImageView)findViewById((R.id.imageView));
-        mainView.setImageBitmap(picture);
-        setText(ocr.getStringFromBitmap(picture));*/
     }
 
-    public void onCameraCapture(File picture) {
-        Log.d("onCamera", picture.getAbsolutePath());
+    @Override
+    public void onCameraCapture(Bitmap picture) {
+        ImageView mainView = (ImageView)findViewById((R.id.imageView));
+        mainView.setImageBitmap(picture);
+        //setText(ocr.getStringFromBitmap(picture));
     }
 
     @Override
