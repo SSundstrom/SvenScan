@@ -28,19 +28,28 @@ public class MainActivity extends AppCompatActivity {
     private OCRtranslator ocr;
     private final static int CAMERA_RQ = 6969;
     private final static int CAMERA_PREMISSION = 378;
+    private final static int STORAGE_PREMISSION = 432;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        requestCamera();
+        requestExternalStorage();
+        //startCamera();
+        ocr = new OCRtranslator(getApplication());
+
+    }
+
+    public void requestCamera() {
         // Here, thisActivity is the current activity
         // Should we show an explanation?
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_CONTACTS)) {
+                    Manifest.permission.CAMERA)) {
 
                 // Show an expanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -58,11 +67,35 @@ public class MainActivity extends AppCompatActivity {
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
-        } else {
-            startCamera();
         }
+    }
 
-        ocr = new OCRtranslator(getApplication());
+    public void requestExternalStorage(){
+        // Here, thisActivity is the current activity
+        // Should we show an explanation?
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        STORAGE_PREMISSION);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
 
     }
 
@@ -84,8 +117,25 @@ public class MainActivity extends AppCompatActivity {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
-                return;
+            }case STORAGE_PREMISSION: {
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                           && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        startCamera();
+                        // permission was granted, yay! Do the
+                        // contacts-related task you need to do.
+
+                    } else {
+
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
+
+                    }
+
             }
+
+
 
             // other 'case' lines to check for other
             // permissions this app might request
@@ -95,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void startCamera(){
-        File saveFolder = new File(this.getApplicationContext().getFilesDir(), "MaterialCamera Sample");
+        File saveFolder = new File(this.getApplicationContext().getFilesDir().getAbsolutePath(), "MaterialCamera Sample");
         if (!saveFolder.mkdirs())
             throw new RuntimeException("Unable to create save directory, make sure WRITE_EXTERNAL_STORAGE permission is granted.");
 
@@ -105,6 +155,24 @@ public class MainActivity extends AppCompatActivity {
                 .saveDir(saveFolder)
                 .start(CAMERA_RQ);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Received recording or error from MaterialCamera
+        if (requestCode == CAMERA_RQ) {
+
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Saved to: " + data.getDataString(), Toast.LENGTH_LONG).show();
+            } else if(data != null) {
+                Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
+                e.printStackTrace();
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 
 
 
