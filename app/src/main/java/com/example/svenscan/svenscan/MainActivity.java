@@ -2,16 +2,13 @@ package com.example.svenscan.svenscan;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
-    private OCRtranslator ocr;
+    private OCRDecoder ocr;
     private Camera camera;
 
     @Override
@@ -19,16 +16,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         camera = new Camera(this, this);
-        ocr = new OCRtranslator(getApplication());
-
-    }
-    public void setText(String text) {
-        TextView textBox = ((TextView)findViewById(R.id.textView));
-        if(text != null) {
-            textBox.setText(text);
-        } else {
-            textBox.setText("Text = null");
-        }
+        ocr = new OCRDecoder(getApplication());
     }
 
     public void chooseImage(View view) {
@@ -39,7 +27,9 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
     public void onCameraCapture(Bitmap picture) {
         ImageView mainView = (ImageView)findViewById((R.id.imageView));
         mainView.setImageBitmap(picture);
-        //setText(ocr.getStringFromBitmap(picture));
+
+        View rootView = findViewById(android.R.id.content);
+        new OCRDecoderAsyncTask(rootView, ocr).execute(picture);
     }
 
     @Override

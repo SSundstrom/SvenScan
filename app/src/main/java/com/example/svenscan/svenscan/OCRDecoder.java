@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import com.googlecode.leptonica.android.Enhance;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
+import com.googlecode.leptonica.android.WriteFile;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 import java.io.BufferedOutputStream;
@@ -16,13 +17,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-public class OCRtranslator {
+public class OCRDecoder {
 
     TessBaseAPI tess;
     String text;
 
 
-    public OCRtranslator(Application app){
+    public OCRDecoder(Application app){
 
         System.out.println("startOCR");
 
@@ -36,16 +37,20 @@ public class OCRtranslator {
 
         tess = new TessBaseAPI();
         tess.init(langPath, "swe");
-        tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");  // Should make OCR only take numbers
+        //tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");  // Should make OCR only take numbers
+    }
 
+    public Bitmap getOptimizedPicture(Bitmap bitmap) {
+        Pix picture = ReadFile.readBitmap(bitmap);
+
+        return WriteFile.writeBitmap(Enhance.unsharpMasking(picture));
     }
 
     public String getStringFromBitmap(Bitmap bitmap) {
-        Pix picture = ReadFile.readBitmap(bitmap);
-        picture = Enhance.unsharpMasking(picture);
-        tess.setImage(picture);
+        tess.setImage(bitmap);
         text = tess.getUTF8Text();
         tess.clear();
+
         return text;
     }
 
