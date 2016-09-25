@@ -17,4 +17,17 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/recordButton"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/swedishWord"
+        android:singleLine="true"
+        android:layout_above="@+id/recordButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:hint="Swedish word" />
+
 </RelativeLayout>
