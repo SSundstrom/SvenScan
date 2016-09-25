@@ -55,17 +55,21 @@ public class OCRtranslator {
         try {
             in = app.getResources().openRawResource(R.raw.swe);
             String path = app.getFilesDir() + "/tessdata/";
-            File file = new File(path);
-            file.mkdirs();
+            File dir = new File(path);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
 
             path += "swe.traineddata";
+            File file = new File(path);
+            if (!file.exists()) {
+                fout = new BufferedOutputStream(new FileOutputStream(path, true));
 
-            fout = new BufferedOutputStream(new FileOutputStream(path, true));
-
-            final byte data[] = new byte[1024];
-            int count;
-            while ((count = in.read(data, 0, 1024)) != -1) {
-                fout.write(data, 0, count);
+                final byte data[] = new byte[1024];
+                int count;
+                while ((count = in.read(data, 0, 1024)) != -1) {
+                    fout.write(data, 0, count);
+                }
             }
         } finally {
             if (in != null) {
