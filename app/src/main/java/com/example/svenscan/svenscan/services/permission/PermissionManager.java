@@ -1,11 +1,10 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.services.permission;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
@@ -13,19 +12,25 @@ import com.afollestad.materialcamera.MaterialCamera;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.app.Activity.RESULT_OK;
-
+/**
+ * Easy-to-use wrapper class for requesting permissions
+ * during use, as required by Android 6.0s.
+ */
 public class PermissionManager {
     private int lastRequestId = 1000;
     private Activity activity;
     private Map<Integer, ISuccessHandler> handlers = new HashMap<>();
 
-    public interface ISuccessHandler {
-        void call();
-    }
-
     public PermissionManager(Activity activity) {
         this.activity = activity;
+    }
+
+    public void require(String[] permissions, ISuccessHandler onSuccess) {
+        ISuccessHandler aggregator = new PermissionAggregator(permissions.length, onSuccess);
+
+        for (String permission : permissions) {
+            require(permission, aggregator);
+        }
     }
 
     public void require(String permission, ISuccessHandler onSuccess) {
@@ -42,7 +47,7 @@ public class PermissionManager {
         if (handler == null)
             return;
 
-        if (resultCode == RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             handler.call();
         } else if (data != null) {
             handleError(data);
@@ -79,5 +84,4 @@ public class PermissionManager {
     private boolean isApproved(String permission) {
         return ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
     }
-
 }

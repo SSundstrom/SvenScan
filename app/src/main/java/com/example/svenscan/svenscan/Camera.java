@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
+import com.example.svenscan.svenscan.services.permission.PermissionManager;
 
 import java.io.File;
 
 public class Camera {
     private final static int CAMERA_RQ = 2000;
+    private final static String[] PERMISSIONS = {
+        Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     private Activity activity;
     private PermissionManager permission;
 
@@ -20,18 +24,16 @@ public class Camera {
     }
 
     public void start() {
-        permission.require(Manifest.permission.CAMERA, () -> {
-            permission.require(Manifest.permission.WRITE_EXTERNAL_STORAGE, () -> {
-                File saveFolder = new File(activity.getApplicationContext().getFilesDir().getAbsolutePath(), "MaterialCamera Sample");
+        permission.require(PERMISSIONS, () -> {
+            File saveFolder = new File(activity.getApplicationContext().getFilesDir().getAbsolutePath(), "MaterialCamera Sample");
 
-                if (!saveFolder.exists() && !saveFolder.mkdirs())
-                    throw new RuntimeException("Unable to create save directory, make sure WRITE_EXTERNAL_STORAGE permission is granted.");
+            if (!saveFolder.exists() && !saveFolder.mkdirs())
+                throw new RuntimeException("Unable to create save directory, make sure WRITE_EXTERNAL_STORAGE permission is granted.");
 
-                new MaterialCamera(activity)
-                        .stillShot()
-                        .saveDir(saveFolder)
-                        .start(CAMERA_RQ);
-            });
+            new MaterialCamera(activity)
+                    .stillShot()
+                    .saveDir(saveFolder)
+                    .start(CAMERA_RQ);
         });
     }
 
