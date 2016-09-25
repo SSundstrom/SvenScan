@@ -4,11 +4,9 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.io.File;
 
@@ -31,6 +29,8 @@ public class RecordPronunciation extends AppCompatActivity {
         if (!folder.exists()) {
             folder.mkdir();
         }
+        System.out.println("Path = " + Environment.getExternalStorageDirectory() +
+                File.separator + "SvenScan");
 
 
         final Button recordButton = (Button) findViewById(R.id.recordButton);
