@@ -1,6 +1,7 @@
 package com.example.svenscan.svenscan;
 
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 
 public class RecordPronunciation extends AppCompatActivity {
     final String filePath = MediaStore.Audio.Media.DATA;
+    final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
     private boolean isRecording = false;
 
     @Override
@@ -19,8 +21,9 @@ public class RecordPronunciation extends AppCompatActivity {
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setMaxDuration(5000);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        mediaRecorder.setOutputFile(filePath);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        mediaRecorder.setOutputFile(PATH); // + "/" + "getInput" + ".3gp"
+
         try {
             mediaRecorder.prepare();
         } catch (Exception e){
