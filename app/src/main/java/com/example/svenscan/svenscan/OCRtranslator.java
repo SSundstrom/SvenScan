@@ -40,24 +40,12 @@ public class OCRtranslator {
 
     }
 
-    public String getStringFromImage(Bitmap bitmap) {
-
-        tess.setImage(bitmap);
-        text = tess.getUTF8Text();
-        tess.clear();
-        return text;
-    }
-
-    public String getStringFromImageWithEnchance(Bitmap bitmap) {
+    public String getStringFromBitmap(Bitmap bitmap) {
         Pix picture = ReadFile.readBitmap(bitmap);
         picture = Enhance.unsharpMasking(picture);
         tess.setImage(picture);
         text = tess.getUTF8Text();
         tess.clear();
-        return text;
-    }
-
-    public String getTextIfAvailable() {
         return text;
     }
 
