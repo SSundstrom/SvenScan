@@ -1,5 +1,6 @@
 package com.example.svenscan.svenscan;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,10 +10,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.afollestad.materialcamera.MaterialCamera;
 
+import java.io.File;
+
+public class MainActivity extends AppCompatActivity {
     private OCRtranslator ocr;
     private Camera camera;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         ocr = new OCRtranslator(getApplication());
 
     }
-
     public void setText(String text) {
         TextView textBox = ((TextView)findViewById(R.id.textView));
         if(text != null) {
@@ -33,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void chooseImage(View view) {
-        camera.startCamera();
-        Bitmap picture = BitmapFactory.decodeResource(getResources(), R.drawable.test);
+        camera.start();
+        /*Bitmap picture = BitmapFactory.decodeResource(getResources(), R.drawable.test);
         ImageView mainView = (ImageView)findViewById((R.id.imageView));
         mainView.setImageBitmap(picture);
-        setText(ocr.getStringFromBitmap(picture));
+        setText(ocr.getStringFromBitmap(picture));*/
     }
 
     @Override
