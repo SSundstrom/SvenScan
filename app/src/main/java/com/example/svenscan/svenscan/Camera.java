@@ -17,13 +17,19 @@ public class Camera {
     };
     private Activity activity;
     private PermissionManager permission;
+    private ICameraCaptureHandler handler;
 
-    public Camera(Activity activity) {
-        this.activity = activity;
-        this.permission = new PermissionManager(activity);
+    public interface ICameraCaptureHandler {
+        void call(File picture);
     }
 
-    public void start() {
+    public Camera(Activity activity, ICameraCaptureHandler handler) {
+        this.activity = activity;
+        this.permission = new PermissionManager(activity);
+        this.handler = handler;
+    }
+
+    public void show() {
         permission.require(PERMISSIONS, () -> {
             File saveFolder = new File(activity.getApplicationContext().getFilesDir().getAbsolutePath(), "MaterialCamera Sample");
 
@@ -41,7 +47,8 @@ public class Camera {
         // Received recording or error from MaterialCamera
         if (requestCode == CAMERA_RQ) {
             if (resultCode == Activity.RESULT_OK) {
-                Toast.makeText(activity, "Saved to: " + data.getDataString(), Toast.LENGTH_LONG).show();
+                File picture = new File(data.getDataString());
+                handler.call(picture);
             } else if(data != null) {
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
                 e.printStackTrace();

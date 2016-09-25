@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,12 +19,11 @@ public class MainActivity extends AppCompatActivity {
     private OCRtranslator ocr;
     private Camera camera;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        camera = new Camera(this);
+        camera = new Camera(this, this::onCameraCapture);
         ocr = new OCRtranslator(getApplication());
 
     }
@@ -37,11 +37,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void chooseImage(View view) {
-        camera.start();
+        camera.show();
         /*Bitmap picture = BitmapFactory.decodeResource(getResources(), R.drawable.test);
         ImageView mainView = (ImageView)findViewById((R.id.imageView));
         mainView.setImageBitmap(picture);
         setText(ocr.getStringFromBitmap(picture));*/
+    }
+
+    public void onCameraCapture(File picture) {
+        Log.d("onCamera", picture.getAbsolutePath());
     }
 
     @Override
