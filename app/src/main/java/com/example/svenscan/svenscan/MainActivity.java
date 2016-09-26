@@ -22,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String word = editText.getText().toString();
         favoriteWords.addFavorite(word);
+
+    }
+
+    public void seeFavoriteWordList(View view){
+
     }
 }
 
