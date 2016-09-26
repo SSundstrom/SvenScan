@@ -44,6 +44,7 @@ public class OCRDecoder {
         Pix picture = ReadFile.readBitmap(bitmap);
         Bitmap enhancedBitmap = WriteFile.writeBitmap(Enhance.unsharpMasking(picture));
         int ratio = enhancedBitmap.getHeight() / enhancedBitmap.getWidth();
+
         enhancedBitmap = Bitmap.createScaledBitmap(enhancedBitmap, 512, 512 * ratio, false);
 
         return enhancedBitmap;
