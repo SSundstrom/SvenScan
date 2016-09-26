@@ -13,7 +13,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World!"
+        android:id="@+id/textView" />
 
     <Button
         android:text="Audio"
@@ -25,11 +26,34 @@
         android:id="@+id/audio" />
 
     <Button
-        android:text="Favorites"
+        android:text="&lt;3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
         android:id="@+id/favorites"
         android:layout_above="@+id/audio"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="favoriteWord" />
+
+    <EditText android:id="@+id/edit_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_word"
+        android:layout_above="@+id/favorites"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginBottom="83dp" />
+
+    <Button
+        android:text="Favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_above="@+id/favorites"
+        android:layout_alignLeft="@+id/favorites"
+        android:layout_alignStart="@+id/favorites"
+        android:layout_marginBottom="20dp"
+        android:onClick="showFavoriteWords" />
+
+
 </RelativeLayout>
