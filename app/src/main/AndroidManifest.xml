@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.svenscan.svenscan">
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,8 +18,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlayPronounciation"
-            android:label="@string/title_activity_play_pronunciation"></activity>
+            android:name=".PlayPronunciation"
+            android:label="@string/title_activity_play_pronunciation" />
+
+        <activity
+            android:name=".RecordPronunciation"
+            android:label="RecordPronunciation"/>
     </application>
 
 </manifest>
