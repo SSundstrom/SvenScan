@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
 import com.example.svenscan.svenscan.services.permission.PermissionManager;
-
 import java.io.File;
 
 public class Camera {
