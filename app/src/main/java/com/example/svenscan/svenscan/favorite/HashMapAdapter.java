@@ -1,34 +1,47 @@
 package com.example.svenscan.svenscan.favorite;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 
-import com.example.svenscan.svenscan.Word;
+import com.example.svenscan.svenscan.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 public class HashMapAdapter extends BaseAdapter{
 
-    HashMap<String,Word> hashMap;
+    HashMap<String,Object> hashMap;
     ArrayList<String> arrayList;
 
-    public HashMapAdapter(FavoriteWords fw){
-        this.hashMap=(HashMap<String, Word>)fw.getFavorites();
+    public HashMapAdapter(HashMap<String,Object> hashMap){
+        this.hashMap=hashMap;
         arrayList = new ArrayList<>();
         arrayList.addAll(hashMap.keySet());
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        final View result;
+        if (convertView == null) {
+            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_list_item, parent, false);
+        } else {
+            result = convertView;
+        }
+
+        // TODO replace findViewById by ViewHolder
+        //FavoriteItemViewHolder holder = new FavoriteItemViewHolder();
+        //holder.textView = convertView.findViewById(R.id.favorites);
+        //convertView.setTag(holder);
+        ((TextView) result.findViewById(android.R.id.text1)).setText(getItem(position));
+
+
+
+        return result;
     }
 
     @Override
@@ -38,11 +51,11 @@ public class HashMapAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 0;
+        return arrayList.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public String getItem(int position) {
+        return arrayList.get(position);
     }
 }

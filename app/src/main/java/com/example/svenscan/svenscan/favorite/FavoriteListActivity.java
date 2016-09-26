@@ -7,6 +7,8 @@ import android.widget.ListView;
 
 import com.example.svenscan.svenscan.R;
 
+import java.util.HashMap;
+
 public class FavoriteListActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,8 +16,8 @@ public class FavoriteListActivity extends AppCompatActivity{
         setContentView(R.layout.activity_favorites);
 
     }
-    private void initList(FavoriteWords fw){
+    private void initList(HashMap<String, Object> hashMap){
         ListView favorites = (ListView) findViewById(R.id.favorites);
-        favorites.setAdapter(new HashMapAdapter(fw));
+        favorites.setAdapter(new HashMapAdapter(hashMap));
     }
 }
