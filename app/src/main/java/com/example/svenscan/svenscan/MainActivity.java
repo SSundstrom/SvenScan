@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         ImageView mainView = (ImageView)findViewById((R.id.imageView));
         mainView.setImageBitmap(picture);
 
-        View rootView = findViewById(android.R.id.content);
-        new OCRDecoderAsyncTask(rootView, ocr).execute(picture);
+//        View rootView = findViewById(android.R.id.content);
+//        new OCRDecoderAsyncTask(rootView, ocr).execute(picture);
     }
 
     @Override
