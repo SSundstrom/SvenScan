@@ -1,11 +1,15 @@
 package com.example.svenscan.svenscan;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.svenscan.svenscan.favorite.FavoriteListActivity;
 import com.example.svenscan.svenscan.favorite.FavoriteWords;
+
+import static com.example.svenscan.svenscan.R.layout.activity_favorites;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,8 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void seeFavoriteWordList(View view){
-
+    public void showFavoriteWords(View view){
+        Intent intent = new Intent(this, FavoriteListActivity.class);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        String message = editText.getText().toString();
+        intent.putExtra("hehe", message);
+        startActivity(intent);
     }
 }
 
