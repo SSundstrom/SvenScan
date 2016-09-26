@@ -4,9 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.ShareCompat;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
+import com.commonsware.cwac.cam2.CameraActivity;
+import com.commonsware.cwac.cam2.Facing;
+import com.commonsware.cwac.cam2.ZoomStyle;
 import com.example.svenscan.svenscan.services.permission.PermissionManager;
 import java.io.File;
 
@@ -35,11 +39,15 @@ public class Camera {
 
             if (!saveFolder.exists() && !saveFolder.mkdirs())
                 throw new RuntimeException("Unable to create save directory, make sure WRITE_EXTERNAL_STORAGE permission is granted.");
+            Uri uri = Uri.fromFile(saveFolder);
 
-            new MaterialCamera(activity)
-                    .stillShot()
-                    .saveDir(saveFolder)
-                    .start(CAMERA_RQ);
+            Intent intent = new CameraActivity.IntentBuilder(activity)
+                    .facing(Facing.BACK)
+                    .zoomStyle(ZoomStyle.NONE)
+                    .to(uri)
+                    .skipConfirm()
+                    .build();
+            activity.startActivity(intent);
         });
     }
 

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.commonsware.cwac.cam2.CameraActivity;
+import com.commonsware.cwac.cam2.ZoomStyle;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
 
@@ -41,5 +43,9 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         camera.onActivityResult(requestCode, resultCode, data);
+    }
+    public void toCamera(View view) {
+        Intent intent = new Intent(this, Camera2Activity.class);
+        startActivity(intent);
     }
 }

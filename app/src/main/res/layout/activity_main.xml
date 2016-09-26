@@ -60,7 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/audio"
-                style="@style/Widget.AppCompat.Button.Small" />
+                style="@style/Widget.AppCompat.Button.Small"
+                android:onClick="toCamera"/>
 
             <Button
                 android:text="Snap Picture"
