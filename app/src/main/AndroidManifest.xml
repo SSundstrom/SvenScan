@@ -24,6 +24,7 @@
         <activity
             android:name=".RecordPronunciation"
             android:label="RecordPronunciation"/>
+        <activity android:name=".favorite.FavoriteListActivity"></activity>
     </application>
 
 </manifest>
