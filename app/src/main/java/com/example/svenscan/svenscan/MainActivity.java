@@ -9,11 +9,11 @@ import android.widget.EditText;
 import com.example.svenscan.svenscan.favorite.FavoriteListActivity;
 import com.example.svenscan.svenscan.favorite.FavoriteWords;
 
-import static com.example.svenscan.svenscan.R.layout.activity_favorites;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    FavoriteWords favoriteWords = new FavoriteWords();
+    private FavoriteWords favoriteWords = new FavoriteWords();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showFavoriteWords(View view){
         Intent intent = new Intent(this, FavoriteListActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra("hehe", message);
+        intent.putExtra("favoriteWords", favoriteWords.getFavorites());
         startActivity(intent);
     }
 }

@@ -17,11 +17,11 @@ import java.util.Set;
 
 public class HashMapAdapter extends BaseAdapter{
 
-    HashMap<String,Word> hashMap;
+    HashMap<String,Object> hashMap;
     ArrayList<String> arrayList;
 
     public HashMapAdapter(FavoriteWords fw){
-        this.hashMap=(HashMap<String, Word>)fw.getFavorites();
+        this.hashMap=(HashMap<String, Object>)fw.getFavorites();
         arrayList = new ArrayList<>();
         arrayList.addAll(hashMap.keySet());
     }
