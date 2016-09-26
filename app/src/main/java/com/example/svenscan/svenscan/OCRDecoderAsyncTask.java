@@ -1,5 +1,6 @@
 package com.example.svenscan.svenscan;
 
+import android.app.Application;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,7 +32,9 @@ class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
 
     @Override
     protected String doInBackground(Pix... params) {
-        Pix optimizedPicture = ocr.getOptimizedPicture(params[0]);
+
+        ImageProcessor leptonica = new ImageProcessor();
+        Pix optimizedPicture = leptonica.getOptimizedPicture(params[0]);
         publishProgress(optimizedPicture);
         return ocr.getStringFromPix(optimizedPicture);
     }
@@ -39,7 +42,6 @@ class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     @Override
     protected void onPostExecute(String ocrResult) {
         TextView textBox = ((TextView)rootView.findViewById(R.id.textView));
-
         if(ocrResult != null) {
             textBox.setText(ocrResult);
         } else {

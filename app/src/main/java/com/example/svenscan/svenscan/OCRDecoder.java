@@ -22,43 +22,39 @@ import java.io.InputStream;
 
 public class OCRDecoder {
 
-    TessBaseAPI tess;
-    String text;
+    private TessBaseAPI tess;
+    private String text;
+    private String langPath;
 
 
     public OCRDecoder(Application app){
 
         System.out.println("startOCR");
 
+        initiateOCR(app);
+        //tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");  // Should make OCR only take numbers
+    }
+
+    public String getStringFromPix(Pix picture) {
+        tess.clear();
+        tess.setImage(picture);
+        text = tess.getUTF8Text();
+        tess.clear();
+
+        return text;
+    }
+
+    private void initiateOCR(Application app) {
         try {
             saveOCRDataFileToStorage(app);
         } catch(IOException e) {
             System.out.println(e.getMessage());
         }
 
-        String langPath = app.getApplicationContext().getFilesDir() + "/";
+        langPath = app.getApplicationContext().getFilesDir() + "/";
 
         tess = new TessBaseAPI();
         tess.init(langPath, "swe");
-        //tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");  // Should make OCR only take numbers
-    }
-
-    public Bitmap getOptimizedPicture(Bitmap bitmap) {
-        Pix picture = ReadFile.readBitmap(bitmap);
-        Bitmap enhancedBitmap = WriteFile.writeBitmap(Enhance.unsharpMasking(picture));
-        int ratio = enhancedBitmap.getHeight() / enhancedBitmap.getWidth();
-
-        enhancedBitmap = Bitmap.createScaledBitmap(enhancedBitmap, 512, 512 * ratio, false);
-
-        return enhancedBitmap;
-    }
-
-    public String getStringFromPix(Pix picture) {
-        tess.setImage(picture);
-        text = tess.getUTF8Text();
-        tess.clear();
-
-        return text;
     }
 
     public void saveOCRDataFileToStorage(Application app) throws IOException {

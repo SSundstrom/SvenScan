@@ -1,23 +1,25 @@
 package com.example.svenscan.svenscan;
 
-public class Word {
+import java.io.Serializable;
 
-    private String soundPath;
+public class Word implements Serializable{
+
+    private int soundID;
     private String imagePath;
     private String word;
 
-    public Word(String word, String imagePath, String soundPath) {
+    public Word(String word, String imagePath, int soundPath) {
         this.word = word;
         this.imagePath = imagePath;
-        this.soundPath = soundPath;
+        this.soundID = soundPath;
     }
 
     public String getWord() {
         return word;
     }
 
-    public String getSoundPath() {
-        return soundPath;
+    public int getSoundID() {
+        return soundID;
     }
 
     public String getImagePath() {
