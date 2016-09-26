@@ -10,7 +10,7 @@ public class FavoriteWords {
 
     public void addFavorite(String s){
         if(!favorites.containsKey(s)){
-            favorites.put(s, new Word());
+            favorites.put(s, new Word(s, "", 1));
         }
     }
     

@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.Map;
 
-public class US3 {
+public class us3 {
 
     FavoriteWords favoriteWords;
     Map<String, Object> favorites;
