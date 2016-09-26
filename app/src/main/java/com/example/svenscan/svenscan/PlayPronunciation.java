@@ -25,7 +25,6 @@ public class PlayPronunciation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_pronunciation);
         soundManager = new SoundManager(this);
-//TODO File list[] is NULL.
 
         ListView listView = (ListView)findViewById(R.id.listOfFiles);
         myList = new ArrayList<String>();
