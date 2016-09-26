@@ -9,8 +9,6 @@ import android.widget.EditText;
 import com.example.svenscan.svenscan.favorite.FavoriteListActivity;
 import com.example.svenscan.svenscan.favorite.FavoriteWords;
 
-import java.util.HashMap;
-
 public class MainActivity extends AppCompatActivity {
 
     private FavoriteWords favoriteWords = new FavoriteWords();
@@ -26,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String word = editText.getText().toString();
         favoriteWords.addFavorite(word);
-
     }
 
     public void showFavoriteWords(View view){

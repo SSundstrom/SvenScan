@@ -12,7 +12,7 @@ import java.util.Map;
 public class US3 {
 
     FavoriteWords favoriteWords;
-    Map<String, Word> favorites;
+    Map<String, Object> favorites;
 
     @Before
     public void before(){

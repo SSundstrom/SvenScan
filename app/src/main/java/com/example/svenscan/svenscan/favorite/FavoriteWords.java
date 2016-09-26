@@ -12,9 +12,6 @@ public class FavoriteWords {
         if(!favorites.containsKey(s)){
             favorites.put(s, new Word());
         }
-
-        //TODO remove
-        System.out.println("Words in the list: " + favorites.keySet());
     }
     
     public void removeFavorite(String s){
