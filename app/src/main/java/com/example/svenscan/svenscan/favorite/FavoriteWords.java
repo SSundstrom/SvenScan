@@ -3,11 +3,10 @@ package com.example.svenscan.svenscan.favorite;
 import com.example.svenscan.svenscan.Word;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class FavoriteWords {
 
-    private Map<String, Word> favorites = new HashMap<>();
+    private HashMap<String, Object> favorites = new HashMap<>();
 
     public void addFavorite(String s){
         if(!favorites.containsKey(s)){
@@ -35,7 +34,7 @@ public class FavoriteWords {
 
     }
 
-    public Map<String, Word> getFavorites(){
+    public HashMap<String, Object> getFavorites(){
         return this.favorites;
     }
 }
