@@ -30,19 +30,14 @@ public class RecordPronunciation extends AppCompatActivity {
         if (!folder.exists()) {
             folder.mkdir();
         }
-        System.out.println("Path = " + Environment.getExternalStorageDirectory() +
-                File.separator + "SvenScan");
-
 
         final Button recordButton = (Button) findViewById(R.id.recordButton);
         recordButton.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(View v) {
                 EditText swedishWord = (EditText)findViewById(R.id.swedishWord);
                 String filename = swedishWord.getText().toString();
-                System.out.println("Filename = " + filename);
                 mediaRecorder.setOutputFile(PATH + "/SvenScan/" + filename + ".3gp");
 
                 try {
@@ -60,5 +55,4 @@ public class RecordPronunciation extends AppCompatActivity {
             }
         });
     }
-
 }
