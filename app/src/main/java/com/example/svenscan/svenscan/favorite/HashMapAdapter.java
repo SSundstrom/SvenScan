@@ -33,11 +33,11 @@ public class HashMapAdapter extends BaseAdapter{
             result = convertView;
         }
 
-        // TODO replace findViewById by ViewHolder
+        // TODO replace findViewById by FavoriteItemViewHolder
         //FavoriteItemViewHolder holder = new FavoriteItemViewHolder();
         //holder.textView = convertView.findViewById(R.id.favorites);
         //convertView.setTag(holder);
-        ((TextView) result.findViewById(android.R.id.text1)).setText(getItem(position));
+        ((TextView) result.findViewById(R.id.favoriteWord)).setText(getItem(position));
 
 
 
