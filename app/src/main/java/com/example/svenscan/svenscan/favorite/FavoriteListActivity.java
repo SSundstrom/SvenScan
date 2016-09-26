@@ -13,11 +13,9 @@ public class FavoriteListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-        initList();
     }
-    private void initList(){
+    private void initList(FavoriteWords fw){
         ListView favorites = (ListView) findViewById(R.id.favorites);
-        //TODO: create new adapter class
-        //favorites.setAdapter();
+        favorites.setAdapter(new HashMapAdapter(fw));
     }
 }

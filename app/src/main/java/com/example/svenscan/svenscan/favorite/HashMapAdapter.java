@@ -6,6 +6,8 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 
 
+import com.example.svenscan.svenscan.Word;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,14 +17,13 @@ import java.util.Set;
 
 public class HashMapAdapter extends BaseAdapter{
 
-    HashMap<Object,Object> hashMap;
+    HashMap<String,Word> hashMap;
     ArrayList<String> arrayList;
 
-    public HashMapAdapter(HashMap<Object, Object> hashMap){
-        this.hashMap=hashMap;
+    public HashMapAdapter(FavoriteWords fw){
+        this.hashMap=(HashMap<String, Word>)fw.getFavorites();
         arrayList = new ArrayList<>();
-        //Collection<String>
-        //arrayList.addAll(hashMap.keySet().to);
+        arrayList.addAll(hashMap.keySet());
     }
 
     @Override
