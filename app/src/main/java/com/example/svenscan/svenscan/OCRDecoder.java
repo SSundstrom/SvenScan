@@ -4,9 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.googlecode.leptonica.android.Binarize;
 import com.googlecode.leptonica.android.Enhance;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
+import com.googlecode.leptonica.android.Rotate;
+import com.googlecode.leptonica.android.Scale;
 import com.googlecode.leptonica.android.WriteFile;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
@@ -50,8 +53,8 @@ public class OCRDecoder {
         return enhancedBitmap;
     }
 
-    public String getStringFromBitmap(Bitmap bitmap) {
-        tess.setImage(bitmap);
+    public String getStringFromPix(Pix picture) {
+        tess.setImage(picture);
         text = tess.getUTF8Text();
         tess.clear();
 
