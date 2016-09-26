@@ -26,18 +26,19 @@ public class PlayPronunciation extends AppCompatActivity {
         setContentView(R.layout.activity_play_pronunciation);
         soundManager = new SoundManager(this);
 //TODO File list[] is NULL.
-/**
+
         ListView listView = (ListView)findViewById(R.id.listOfFiles);
         myList = new ArrayList<String>();
 
         file = new File( PATH );
-        File list[] = file.listFiles();
+        if(file.length() != 0) {
+            File list[] = file.listFiles();
             for (int i = 0; i < list.length; i++) {
                 myList.add(list[i].getName());
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, myList);
+            listView.setAdapter(adapter);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, myList);
-        listView.setAdapter(adapter);
-*/
         Button swosh = (Button)findViewById(R.id.swosh);
         swosh.setOnClickListener(new View.OnClickListener() {
             @Override

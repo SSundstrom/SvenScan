@@ -19,9 +19,6 @@ public class RecordPronunciation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_pronunciation);
 
-        //TODO Sawmill, your code crashes, this hotfix made it possible to merge, plz fix <3 .
-      /**
-
         final MediaRecorder mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -62,7 +59,6 @@ public class RecordPronunciation extends AppCompatActivity {
                 }
             }
         });
-       */
     }
 
 }
