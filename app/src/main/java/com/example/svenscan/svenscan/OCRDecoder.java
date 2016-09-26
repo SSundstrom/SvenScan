@@ -4,9 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.googlecode.leptonica.android.Binarize;
 import com.googlecode.leptonica.android.Enhance;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
+import com.googlecode.leptonica.android.Rotate;
+import com.googlecode.leptonica.android.Scale;
 import com.googlecode.leptonica.android.WriteFile;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
@@ -40,17 +43,19 @@ public class OCRDecoder {
         //tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");  // Should make OCR only take numbers
     }
 
-    public Bitmap getOptimizedPicture(Bitmap bitmap) {
-        Pix picture = ReadFile.readBitmap(bitmap);
-        Bitmap enhancedBitmap = WriteFile.writeBitmap(Enhance.unsharpMasking(picture));
-        int ratio = enhancedBitmap.getHeight() / enhancedBitmap.getWidth();
-        enhancedBitmap = Bitmap.createScaledBitmap(enhancedBitmap, 512, 512 * ratio, false);
+    public Pix getOptimizedPicture(Pix picture) {
+//        Pix picture = ReadFile.readBitmap(bitmap);
+//        Bitmap enhancedBitmap = WriteFile.writeBitmap(Enhance.unsharpMasking(picture));
+//        int ratio = enhancedBitmap.getHeight() / enhancedBitmap.getWidth();
+//        enhancedBitmap = Bitmap.createScaledBitmap(enhancedBitmap, 512, 512 * ratio, false);
+        picture = Scale.scaleToSize(picture, 500, 500, Scale.ScaleType.FIT);
+        picture = Binarize.otsuAdaptiveThreshold(picture);
 
-        return enhancedBitmap;
+        return picture;
     }
 
-    public String getStringFromBitmap(Bitmap bitmap) {
-        tess.setImage(bitmap);
+    public String getStringFromPix(Pix picture) {
+        tess.setImage(picture);
         text = tess.getUTF8Text();
         tess.clear();
 

@@ -1,11 +1,16 @@
 package com.example.svenscan.svenscan;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.googlecode.leptonica.android.Pix;
+import com.googlecode.leptonica.android.ReadFile;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private OCRDecoder ocr;
@@ -24,12 +29,12 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
     }
 
     @Override
-    public void onCameraCapture(Bitmap picture) {
+    public void onCameraCapture(Uri uri) {
         ImageView mainView = (ImageView)findViewById((R.id.imageView));
-        mainView.setImageBitmap(picture);
-
-//        View rootView = findViewById(android.R.id.content);
-//        new OCRDecoderAsyncTask(rootView, ocr).execute(picture);
+        mainView.setImageURI(uri);
+        View rootView = findViewById(android.R.id.content);
+        Pix picture = ReadFile.readFile(new File(uri.getPath()));
+        new OCRDecoderAsyncTask(rootView, ocr).execute(picture);
     }
 
     @Override

@@ -3,10 +3,7 @@ package com.example.svenscan.svenscan;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
@@ -24,7 +21,7 @@ public class Camera {
     private ICameraCaptureHandler handler;
 
     public interface ICameraCaptureHandler {
-        void onCameraCapture(Bitmap picture);
+        void onCameraCapture(Uri uri);
     }
 
     public Camera(Activity activity, ICameraCaptureHandler handler) {
@@ -52,8 +49,7 @@ public class Camera {
         if (requestCode == CAMERA_RQ) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = Uri.parse(data.getDataString());
-                Bitmap picture = BitmapFactory.decodeFile(uri.getPath());
-                handler.onCameraCapture(picture);
+                handler.onCameraCapture(uri);
             } else if(data != null) {
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
                 e.printStackTrace();

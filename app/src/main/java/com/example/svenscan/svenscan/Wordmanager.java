@@ -1,23 +1,22 @@
 package com.example.svenscan.svenscan;
 
-
-import android.util.SparseArray;
+import java.util.HashMap;
 
 
 public class Wordmanager {
 
-    private SparseArray<Word> wordMap;
+    private HashMap<String, Word> wordMap;
 
     public Wordmanager() {
-        wordMap = new SparseArray<>();
+        wordMap = new HashMap<>();
     }
 
-    public void addWord(int id, Word word) {
-        if (wordMap.valueAt(id) != null) return;
-        wordMap.put(id, word);
+    public void addWord(String id, Word word) {
+        if (wordMap.containsKey(id)) return;
+        wordMap.put(id.toUpperCase(), word);
     }
 
-    public Word getWordFromID (int id) {
-        return wordMap.get(id);
+    public Word getWordFromID(String id) {
+        return wordMap.get(id.toUpperCase());
     }
 }
