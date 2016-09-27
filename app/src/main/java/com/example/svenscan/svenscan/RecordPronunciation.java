@@ -17,6 +17,8 @@ public class RecordPronunciation extends AppCompatActivity {
     final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
     private boolean isRecording = false;
     private MediaRecorder mediaRecorder;
+    private final static String[] PERMISSIONS = {
+            Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,8 @@ public class RecordPronunciation extends AppCompatActivity {
         setContentView(R.layout.activity_record_pronunciation);
 
         PermissionManager permissionManager = new PermissionManager(this);
-        permissionManager.require(Manifest.permission.RECORD_AUDIO, ()->{
+
+        permissionManager.require(PERMISSIONS, ()->{
 
             mediaRecorder = new MediaRecorder();
 
