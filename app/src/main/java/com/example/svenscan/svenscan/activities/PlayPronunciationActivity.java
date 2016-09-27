@@ -63,7 +63,7 @@ public class PlayPronunciationActivity extends AppCompatActivity {
 
     }
     public void record(View view){
-        Intent tmp = new Intent(this, RecordPronunciation.class);
+        Intent tmp = new Intent(this, RecordPronunciationActivity.class);
         startActivity(tmp);
 
     }
