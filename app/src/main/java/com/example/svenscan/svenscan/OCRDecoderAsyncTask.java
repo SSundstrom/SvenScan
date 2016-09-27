@@ -1,8 +1,8 @@
 package com.example.svenscan.svenscan;
 
-import android.app.Application;
 import android.os.AsyncTask;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,10 +12,12 @@ import com.googlecode.leptonica.android.WriteFile;
 class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     private View rootView;
     private OCRDecoder ocr;
+    private WordManager wordManager;
 
-    OCRDecoderAsyncTask(View rootView, OCRDecoder ocr) {
+    OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, WordManager wordManager) {
         this.rootView = rootView;
         this.ocr = ocr;
+        this.wordManager = wordManager;
     }
 
     @Override
@@ -47,5 +49,10 @@ class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
         } else {
             textBox.setText("(null)");
         }
+        Button heart = (Button)rootView.findViewById(R.id.favorite);
+
+        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
+
+        heart.setClickable(true);
     }
 }
