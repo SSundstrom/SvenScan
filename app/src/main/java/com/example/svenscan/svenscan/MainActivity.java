@@ -18,7 +18,7 @@ import com.googlecode.leptonica.android.ReadFile;
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private OCRDecoder ocr;
     private Camera camera;
-
+    private Wordmanager wordmanager;
     private FavoriteWords favoriteWords = new FavoriteWords();
 
     @Override
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         setContentView(R.layout.activity_main);
         camera = new Camera(this, this);
         ocr = new OCRDecoder(getApplication());
+        wordmanager = new Wordmanager();
     }
 
     public void chooseImage(View view) {
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         mainView.setImageBitmap(map);
         View rootView = findViewById(android.R.id.content);
         Pix picture = ReadFile.readBitmap(map);
-        new OCRDecoderAsyncTask(rootView, ocr).execute(picture);
+        new OCRDecoderAsyncTask(rootView, ocr, wordmanager).execute(picture);
     }
 
     @Override
@@ -60,8 +61,18 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
     public void favoriteWord(View view){
         //TODO should be Label later on and not EditText
+        if (ocr.getText() == null) {
+            return;
+        }
         String word = ocr.getText();
-        favoriteWords.addFavorite(word);
+        View heart = findViewById(R.id.favorite);
+        if (wordmanager.toggleFavorite(word)) {
+            heart.setBackgroundResource(R.drawable.fav_red);
+            favoriteWords.addFavorite(word);
+        } else {
+            heart.setBackgroundResource(R.drawable.fav_gray);
+            favoriteWords.removeFavorite(word);
+        }
     }
 
     public void showFavoriteWords(View view){
