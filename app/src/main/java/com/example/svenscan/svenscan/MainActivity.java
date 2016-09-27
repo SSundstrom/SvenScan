@@ -53,10 +53,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         Intent tmp = new Intent(this, PlayPronunciation.class);
         startActivity(tmp);
     }
-    public void recordPronunciation(View view){
-        Intent tmp = new Intent(this, RecordPronunciation.class);
-        startActivity(tmp);
-    }
 
     public void favoriteWord(View view){
         //TODO should be Label later on and not EditText
