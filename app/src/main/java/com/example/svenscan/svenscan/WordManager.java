@@ -35,10 +35,10 @@ public class WordManager {
 
     private void createWords() {
         wordMap.put("BORD", new Word("BORD", "", R.raw.giggity));
-        wordMap.put("BORD", new Word("BORD", "", R.raw.giggity));
-        wordMap.put("BORD", new Word("BORD", "", R.raw.giggity));
-        wordMap.put("BORD", new Word("BORD", "", R.raw.giggity));
-        wordMap.put("BORD", new Word("BORD", "", R.raw.giggity));
-        wordMap.put("BORD", new Word("BORD", "", R.raw.giggity));
+        wordMap.put("HEJ", new Word("BORD", "", R.raw.giggity));
+        wordMap.put("STOL", new Word("BORD", "", R.raw.giggity));
+        wordMap.put("NAKEN", new Word("BORD", "", R.raw.giggity));
+        wordMap.put("JA", new Word("BORD", "", R.raw.giggity));
+        wordMap.put("OCKSÅ", new Word("BORD", "", R.raw.giggity));
     }
 }
