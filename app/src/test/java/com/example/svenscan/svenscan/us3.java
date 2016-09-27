@@ -1,5 +1,6 @@
 package com.example.svenscan.svenscan;
 
+import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 
 import org.junit.Before;
@@ -22,7 +23,7 @@ public class us3 {
 
     @Test
     public void testAddFavorite(){
-        String word = "stol";
+        Word word = new Word("stol", " ", 67);
         favoriteWords.addFavorite(word);
 
         assertTrue(favoriteWords.isFavoriteWord(word));
@@ -30,7 +31,7 @@ public class us3 {
 
     @Test
     public void testRemoveFavorite(){
-        String word = "stol";
+        Word word = new Word("stol", " ", 67);
         favoriteWords.removeFavorite(word);
         favoriteWords.addFavorite(word);
         favoriteWords.removeFavorite(word);
@@ -53,24 +54,6 @@ public class us3 {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

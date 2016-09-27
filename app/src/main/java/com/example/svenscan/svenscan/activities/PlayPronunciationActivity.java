@@ -61,15 +61,7 @@ public class PlayPronunciationActivity extends AppCompatActivity {
 
         });
 
-        Button playWord = (Button) findViewById(R.id.playWord);
-        playWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                soundManager.setSound(R.raw.giggity);
-                soundManager.start();
-
-            }
-        });
+        
 
 
     }

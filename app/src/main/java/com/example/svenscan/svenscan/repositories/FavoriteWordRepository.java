@@ -20,7 +20,7 @@ public class FavoriteWordRepository {
         }
     }
 
-    public boolean isFavoriteWord(String word){
+    public boolean isFavoriteWord(Word word){
         return favorites.containsKey(word);
     }
 
