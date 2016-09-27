@@ -54,6 +54,7 @@ public class PlayPronunciation extends AppCompatActivity {
                 soundManager.setSound(R.raw.giggity);
                 soundManager.start();
             }
+
         });
 
     }
