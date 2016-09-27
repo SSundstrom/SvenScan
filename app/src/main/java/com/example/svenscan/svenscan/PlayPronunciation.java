@@ -30,14 +30,14 @@ public class PlayPronunciation extends AppCompatActivity {
         myList = new ArrayList<String>();
 
         file = new File( PATH );
-        if(file.length() != 0) {
             File list[] = file.listFiles();
-            for (int i = 0; i < list.length; i++) {
-                myList.add(list[i].getName());
-            }
+           if (list != null) {
+               for (int i = 0; i < list.length; i++) {
+                   myList.add(list[i].getName());
+               }
+           }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, myList);
             listView.setAdapter(adapter);
-        }
         Button swosh = (Button)findViewById(R.id.swosh);
         swosh.setOnClickListener(new View.OnClickListener() {
             @Override
