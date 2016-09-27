@@ -8,15 +8,15 @@ public class FavoriteWordRepository {
 
     private HashMap<String, Object> favorites = new HashMap<>();
 
-    public void addFavorite(String s){
-        if(!favorites.containsKey(s)){
-            favorites.put(s, new Word(s, "", 1));
+    public void addFavorite(Word word){
+        if(!favorites.containsKey(word.getWord())){
+            favorites.put(word.getWord(), word);
         }
     }
     
-    public void removeFavorite(String s){
-        if(favorites.containsKey(s)){
-            favorites.remove(s);
+    public void removeFavorite(Word word){
+        if(favorites.containsKey(word.getWord())){
+            favorites.remove(word.getWord());
         }
     }
 

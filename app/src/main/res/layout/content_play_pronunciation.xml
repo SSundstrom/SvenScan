@@ -41,4 +41,16 @@
         android:layout_width="match_parent"
         android:id="@+id/listOfFiles"
         android:layout_above="@+id/giggity" />
+
+    <Button
+        android:text="record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listOfFiles"
+        android:layout_toRightOf="@+id/swosh"
+        android:layout_toEndOf="@+id/swosh"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:id="@+id/record"
+        android:onClick="record" />
 </RelativeLayout>

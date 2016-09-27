@@ -1,5 +1,6 @@
 package com.example.svenscan.svenscan.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -58,6 +59,11 @@ public class PlayPronunciationActivity extends AppCompatActivity {
                 soundManager.start();
             }
         });
+
+    }
+    public void record(View view){
+        Intent tmp = new Intent(this, RecordPronunciation.class);
+        startActivity(tmp);
 
     }
 }

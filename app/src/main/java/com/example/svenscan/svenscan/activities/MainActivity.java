@@ -65,17 +65,17 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
     public void favoriteWord(View view){
         //TODO should be Label later on and not EditText
-        if (ocr.getText() == null) {
+        if (ocr.getText() == null || !wordManager.containsWord(ocr.getText())) {
             return;
         }
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
         if (wordManager.toggleFavorite(word)) {
             heart.setBackgroundResource(R.drawable.fav_red);
-            favoriteWords.addFavorite(word);
+            favoriteWords.addFavorite(wordManager.getWordFromID(word));
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
-            favoriteWords.removeFavorite(word);
+            favoriteWords.removeFavorite(wordManager.getWordFromID(word));
         }
     }
 
