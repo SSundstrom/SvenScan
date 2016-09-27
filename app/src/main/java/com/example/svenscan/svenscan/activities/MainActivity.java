@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
 import com.example.svenscan.svenscan.R;
@@ -14,6 +15,7 @@ import com.example.svenscan.svenscan.repositories.WordRepository;
 import android.graphics.Bitmap;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.svenscan.svenscan.utils.SoundManager;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
     private WordRepository wordManager;
     private SoundManager soundManager;
     private FavoriteWordRepository favoriteWords = new FavoriteWordRepository();
+    private Word currentWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +68,11 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         startActivity(tmp);
     }
 
-    public void playWord(){
+    public void playWord(View view){
+        if(currentWord != null){
+            soundManager.start(currentWord.getSoundID());
 
+        }
     }
 
     public void recordPronunciation(View view){
@@ -102,7 +108,9 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
         heart.setClickable(true);
         if (wordManager.containsWord(ocrResult)) {
-            soundManager.start(wordManager.getWordFromID(ocrResult).getSoundID());
+            currentWord = wordManager.getWordFromID(ocrResult);
+            soundManager.start(currentWord.getSoundID());
+
         }
     }
 }
