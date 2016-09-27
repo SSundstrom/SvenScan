@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class Wordmanager {
+public class WordManager {
 
     private HashMap<String, Word> wordMap;
     private static int index;
 
-    public Wordmanager() {
+    public WordManager() {
         wordMap = new HashMap<>();
     }
 
