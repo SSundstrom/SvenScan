@@ -11,7 +11,7 @@ public class ImageProcessor {
         System.out.println("start enhance");
         picture = Scale.scaleToSize(picture, 500, 500, Scale.ScaleType.FIT);
         picture = Enhance.unsharpMasking(picture);
-        picture = Edge.pixSobelEdgeFilter(picture, Edge.L_ALL_EDGES);
+        //picture = Edge.pixSobelEdgeFilter(picture, Edge.L_ALL_EDGES);
         System.out.println("end enhance");
 
         return picture;
