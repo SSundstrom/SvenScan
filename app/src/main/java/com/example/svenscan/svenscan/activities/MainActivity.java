@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         Intent tmp = new Intent(this, PlayPronunciationActivity.class);
         startActivity(tmp);
     }
+
+    public void playWord(){
+
+    }
+
     public void recordPronunciation(View view){
         Intent tmp = new Intent(this, RecordPronunciationActivity.class);
         startActivity(tmp);
