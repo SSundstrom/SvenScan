@@ -16,12 +16,16 @@ import com.googlecode.leptonica.android.WriteFile;
 public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     private View rootView;
     private OCRDecoder ocr;
-    private WordRepository wordManager;
+    private ITaskCompleteHandler resultHandler;
 
-    public OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, WordRepository wordManager) {
+    public interface ITaskCompleteHandler {
+        void onOCRComplete(String word);
+    }
+
+    public OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, ITaskCompleteHandler resultHandler) {
         this.rootView = rootView;
         this.ocr = ocr;
-        this.wordManager = wordManager;
+        this.resultHandler = resultHandler;
     }
 
     @Override
@@ -53,10 +57,7 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
         } else {
             textBox.setText("(null)");
         }
-        Button heart = (Button)rootView.findViewById(R.id.favorite);
+        resultHandler.onOCRComplete(ocrResult);
 
-        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
-
-        heart.setClickable(true);
     }
 }
