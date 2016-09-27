@@ -58,6 +58,7 @@ public class PlayPronunciationActivity extends AppCompatActivity {
                 soundManager.setSound(R.raw.giggity);
                 soundManager.start();
             }
+
         });
 
     }

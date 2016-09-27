@@ -43,14 +43,14 @@
         android:layout_above="@+id/giggity" />
 
     <Button
-        android:text="record"
+        android:text="Record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/listOfFiles"
-        android:layout_toRightOf="@+id/swosh"
-        android:layout_toEndOf="@+id/swosh"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:id="@+id/record"
-        android:onClick="record" />
+        android:onClick="record"/>
 </RelativeLayout>
