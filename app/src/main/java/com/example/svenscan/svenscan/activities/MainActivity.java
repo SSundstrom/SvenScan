@@ -1,6 +1,7 @@
 package com.example.svenscan.svenscan.activities;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
     @Override
     public void onCameraCapture(Bitmap map) {
-        ImageView mainView = (ImageView)findViewById((R.id.imageView));
+        setContentView(R.layout.activity_show_word);
+        ImageView mainView = (ImageView)findViewById((R.id.imageView4));
         map = Bitmap.createScaledBitmap(map, 500, 500, false);
         mainView.setImageBitmap(map);
         View rootView = findViewById(android.R.id.content);
