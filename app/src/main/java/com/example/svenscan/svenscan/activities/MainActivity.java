@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         camera.show();
     }
 
+    public void setMainLayout(View view) {
+        setContentView(R.layout.activity_main);
+    }
+
     @Override
     public void onCameraCapture(Bitmap map) {
         setContentView(R.layout.activity_show_word);
@@ -71,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
     public void playWord(View view){
         if(currentWord != null){
             soundManager.start(currentWord.getSoundID());
-
         }
     }
 

@@ -24,6 +24,7 @@ public class PlayPronunciationActivity extends AppCompatActivity {
     private List<String> myList;
     private File file;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class PlayPronunciationActivity extends AppCompatActivity {
             listView.setAdapter(adapter);
         Button swosh = (Button)findViewById(R.id.swosh);
         swosh.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 soundManager.setSound(R.raw.swosh1);
