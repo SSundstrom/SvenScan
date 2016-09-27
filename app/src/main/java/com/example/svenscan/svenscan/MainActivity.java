@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
 import com.example.svenscan.svenscan.favorite.FavoriteListActivity;
 import com.example.svenscan.svenscan.favorite.FavoriteWords;
@@ -18,7 +17,7 @@ import com.googlecode.leptonica.android.ReadFile;
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private OCRDecoder ocr;
     private Camera camera;
-    private Wordmanager wordmanager;
+    private WordManager wordManager;
     private FavoriteWords favoriteWords = new FavoriteWords();
 
     @Override
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         setContentView(R.layout.activity_main);
         camera = new Camera(this, this);
         ocr = new OCRDecoder(getApplication());
-        wordmanager = new Wordmanager();
+        wordManager = new WordManager();
     }
 
     public void chooseImage(View view) {
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         mainView.setImageBitmap(map);
         View rootView = findViewById(android.R.id.content);
         Pix picture = ReadFile.readBitmap(map);
-        new OCRDecoderAsyncTask(rootView, ocr, wordmanager).execute(picture);
+        new OCRDecoderAsyncTask(rootView, ocr, wordManager).execute(picture);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         }
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
-        if (wordmanager.toggleFavorite(word)) {
+        if (wordManager.toggleFavorite(word)) {
             heart.setBackgroundResource(R.drawable.fav_red);
             favoriteWords.addFavorite(word);
         } else {
