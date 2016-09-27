@@ -1,7 +1,6 @@
 package com.example.svenscan.svenscan.activities;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.example.svenscan.svenscan.repositories.WordRepository;
 import android.graphics.Bitmap;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.svenscan.svenscan.utils.SoundManager;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
@@ -115,6 +113,11 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
             soundManager.start(currentWord.getSoundID());
 
         }
+    }
+
+    public void openSettings(View view) {
+        Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        startActivity(settingsIntent);
     }
 }
 

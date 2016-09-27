@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.svenscan.svenscan">
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -26,18 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.PlayPronunciationActivity"
             android:label="@string/title_activity_play_pronunciation" />
-
         <activity
             android:name=".activities.RecordPronunciationActivity"
-            android:label="RecordPronunciation"/>
-        <activity android:name=".activities.FavoriteListActivity"></activity>
-
-        <activity android:name="com.desmond.squarecamera.CameraActivity"
-            android:theme="@style/AppTheme"/>
+            android:label="RecordPronunciation" />
+        <activity android:name=".activities.FavoriteListActivity" />
+        <activity
+            android:name="com.desmond.squarecamera.CameraActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
 </manifest>

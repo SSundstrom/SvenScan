@@ -1,5 +1,6 @@
 package com.example.svenscan.svenscan.utils.ocr;
 
+import com.example.svenscan.svenscan.utils.Settings;
 import com.googlecode.leptonica.android.Edge;
 import com.googlecode.leptonica.android.Enhance;
 import com.googlecode.leptonica.android.Pix;
@@ -11,9 +12,13 @@ public class ImageProcessor {
         System.out.println("start enhance");
         picture = Scale.scaleToSize(picture, 500, 500, Scale.ScaleType.FIT);
         picture = Enhance.unsharpMasking(picture);
-        //picture = Edge.pixSobelEdgeFilter(picture, Edge.L_ALL_EDGES);
+        if (Settings.getEdgeFilter()) {
+            picture = Edge.pixSobelEdgeFilter(picture, Edge.L_ALL_EDGES);
+        }
         System.out.println("end enhance");
 
         return picture;
     }
+
+
 }

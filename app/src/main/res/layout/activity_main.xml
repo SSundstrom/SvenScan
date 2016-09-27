@@ -54,34 +54,54 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:gravity="center"
             android:layout_marginTop="12dp">
 
 
             <Button
-                android:text="Favorites"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
                 android:id="@+id/favorites"
                 android:onClick="showFavoriteWords"
-                style="@style/Widget.AppCompat.Button.Small" />
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:background="@drawable/fav_red"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="20dp"
+                android:layout_height="40dp" />
 
             <Button
-                android:text="Audio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
                 android:id="@+id/giggity"
-                style="@style/Widget.AppCompat.Button.Small"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:background="@drawable/sound"
                 android:onClick="playSound"/>
 
+            <android.support.v4.widget.Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent" />
+
             <Button
-                android:text="Snap Picture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
                 android:id="@+id/button"
                 android:onClick="chooseImage"
-                style="@style/Widget.AppCompat.Button.Colored" />
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:background="@drawable/camera"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:id="@+id/button3"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:background="@drawable/gear"
+                android:onClick="openSettings"/>
         </LinearLayout>
 
         <TextView
