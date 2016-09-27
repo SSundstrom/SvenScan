@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.utils.ocr;
 
 import com.googlecode.leptonica.android.Edge;
 import com.googlecode.leptonica.android.Enhance;
@@ -16,7 +16,4 @@ public class ImageProcessor {
 
         return picture;
     }
-
-
-
 }

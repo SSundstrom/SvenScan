@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan.services.permission;
+package com.example.svenscan.svenscan.utils.permission;
 
 import android.app.Activity;
 import android.content.Intent;

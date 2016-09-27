@@ -1,22 +1,21 @@
 package com.example.svenscan.svenscan;
 
-import com.example.svenscan.svenscan.favorite.FavoriteWords;
+import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.List;
 import java.util.Map;
 
 public class us3 {
 
-    FavoriteWords favoriteWords;
+    FavoriteWordRepository favoriteWords;
     Map<String, Object> favorites;
 
     @Before
     public void before(){
-        favoriteWords = new FavoriteWords();
+        favoriteWords = new FavoriteWordRepository();
         favorites = favoriteWords.getFavorites();
     }
 

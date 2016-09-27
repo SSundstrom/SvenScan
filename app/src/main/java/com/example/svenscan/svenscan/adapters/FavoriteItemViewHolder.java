@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan.favorite;
+package com.example.svenscan.svenscan.adapters;
 
 import android.widget.TextView;
 

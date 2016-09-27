@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -8,7 +8,7 @@ import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 import com.desmond.squarecamera.CameraActivity;
-import com.example.svenscan.svenscan.services.permission.PermissionManager;
+import com.example.svenscan.svenscan.utils.permission.PermissionManager;
 
 
 public class Camera {

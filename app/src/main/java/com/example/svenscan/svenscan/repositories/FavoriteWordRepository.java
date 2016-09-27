@@ -1,10 +1,10 @@
-package com.example.svenscan.svenscan.favorite;
+package com.example.svenscan.svenscan.repositories;
 
-import com.example.svenscan.svenscan.Word;
+import com.example.svenscan.svenscan.models.Word;
 
 import java.util.HashMap;
 
-public class FavoriteWords {
+public class FavoriteWordRepository {
 
     private HashMap<String, Object> favorites = new HashMap<>();
 

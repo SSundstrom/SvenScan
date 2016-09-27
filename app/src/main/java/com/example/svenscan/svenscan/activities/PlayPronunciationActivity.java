@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.activities;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -8,12 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.utils.SoundManager;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlayPronunciation extends AppCompatActivity {
+public class PlayPronunciationActivity extends AppCompatActivity {
 
     private SoundManager soundManager;
     final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SvenScan";

@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan.services.permission;
+package com.example.svenscan.svenscan.utils.permission;
 
 /**
  * A ISuccessHandler implementation that only calls

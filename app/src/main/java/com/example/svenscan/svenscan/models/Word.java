@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.models;
 
 import java.io.Serializable;
 

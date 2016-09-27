@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.utils;
 import android.app.Activity;
 import android.media.MediaPlayer;
 
@@ -15,8 +15,8 @@ public class SoundManager  {
     }
 
     public void setSound(int soundID){
-            mediaPlayer = MediaPlayer.create(activity, soundID);
-            hasSound = true;
+        mediaPlayer = MediaPlayer.create(activity, soundID);
+        hasSound = true;
     }
 
     public void start(){

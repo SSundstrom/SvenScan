@@ -1,9 +1,10 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.utils.ocr;
 
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.example.svenscan.svenscan.R;
 import com.googlecode.leptonica.android.Binarize;
 import com.googlecode.leptonica.android.Enhance;
 import com.googlecode.leptonica.android.Pix;

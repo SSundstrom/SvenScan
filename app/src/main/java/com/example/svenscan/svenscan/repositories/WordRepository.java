@@ -1,13 +1,15 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.repositories;
+
+import com.example.svenscan.svenscan.models.Word;
 
 import java.util.HashMap;
 
-public class WordManager {
+public class WordRepository {
 
     private HashMap<String, Word> wordMap;
     private static int index;
 
-    public WordManager() {
+    public WordRepository() {
         wordMap = new HashMap<>();
     }
 

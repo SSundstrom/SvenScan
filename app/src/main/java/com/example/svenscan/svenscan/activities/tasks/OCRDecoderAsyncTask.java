@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.activities.tasks;
 
 import android.os.AsyncTask;
 import android.view.View;
@@ -6,15 +6,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.repositories.WordRepository;
+import com.example.svenscan.svenscan.utils.ocr.ImageProcessor;
+import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.WriteFile;
 
-class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
+public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     private View rootView;
     private OCRDecoder ocr;
-    private WordManager wordManager;
+    private WordRepository wordManager;
 
-    OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, WordManager wordManager) {
+    public OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, WordRepository wordManager) {
         this.rootView = rootView;
         this.ocr = ocr;
         this.wordManager = wordManager;

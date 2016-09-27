@@ -1,4 +1,4 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.activities;
 
 import android.media.MediaRecorder;
 import android.os.Environment;
@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.svenscan.svenscan.R;
+
 import java.io.File;
 
-public class RecordPronunciation extends AppCompatActivity {
+public class RecordPronunciationActivity extends AppCompatActivity {
     final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
     private boolean isRecording = false;
 

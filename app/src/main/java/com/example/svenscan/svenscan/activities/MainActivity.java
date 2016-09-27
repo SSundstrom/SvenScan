@@ -1,15 +1,20 @@
-package com.example.svenscan.svenscan;
+package com.example.svenscan.svenscan.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.svenscan.svenscan.favorite.FavoriteListActivity;
-import com.example.svenscan.svenscan.favorite.FavoriteWords;
+import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
+import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
+import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.repositories.WordRepository;
+
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
+import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
+import com.example.svenscan.svenscan.utils.Camera;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
 
@@ -17,8 +22,8 @@ import com.googlecode.leptonica.android.ReadFile;
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private OCRDecoder ocr;
     private Camera camera;
-    private WordManager wordManager;
-    private FavoriteWords favoriteWords = new FavoriteWords();
+    private WordRepository wordManager;
+    private FavoriteWordRepository favoriteWords = new FavoriteWordRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         setContentView(R.layout.activity_main);
         camera = new Camera(this, this);
         ocr = new OCRDecoder(getApplication());
-        wordManager = new WordManager();
+        wordManager = new WordRepository();
     }
 
     public void chooseImage(View view) {
@@ -50,11 +55,11 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
     }
 
     public void playSound(View view){
-        Intent tmp = new Intent(this, PlayPronunciation.class);
+        Intent tmp = new Intent(this, PlayPronunciationActivity.class);
         startActivity(tmp);
     }
     public void recordPronunciation(View view){
-        Intent tmp = new Intent(this, RecordPronunciation.class);
+        Intent tmp = new Intent(this, RecordPronunciationActivity.class);
         startActivity(tmp);
     }
 

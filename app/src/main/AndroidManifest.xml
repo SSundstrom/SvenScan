@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,13 +28,13 @@
         </activity>
 
         <activity
-            android:name=".PlayPronunciation"
+            android:name=".activities.PlayPronunciationActivity"
             android:label="@string/title_activity_play_pronunciation" />
 
         <activity
-            android:name=".RecordPronunciation"
+            android:name=".activities.RecordPronunciationActivity"
             android:label="RecordPronunciation"/>
-        <activity android:name=".favorite.FavoriteListActivity"></activity>
+        <activity android:name=".activities.FavoriteListActivity"></activity>
 
         <activity android:name="com.desmond.squarecamera.CameraActivity"
             android:theme="@style/AppTheme"/>
