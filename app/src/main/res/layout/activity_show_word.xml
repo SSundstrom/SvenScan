@@ -57,11 +57,18 @@
                 android:layout_gravity="center_horizontal"
                 />
 
+
             <Button
-                android:text="Add to favorite"
+                android:background="@drawable/fav_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/addToFavorite"/>
+                android:id="@+id/favorite"
+                android:onClick="favoriteWord"
+                android:layout_weight="1"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:clickable="false"/>
+
 
             <Space
                 android:layout_width="wrap_content"
@@ -70,29 +77,20 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.63">
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:ems="10"
-                android:id="@+id/wordText" />
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:text="hilhuil"
+                android:id="@+id/wordText"
+                android:layout_weight="1">
+            </TextView>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
 
     </LinearLayout>
+
 
 
 </LinearLayout>
