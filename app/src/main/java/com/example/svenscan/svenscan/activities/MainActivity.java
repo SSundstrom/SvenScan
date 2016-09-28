@@ -21,6 +21,8 @@ import com.example.svenscan.svenscan.utils.Camera;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler, OCRDecoderAsyncTask.ITaskCompleteHandler {
     private OCRDecoder ocr;
@@ -100,14 +102,16 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
     public void showFavoriteWords(View view){
         Intent intent = new Intent(this, FavoriteListActivity.class);
-        //intent.putExtra("favoriteWords", favoriteWords.getFavorites());
+        intent.putExtra("favoriteWords", (ArrayList<String>)favoriteWords.getFavorites());
         startActivity(intent);
     }
 
     @Override
     public void onOCRComplete(String ocrResult) {
         Button heart = (Button)findViewById(R.id.favorite);
-        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
+        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null &&
+                favoriteWords.isFavoriteWord(wordManager.getWordFromID(ocrResult).getWord()) ?
+                R.drawable.fav_red : R.drawable.fav_gray);
         heart.setClickable(true);
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);

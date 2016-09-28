@@ -17,11 +17,11 @@ public class FavoriteListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
         Intent intent = getIntent();
-        List<String> hm = (List<String>) intent.getSerializableExtra("favoriteWords");
+        ArrayList<String> hm = (ArrayList<String>) intent.getSerializableExtra("favoriteWords");
         initList(hm);
 
     }
-    private void initList(List<String> list){
+    private void initList(ArrayList<String> list){
         ListView favorites = (ListView) findViewById(R.id.favorites);
         favorites.setAdapter(new ArrayListAdapter((ArrayList<String>) list));
     }

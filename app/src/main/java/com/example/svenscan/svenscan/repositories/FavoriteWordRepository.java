@@ -45,4 +45,9 @@ public class FavoriteWordRepository {
     public List<String> getFavorites(){
         return this.favorites;
     }
+
+    //TODO not done!
+    public void setFavorites(){
+
+    }
 }
