@@ -57,12 +57,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         intent.putExtra("favoriteWords", favoriteWords.getFavorites());
         startActivity(intent);
     }
-
-
-    public void openSettings(View view) {
-        Intent settingsIntent = new Intent(this, SettingsActivity.class);
-        startActivity(settingsIntent);
-    }
+    
 
     @Override
         public void onCameraCapture(String imagePath) {
