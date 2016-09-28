@@ -15,10 +15,15 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ((CheckBox)findViewById(R.id.edgefilter)).setChecked(Settings.getEdgeFilter());
+        ((CheckBox)findViewById(R.id.binarize)).setChecked(Settings.isBinarize());
 
     }
 
     public void toggleEdgeFilter(View view) {
         Settings.toggleEdgeFilter();
+    }
+
+    public void toggleBinarize(View view) {
+        Settings.toggleBinarizeFilter();
     }
 }
