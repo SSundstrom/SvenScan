@@ -19,22 +19,12 @@ public class WordRepository {
     public void addWord(String id, Word word) {
         if (wordMap.containsKey(id)) return;
         wordMap.put(id.toUpperCase(), word);
+        //TODO: Remove?
         index++;
     }
 
     public boolean containsWord(String word) {
         return wordMap.containsKey(word);
-    }
-
-    public boolean toggleFavorite(String word) {
-
-        word = word.toUpperCase();
-        if (!wordMap.containsKey(word)) {
-            addWord(word, new Word(word, "", this.hashCode()+index));
-        }
-        wordMap.get(word).setFavorite(!wordMap.get(word).isFavorite());
-
-        return wordMap.get(word).isFavorite();
     }
 
     public Word getWordFromID(String id) {

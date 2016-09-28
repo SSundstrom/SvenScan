@@ -7,7 +7,6 @@ public class Word implements Serializable{
     private int soundID;
     private String imagePath;
     private String word;
-    private boolean favorite;
 
     public Word(String word, String imagePath, int soundPath) {
         this.word = word;
@@ -27,11 +26,4 @@ public class Word implements Serializable{
         return imagePath;
     }
 
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean state) {
-        favorite = state;
-    }
 }
