@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
         SvenScanApplication app = (SvenScanApplication) getApplication();
         wordManager = app.getWordRepository();
-        ocr = new OCRDecoder(app);
     }
 
     public void chooseImage(View view) {
@@ -49,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         mainView.setImageBitmap(map);
         View rootView = findViewById(android.R.id.content);
         Pix picture = ReadFile.readBitmap(map);
+
+        if (ocr == null)
+            ocr = new OCRDecoder(getApplication());
+
         new OCRDecoderAsyncTask(rootView, ocr, wordManager).execute(picture);
     }
 
