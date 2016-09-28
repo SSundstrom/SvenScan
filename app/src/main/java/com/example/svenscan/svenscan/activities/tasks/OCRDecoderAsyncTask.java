@@ -55,7 +55,8 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
         }
         Button heart = (Button)rootView.findViewById(R.id.favorite);
 
-        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
+        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null &&
+                wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
 
         heart.setClickable(true);
     }
