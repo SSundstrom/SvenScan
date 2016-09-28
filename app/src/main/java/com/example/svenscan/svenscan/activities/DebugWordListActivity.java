@@ -30,7 +30,7 @@ public class DebugWordListActivity extends AppCompatActivity implements Observer
 
         ListView listView  = (ListView) findViewById(R.id.wordList);
 
-        String[] items = getWordsFromMap(wordRepository.getAll());
+        String[] items = getWordsFromMap(wordRepository.getAllWords());
 
        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);
@@ -48,7 +48,7 @@ public class DebugWordListActivity extends AppCompatActivity implements Observer
     public void update(Observable o, Object arg) {
         ListView listView  = (ListView) findViewById(R.id.wordList);
 
-        String[] items = getWordsFromMap(wordRepository.getAll());
+        String[] items = getWordsFromMap(wordRepository.getAllWords());
 
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);

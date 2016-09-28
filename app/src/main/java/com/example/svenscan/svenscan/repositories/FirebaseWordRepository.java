@@ -32,7 +32,8 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         database.addValueEventListener(this);
     }
 
-    public void add(String id, Word word) {
+    @Override
+    public void addWord(String id, Word word) {
         if (wordMap.containsKey(id)) return;
 
         wordMap.put(id.toUpperCase(), word);
@@ -42,16 +43,17 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         database.child("words").child(id).setValue(word);
     }
 
-    public boolean contains(String word) {
+    @Override
+    public boolean containsWord(String word) {
         return wordMap.containsKey(word);
     }
 
-    public Word get(String id) {
+    public Word getWordFromID(String id) {
         return wordMap.get(id.toUpperCase());
     }
 
     @Override
-    public Map<String, Word> getAll() {
+    public Map<String, Word> getAllWords() {
         return wordMap;
     }
 
@@ -59,7 +61,7 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         word = word.toUpperCase();
 
         if (!wordMap.containsKey(word)) {
-            add(word, new Word(word, "", this.hashCode()+index));
+            addWord(word, new Word(word, "", this.hashCode()+index));
         }
 
         wordMap.get(word).setFavorite(!wordMap.get(word).isFavorite());
