@@ -36,7 +36,9 @@
         <activity
             android:name="com.desmond.squarecamera.CameraActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.SettingsActivity"></activity>
+        <activity android:name=".activities.SettingsActivity" />
+        <activity android:name=".activities.ScanActivity" />
+        <activity android:name=".fragments.ScanFragment"></activity>
     </application>
 
 </manifest>
