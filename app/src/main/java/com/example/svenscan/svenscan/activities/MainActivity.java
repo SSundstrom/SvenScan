@@ -72,29 +72,18 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
         if (favoriteWords.isFavoriteWord(word)) {
             heart.setBackgroundResource(R.drawable.fav_gray);
-            favoriteWords.removeFavorite(wordManager.getWordFromID(word));
+            //favoriteWords.removeFavorite(wordManager.getWordFromID(word));
         } else {
             heart.setBackgroundResource(R.drawable.fav_red);
-            favoriteWords.addFavorite(wordManager.getWordFromID(word));
+            //favoriteWords.addFavorite(wordManager.getWordFromID(word));
+
         }
     }
 
     public void showFavoriteWords(View view){
         Intent intent = new Intent(this, FavoriteListActivity.class);
-        intent.putExtra("favoriteWords", favoriteWords.getFavorites());
+        //intent.putExtra("favoriteWords", favoriteWords.getFavorites());
         startActivity(intent);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

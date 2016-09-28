@@ -1,8 +1,6 @@
 package com.example.svenscan.svenscan.models;
 
-import java.io.Serializable;
-
-public class Word implements Serializable{
+public class Word{
 
     private int soundID;
     private String imagePath;
