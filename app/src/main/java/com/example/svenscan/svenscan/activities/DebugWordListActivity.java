@@ -12,9 +12,13 @@ import com.example.svenscan.svenscan.repositories.IWordRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class DebugWordListActivity extends AppCompatActivity {
+public class DebugWordListActivity extends AppCompatActivity implements Observer {
     private IWordRepository wordRepository;
+    private ArrayAdapter<String> adapter;
+    private String[] items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +32,27 @@ public class DebugWordListActivity extends AppCompatActivity {
 
         String[] items = getWordsFromMap(wordRepository.getAll());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+       adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);
-
-
         listView.setAdapter(adapter);
+
+        wordRepository.addObserver(this);
     }
 
     private String[] getWordsFromMap(Map<String, Word> map) {
         String[] words = new String[map.keySet().size()];
         return map.keySet().toArray(words);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        ListView listView  = (ListView) findViewById(R.id.wordList);
+
+        String[] items = getWordsFromMap(wordRepository.getAll());
+
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, items);
+
+        listView.setAdapter(adapter);
     }
 }

@@ -1,10 +1,11 @@
 package com.example.svenscan.svenscan.repositories;
 
+import com.example.svenscan.svenscan.interfaces.IObservable;
 import com.example.svenscan.svenscan.models.Word;
 
 import java.util.Map;
 
-public interface IWordRepository {
+public interface IWordRepository extends IObservable {
     void add(String id, Word word);
     boolean contains(String word);
     Word get(String id);

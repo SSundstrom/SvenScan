@@ -10,13 +10,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 public class FirebaseWordRepository implements ValueEventListener, IWordRepository {
+    private Observable observable = new Observable();
     private DatabaseReference database;
     private HashMap<String, Word> wordMap;
     private static int index;
@@ -77,6 +78,8 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         Log.d("FirebaseWordRepository", "size: " + wordMap.size());
 
         debugPrintAllWords();
+
+        observable.notifyObservers();
     }
 
     /**
@@ -96,5 +99,15 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
             String word = mapIterator.next().getKey();
             Log.d("FirebaseWordRepository", "Added " + word);
         }
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observable.addObserver(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observable.deleteObserver(observer);
     }
 }
