@@ -114,11 +114,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
         }
     }
-
-    public void openSettings(View view) {
-        Intent settingsIntent = new Intent(this, SettingsActivity.class);
-        startActivity(settingsIntent);
-    }
 }
 
 

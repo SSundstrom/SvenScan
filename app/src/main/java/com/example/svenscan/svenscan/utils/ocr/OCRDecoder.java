@@ -41,7 +41,7 @@ public class OCRDecoder {
         tess.setImage(picture);
         text = tess.getUTF8Text();
         tess.clear();
-
+        text = text.trim().toUpperCase();
         return text;
     }
 

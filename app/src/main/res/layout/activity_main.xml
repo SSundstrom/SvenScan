@@ -91,17 +91,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:background="@drawable/camera"/>
 
-            <android.support.v4.widget.Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent" />
 
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:id="@+id/button3"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:background="@drawable/gear"
-                android:onClick="openSettings"/>
         </LinearLayout>
 
         <TextView
