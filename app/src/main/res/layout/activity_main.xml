@@ -105,6 +105,14 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textAlignment="center" />
 
+        <Button
+            android:text="[Debug] show all words"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:onClick="showAllWords"/>
+
     </LinearLayout>
 
 </ScrollView>

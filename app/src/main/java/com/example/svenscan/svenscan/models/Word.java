@@ -1,13 +1,18 @@
 package com.example.svenscan.svenscan.models;
 
-import java.io.Serializable;
+import com.google.firebase.database.IgnoreExtraProperties;
 
-public class Word implements Serializable{
+@IgnoreExtraProperties
+public class Word {
 
     private int soundID;
     private String imagePath;
     private String word;
     private boolean favorite;
+
+    public Word() {
+        // Default constructor is required by Firebase
+    }
 
     public Word(String word, String imagePath, int soundPath) {
         this.word = word;

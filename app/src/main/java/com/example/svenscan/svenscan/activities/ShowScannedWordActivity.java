@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
-import com.example.svenscan.svenscan.repositories.WordRepository;
-import com.example.svenscan.svenscan.utils.Camera;
+import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.SoundManager;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
@@ -23,16 +23,18 @@ import com.googlecode.leptonica.android.ReadFile;
 public class ShowScannedWordActivity extends AppCompatActivity implements OCRDecoderAsyncTask.ITaskCompleteHandler{
     private OCRDecoder ocr;
     private SoundManager soundManager;
-    private WordRepository wordManager;
-    private Camera camera;
+    private IWordRepository wordManager;
     private FavoriteWordRepository favoriteWords = new FavoriteWordRepository();
     private Word currentWord;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ocr = new OCRDecoder(getApplication());
-        wordManager = new WordRepository();
+        ocr = new OCRDecoder(getApplication()); // todo: denna bör nog köras i async-tasken... den är långsam
+
+        SvenScanApplication app = (SvenScanApplication) getApplication();
+        wordManager = app.getWordRepository();
+
         soundManager = new SoundManager(this);
         setContentView(R.layout.activity_show_word);
         Intent intent = getIntent();
