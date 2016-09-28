@@ -28,8 +28,6 @@ public class FavoriteWordRepository {
         else{
             favorites.add(word);
         }
-
-        //TODO change color of heart.
     }
 
     public boolean isFavoriteWord(String word){
