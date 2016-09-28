@@ -34,10 +34,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
     }
 
-    public void setMainLayout(View view) {
-        setContentView(R.layout.activity_main);
-    }
-
     public void chooseImage(View view) {
         camera.show();
     }
