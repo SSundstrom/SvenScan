@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 import com.desmond.squarecamera.CameraActivity;
+import com.example.svenscan.svenscan.activities.ScanActivity;
 import com.example.svenscan.svenscan.utils.permission.PermissionManager;
 
 
@@ -44,7 +45,7 @@ public class Camera {
             }
             Uri uri = Uri.fromFile(image);
 */
-            Intent intent2 = new Intent(activity, CameraActivity.class);
+            Intent intent2 = new Intent(activity, ScanActivity.class);
             activity.startActivityForResult(intent2, CAMERA_RQ);
 
         });
