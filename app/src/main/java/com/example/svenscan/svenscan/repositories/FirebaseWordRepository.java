@@ -10,8 +10,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class FirebaseWordRepository implements ValueEventListener, IWordRepository {
@@ -47,6 +49,11 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         return wordMap.get(id.toUpperCase());
     }
 
+    @Override
+    public Map<String, Word> getAll() {
+        return wordMap;
+    }
+
     public boolean toggleFavorite(String word) {
         word = word.toUpperCase();
 
@@ -78,7 +85,7 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
      */
     @Override
     public void onCancelled(DatabaseError error) {
-    // Failed to read value
+        // Failed to read value
         Log.w("FirebaseWordRepository", "Failed to read value.", error.toException());
     }
 

@@ -83,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         }
     }
 
+    public void showAllWords(View view) {
+        Intent intent = new Intent(this, DebugWordListActivity.class);
+        startActivity(intent);
+    }
+
     public void showFavoriteWords(View view){
         Intent intent = new Intent(this, FavoriteListActivity.class);
         intent.putExtra("favoriteWords", favoriteWords.getFavorites());
