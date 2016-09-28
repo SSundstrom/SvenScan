@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
         if (favoriteWords.isFavoriteWord(word)) {
             heart.setBackgroundResource(R.drawable.fav_gray);
-            //favoriteWords.removeFavorite(wordManager.getWordFromID(word));
+            favoriteWords.removeFavorite(word);
         } else {
             heart.setBackgroundResource(R.drawable.fav_red);
-            //favoriteWords.addFavorite(wordManager.getWordFromID(word));
+            favoriteWords.addFavorite(word);
 
         }
     }
