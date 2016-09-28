@@ -21,6 +21,16 @@ public class FavoriteWordRepository {
         }
     }
 
+    public void toggleFavorite(String word){
+        if(isFavoriteWord(word)){
+            favorites.remove(word);
+        }
+        else{
+            favorites.add(word);
+        }
+
+        //TODO change color of heart.
+    }
 
     public boolean isFavoriteWord(String word){
         return favorites.contains(word);

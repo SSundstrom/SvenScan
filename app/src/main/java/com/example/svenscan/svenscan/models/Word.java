@@ -24,4 +24,9 @@ public class Word{
         return imagePath;
     }
 
+    //TODO Ska denna vara här?? (Plus inte klar, ska ju inte bara returnera true)
+    /*public boolean isFavorite(){
+        return true;
+    }*/
+
 }

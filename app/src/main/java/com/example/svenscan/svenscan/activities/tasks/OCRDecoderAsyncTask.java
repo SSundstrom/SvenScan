@@ -58,6 +58,5 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
             textBox.setText("(null)");
         }
         resultHandler.onOCRComplete(ocrResult);
-
     }
 }
