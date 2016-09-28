@@ -13,15 +13,12 @@ import com.example.svenscan.svenscan.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HashMapAdapter extends BaseAdapter{
+public class ArrayListAdapter extends BaseAdapter{
 
-    HashMap<String,Object> hashMap;
     ArrayList<String> arrayList;
 
-    public HashMapAdapter(HashMap<String,Object> hashMap){
-        this.hashMap=hashMap;
-        arrayList = new ArrayList<>();
-        arrayList.addAll(hashMap.keySet());
+    public ArrayListAdapter(ArrayList<String> al){
+        arrayList = al;
     }
 
     @Override
