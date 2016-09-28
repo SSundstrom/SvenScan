@@ -22,7 +22,7 @@ public class Camera {
     private ICameraCaptureHandler handler;
 
     public interface ICameraCaptureHandler {
-        void onCameraCapture(Bitmap map);
+        void onCameraCapture(String imagePath);
     }
 
     public Camera(Activity activity, ICameraCaptureHandler handler) {
@@ -54,8 +54,8 @@ public class Camera {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_RQ) {
             if (resultCode == Activity.RESULT_OK) {
-                Bitmap map = BitmapFactory.decodeFile(data.getData().getPath());
-                handler.onCameraCapture(map);
+                String imagePath = data.getData().getPath();
+                handler.onCameraCapture(imagePath);
             } else if(data != null) {
                 Exception e = new Exception("Welp, this didn't work");
                 e.printStackTrace();

@@ -19,7 +19,7 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     private ITaskCompleteHandler resultHandler;
 
     public interface ITaskCompleteHandler {
-        void onOCRComplete(String word);
+        void onOCRComplete(String ocrResult);
     }
 
     public OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, ITaskCompleteHandler resultHandler) {

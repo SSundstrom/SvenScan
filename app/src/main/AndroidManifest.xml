@@ -36,7 +36,12 @@
         <activity
             android:name="com.desmond.squarecamera.CameraActivity"
             android:theme="@style/AppTheme" />
+<<<<<<< 745ac03516cf60fdd3653d91aedb1aa4d3732a1a
         <activity android:name=".activities.ScanActivity" />
+=======
+        <activity android:name=".activities.SettingsActivity"></activity>
+        <activity android:name=".activities.ShowScannedWordActivity"></activity>
+>>>>>>> New activity created
     </application>
 
 </manifest>
