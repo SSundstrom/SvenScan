@@ -5,14 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
 import com.example.svenscan.svenscan.R;
-import com.example.svenscan.svenscan.repositories.WordRepository;
+import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
+import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.example.svenscan.svenscan.utils.Camera;
 import com.googlecode.leptonica.android.Pix;
@@ -22,7 +24,7 @@ import com.googlecode.leptonica.android.ReadFile;
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private OCRDecoder ocr;
     private Camera camera;
-    private WordRepository wordManager;
+    private IWordRepository wordManager;
     private FavoriteWordRepository favoriteWords = new FavoriteWordRepository();
 
     @Override
@@ -30,8 +32,10 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         camera = new Camera(this, this);
-        ocr = new OCRDecoder(getApplication());
-        wordManager = new WordRepository();
+
+        SvenScanApplication app = (SvenScanApplication) getApplication();
+        wordManager = app.getWordRepository();
+        ocr = new OCRDecoder(app);
     }
 
     public void chooseImage(View view) {
@@ -65,17 +69,17 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
     public void favoriteWord(View view){
         //TODO should be Label later on and not EditText
-        if (ocr.getText() == null || !wordManager.containsWord(ocr.getText())) {
+        if (ocr.getText() == null || !wordManager.contains(ocr.getText())) {
             return;
         }
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
         if (wordManager.toggleFavorite(word)) {
             heart.setBackgroundResource(R.drawable.fav_red);
-            favoriteWords.addFavorite(wordManager.getWordFromID(word));
+            favoriteWords.addFavorite(wordManager.get(word));
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
-            favoriteWords.removeFavorite(wordManager.getWordFromID(word));
+            favoriteWords.removeFavorite(wordManager.get(word));
         }
     }
 

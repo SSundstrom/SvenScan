@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.example.svenscan.svenscan.models.Word;
 
-import com.example.svenscan.svenscan.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,15 +12,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-public class WordRepository implements ValueEventListener {
+public class FirebaseWordRepository implements ValueEventListener, IWordRepository {
     private DatabaseReference database;
     private HashMap<String, Word> wordMap;
     private static int index;
 
-    public WordRepository() {
+    public FirebaseWordRepository() {
         wordMap = new HashMap<>();
 
         FirebaseDatabase firebase = FirebaseDatabase.getInstance();
@@ -31,7 +29,7 @@ public class WordRepository implements ValueEventListener {
         database.addValueEventListener(this);
     }
 
-    public void addWord(String id, Word word) {
+    public void add(String id, Word word) {
         if (wordMap.containsKey(id)) return;
 
         wordMap.put(id.toUpperCase(), word);
@@ -41,33 +39,24 @@ public class WordRepository implements ValueEventListener {
         database.child("words").child(id).setValue(word);
     }
 
-    public boolean containsWord(String word) {
+    public boolean contains(String word) {
         return wordMap.containsKey(word);
+    }
+
+    public Word get(String id) {
+        return wordMap.get(id.toUpperCase());
     }
 
     public boolean toggleFavorite(String word) {
         word = word.toUpperCase();
 
         if (!wordMap.containsKey(word)) {
-            addWord(word, new Word(word, "", this.hashCode()+index));
+            add(word, new Word(word, "", this.hashCode()+index));
         }
 
         wordMap.get(word).setFavorite(!wordMap.get(word).isFavorite());
 
         return wordMap.get(word).isFavorite();
-    }
-
-    public Word getWordFromID(String id) {
-        return wordMap.get(id.toUpperCase());
-    }
-
-    private void debugPrintAllWords() {
-        Iterator<Map.Entry<String, Word>> mapIterator = wordMap.entrySet().iterator();
-
-        while (mapIterator.hasNext()) {
-            String word = mapIterator.next().getKey();
-            Log.d("WordRepository", "Added " + word);
-        }
     }
 
     /**
@@ -78,7 +67,7 @@ public class WordRepository implements ValueEventListener {
     public void onDataChange(DataSnapshot listSnapshot) {
         // todo: should probably do some try/catch here
         wordMap = (HashMap<String, Word>) listSnapshot.getValue();
-        Log.d("WordRepository", "size: " + wordMap.size());
+        Log.d("FirebaseWordRepository", "size: " + wordMap.size());
 
         debugPrintAllWords();
     }
@@ -90,6 +79,15 @@ public class WordRepository implements ValueEventListener {
     @Override
     public void onCancelled(DatabaseError error) {
     // Failed to read value
-        Log.w("WordRepository", "Failed to read value.", error.toException());
+        Log.w("FirebaseWordRepository", "Failed to read value.", error.toException());
+    }
+
+    private void debugPrintAllWords() {
+        Iterator<Map.Entry<String, Word>> mapIterator = wordMap.entrySet().iterator();
+
+        while (mapIterator.hasNext()) {
+            String word = mapIterator.next().getKey();
+            Log.d("FirebaseWordRepository", "Added " + word);
+        }
     }
 }

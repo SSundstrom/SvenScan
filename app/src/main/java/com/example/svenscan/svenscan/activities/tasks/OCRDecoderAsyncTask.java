@@ -7,7 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.svenscan.svenscan.R;
-import com.example.svenscan.svenscan.repositories.WordRepository;
+import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
+import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.ocr.ImageProcessor;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
@@ -16,9 +17,9 @@ import com.googlecode.leptonica.android.WriteFile;
 public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     private View rootView;
     private OCRDecoder ocr;
-    private WordRepository wordManager;
+    private IWordRepository wordManager;
 
-    public OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, WordRepository wordManager) {
+    public OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, IWordRepository wordManager) {
         this.rootView = rootView;
         this.ocr = ocr;
         this.wordManager = wordManager;
@@ -55,7 +56,7 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
         }
         Button heart = (Button)rootView.findViewById(R.id.favorite);
 
-        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
+        heart.setBackgroundResource(wordManager.get(ocrResult) != null && wordManager.get(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
 
         heart.setClickable(true);
     }
