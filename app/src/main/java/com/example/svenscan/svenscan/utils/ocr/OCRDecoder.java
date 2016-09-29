@@ -91,6 +91,6 @@ public class OCRDecoder {
     }
 
     public String getText() {
-        return text;
+        return text.trim().toUpperCase();
     }
 }
