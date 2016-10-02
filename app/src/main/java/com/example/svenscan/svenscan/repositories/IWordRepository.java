@@ -10,5 +10,4 @@ public interface IWordRepository extends IObservable {
     boolean containsWord(String word);
     Word getWordFromID(String id);
     Map<String, Word> getAllWords();
-
 }

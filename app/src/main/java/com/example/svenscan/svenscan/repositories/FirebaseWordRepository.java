@@ -57,7 +57,6 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         return wordMap;
     }
 
-
     /**
      * Triggered by Firebase when the list of words successfully change on the server
      * @param listSnapshot A Firebase reference to the list of words

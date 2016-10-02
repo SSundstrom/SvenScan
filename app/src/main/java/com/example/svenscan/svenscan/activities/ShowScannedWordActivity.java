@@ -60,6 +60,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         if (ocr.getText() == null || !wordManager.containsWord(ocr.getText())) {
             return;
         }
+
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
         if (favoriteWords.isFavoriteWord(word)) {
@@ -73,8 +74,15 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
     @Override
     public void onOCRComplete(String ocrResult) {
         Button heart = (Button)findViewById(R.id.favorite);
-        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && favoriteWords.isFavoriteWord(ocrResult)
-                ? R.drawable.fav_red : R.drawable.fav_gray);
+
+        Word word = wordManager.getWordFromID(ocrResult);
+
+        if (word != null && favoriteWords.isFavoriteWord(word.getWord())) {
+            heart.setBackgroundResource(R.drawable.fav_red);
+        } else {
+            heart.setBackgroundResource(R.drawable.fav_gray);
+        }
+
         heart.setClickable(true);
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);
