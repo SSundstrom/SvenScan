@@ -1,14 +1,18 @@
 package com.example.svenscan.svenscan.adapters;
 
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.models.Word;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +20,7 @@ import java.util.HashMap;
 public class ArrayListAdapter extends BaseAdapter{
 
     ArrayList<String> arrayList;
+    FavoriteItemViewHolder holder;
 
     public ArrayListAdapter(ArrayList<String> al){
         arrayList = al;
@@ -23,22 +28,24 @@ public class ArrayListAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final View result;
         if (convertView == null) {
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_list_item, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_list_item, parent, false);
+
+            holder = new FavoriteItemViewHolder();
+            holder.word = (TextView) convertView.findViewById(R.id.favoriteWord);
+            holder.wordImage = (ImageView) convertView.findViewById(R.id.wordImage);
+            holder.moreInfo = (Button) convertView.findViewById(R.id.moreInfo);
+
+            convertView.setTag(holder);
         } else {
-            result = convertView;
+            holder = (FavoriteItemViewHolder) convertView.getTag();
         }
 
-        // TODO replace findViewById by FavoriteItemViewHolder
-        //FavoriteItemViewHolder holder = new FavoriteItemViewHolder();
-        //holder.textView = convertView.findViewById(R.id.favorites);
-        //convertView.setTag(holder);
-        ((TextView) result.findViewById(R.id.favoriteWord)).setText(getItem(position));
+        //Word word =
+        holder.word.setText(getItem(position));
+        //holder.wordImage.setImage
 
-
-
-        return result;
+        return convertView;
     }
 
     @Override

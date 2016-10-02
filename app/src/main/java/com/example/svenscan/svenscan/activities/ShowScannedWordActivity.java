@@ -82,6 +82,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
         }
+        favoriteWords.toggleFavorite(word.getWord());
 
         heart.setClickable(true);
         if (wordManager.containsWord(ocrResult)) {
