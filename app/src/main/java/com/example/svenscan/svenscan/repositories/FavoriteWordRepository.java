@@ -1,5 +1,7 @@
 package com.example.svenscan.svenscan.repositories;
 
+import com.example.svenscan.svenscan.models.Word;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,23 +25,15 @@ public class FavoriteWordRepository {
 
     public void toggleFavorite(String word){
         if(isFavoriteWord(word)){
-            favorites.remove(word);
+            removeFavorite(word);
         }
         else{
-            favorites.add(word);
+            addFavorite(word);
         }
     }
 
     public boolean isFavoriteWord(String word){
-        return favorites.contains(word);
-    }
-
-    public void viewAll(){
-
-    }
-
-    public void viewOneWord(String s){
-
+        return favorites.contains(word.toUpperCase());
     }
 
     public List<String> getFavorites(){

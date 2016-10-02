@@ -57,17 +57,6 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         return wordMap;
     }
 
-    public boolean toggleFavorite(String word) {
-        word = word.toUpperCase();
-
-        if (!wordMap.containsKey(word)) {
-            addWord(word, new Word(word, "", this.hashCode()+index));
-        }
-
-        wordMap.get(word).setFavorite(!wordMap.get(word).isFavorite());
-
-        return wordMap.get(word).isFavorite();
-    }
 
     /**
      * Triggered by Firebase when the list of words successfully change on the server

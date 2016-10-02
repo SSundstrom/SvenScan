@@ -24,7 +24,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
     private OCRDecoder ocr;
     private SoundManager soundManager;
     private IWordRepository wordManager;
-    private FavoriteWordRepository favoriteWords = new FavoriteWordRepository();
+    private FavoriteWordRepository favoriteWords;
     private Word currentWord;
 
 
@@ -34,6 +34,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         SvenScanApplication app = (SvenScanApplication) getApplication();
         wordManager = app.getWordRepository();
+        favoriteWords = app.getFavoriteWordRepository();
 
         soundManager = new SoundManager(this);
         setContentView(R.layout.activity_show_word);
@@ -56,25 +57,24 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
     }
 
     public void favoriteWord(View view) {
-        //TODO should be Label later on and not EditText
         if (ocr.getText() == null || !wordManager.containsWord(ocr.getText())) {
             return;
         }
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
-        if (wordManager.toggleFavorite(word)) {
-            heart.setBackgroundResource(R.drawable.fav_red);
-            favoriteWords.addFavorite(wordManager.getWordFromID(word));
-        } else {
+        if (favoriteWords.isFavoriteWord(word)) {
             heart.setBackgroundResource(R.drawable.fav_gray);
-            favoriteWords.removeFavorite(wordManager.getWordFromID(word));
+        } else {
+            heart.setBackgroundResource(R.drawable.fav_red);
         }
+        favoriteWords.toggleFavorite(word);
     }
 
     @Override
     public void onOCRComplete(String ocrResult) {
         Button heart = (Button)findViewById(R.id.favorite);
-        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
+        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && favoriteWords.isFavoriteWord(ocrResult)
+                ? R.drawable.fav_red : R.drawable.fav_gray);
         heart.setClickable(true);
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);
