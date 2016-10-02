@@ -60,21 +60,31 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         if (ocr.getText() == null || !wordManager.containsWord(ocr.getText())) {
             return;
         }
+
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
-        if (wordManager.toggleFavorite(word)) {
+
+        if (!favoriteWords.isFavoriteWord(word)) {
             heart.setBackgroundResource(R.drawable.fav_red);
-            favoriteWords.addFavorite(wordManager.getWordFromID(word));
+            favoriteWords.addFavorite(word);
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
-            favoriteWords.removeFavorite(wordManager.getWordFromID(word));
+            favoriteWords.removeFavorite(word);
         }
     }
 
     @Override
     public void onOCRComplete(String ocrResult) {
         Button heart = (Button)findViewById(R.id.favorite);
-        heart.setBackgroundResource(wordManager.getWordFromID(ocrResult) != null && wordManager.getWordFromID(ocrResult).isFavorite() ? R.drawable.fav_red : R.drawable.fav_gray);
+
+        Word word = wordManager.getWordFromID(ocrResult);
+
+        if (word != null && favoriteWords.isFavoriteWord(word.getWord())) {
+            heart.setBackgroundResource(R.drawable.fav_red);
+        } else {
+            heart.setBackgroundResource(R.drawable.fav_gray);
+        }
+
         heart.setClickable(true);
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);

@@ -10,7 +10,4 @@ public interface IWordRepository extends IObservable {
     boolean containsWord(String word);
     Word getWordFromID(String id);
     Map<String, Word> getAllWords();
-
-    // todo: this should be moved to favorites
-    boolean toggleFavorite(String word);
 }
