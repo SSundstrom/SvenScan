@@ -8,7 +8,6 @@ public class Word {
     private int soundID;
     private String imagePath;
     private String word;
-    private boolean favorite;
 
     public Word() {
         // Default constructor is required by Firebase
@@ -32,11 +31,5 @@ public class Word {
         return imagePath;
     }
 
-    public boolean isFavorite() {
-        return favorite;
-    }
 
-    public void setFavorite(boolean state) {
-        favorite = state;
-    }
 }
