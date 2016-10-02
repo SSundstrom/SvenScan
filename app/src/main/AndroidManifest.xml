@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme"
         android:name=".SvenScanApplication">
+        android:name="android.support.multidex.MultiDexApplication">
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait">
