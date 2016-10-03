@@ -32,7 +32,7 @@ public class Camera {
     }
 
     public void show() {
-        permission.require(PERMISSIONS, () -> {
+        permission.onPermissionsChecked(PERMISSIONS, () -> {
 /**
             File saveFolder = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "SvenScan");
 

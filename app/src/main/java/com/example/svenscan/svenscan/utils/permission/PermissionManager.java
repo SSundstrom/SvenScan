@@ -7,15 +7,69 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+import com.example.svenscan.svenscan.Manifest;
+import com.example.svenscan.svenscan.activities.MainActivity;
+import com.example.svenscan.svenscan.activities.ScanActivity;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.EmptyMultiplePermissionsListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Easy-to-use wrapper class for requesting permissions
  * during use, as required by Android 6.0s.
  */
-public class PermissionManager {
-    private int lastRequestId = 1000;
+public class PermissionManager implements MultiplePermissionsListener{
+
+
+
+    private Activity activity;
+
+    private MultiplePermissionsListener permissions = new EmptyMultiplePermissionsListener();
+    private PermissionToken token;
+
+    public PermissionManager(Activity activity){
+        this.activity = activity;
+    }
+
+
+        @Override
+        public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+            for (PermissionGrantedResponse response : report.getGrantedPermissionResponses()) {
+                activity.showPermissionGranted(response.getPermissionName());
+            }
+
+            for (PermissionDeniedResponse response : report.getDeniedPermissionResponses()) {
+                activity.showPermissionDenied(response.getPermissionName(), response.isPermanentlyDenied());
+            }
+
+
+        }
+
+        @Override
+        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+
+            activity.showPermissionRationale(token);
+
+        }
+    }
+
+
+
+
+
+  /*  private int lastRequestId = 1000;
     private Activity activity;
     private Map<Integer, ISuccessHandler> handlers = new HashMap<>();
 
@@ -81,5 +135,5 @@ public class PermissionManager {
 
     private boolean isApproved(String permission) {
         return ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
-    }
+    }*/
 }

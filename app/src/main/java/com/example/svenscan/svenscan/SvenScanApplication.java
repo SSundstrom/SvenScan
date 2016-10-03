@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
+import com.karumi.dexter.Dexter;
 
 public class SvenScanApplication extends Application {
     private IWordRepository wordRepository;
@@ -14,6 +15,8 @@ public class SvenScanApplication extends Application {
         super.onCreate();
         wordRepository = new FirebaseWordRepository();
         favoriteWordRepository = new FavoriteWordRepository();
+        Dexter.initialize(this);
+
     }
 
     public IWordRepository getWordRepository() {

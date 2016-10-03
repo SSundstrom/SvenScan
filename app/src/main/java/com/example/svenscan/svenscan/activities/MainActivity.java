@@ -2,17 +2,24 @@ package com.example.svenscan.svenscan.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import com.example.svenscan.svenscan.Manifest;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.R;
 
 import com.example.svenscan.svenscan.utils.Camera;
-import com.googlecode.leptonica.android.Pix;
-import com.googlecode.leptonica.android.ReadFile;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.listener.multi.CompositeMultiplePermissionsListener;
+import com.karumi.dexter.listener.multi.EmptyMultiplePermissionsListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,6 +28,11 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private Camera camera;
     FavoriteWordRepository favoriteWords;
+
+    private MultiplePermissionsListener allPermissionsListener;
+    private PermissionListener cameraPermissionListener;
+    private PermissionListener audioPermissionListener;
+    private PermissionListener storagePremission;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,9 +44,40 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         favoriteWords = app.getFavoriteWordRepository();
 
         recreateFavoriteWords();
+
+        createPermissionListeners();
+
+
     }
 
-    public void chooseImage(View view) {
+    public void showPermissionGranted(String permission) {
+        TextView feedbackView = getFeedbackViewForPermission(permission);
+        feedbackView.setText(R.string.permission_granted_feedback);
+        feedbackView.setTextColor(ContextCompat.getColor(this, R.color.permission_granted));
+    }
+
+
+    @OnClick(R.id.button) public void onAllPermissionsButtonClicked() {
+        if (Dexter.isRequestOngoing()) {
+            return;
+        }
+        Dexter.checkPermissions(allPermissionsListener, Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO);
+    }
+
+    private void createPermissionListeners() {
+
+        MultiplePermissionsListener feedbackViewMultiplePermissionListener = new EmptyMultiplePermissionsListener();
+        allPermissionsListener =
+                new CompositeMultiplePermissionsListener(feedbackViewMultiplePermissionListener,
+                        SnackbarOnAnyDeniedMultiplePermissionsListener.Builder.with(rootView,
+                                "Permission denied")
+                                .withOpenSettingsButton("Denied")
+                                .build());
+
+    }
+
+        public void chooseImage(View view) {
         camera.show();
     }
 
@@ -117,5 +160,7 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         editor.putStringSet("favoriteWords", set);
         editor.commit();
     }
+
+
 }
 
