@@ -32,12 +32,12 @@ public class PermissionManager implements MultiplePermissionsListener{
 
 
 
-    private Activity activity;
+    private MainActivity activity;
 
     private MultiplePermissionsListener permissions = new EmptyMultiplePermissionsListener();
     private PermissionToken token;
 
-    public PermissionManager(Activity activity){
+    public PermissionManager(MainActivity activity){
         this.activity = activity;
     }
 
@@ -49,9 +49,9 @@ public class PermissionManager implements MultiplePermissionsListener{
                 activity.showPermissionGranted(response.getPermissionName());
             }
 
-            for (PermissionDeniedResponse response : report.getDeniedPermissionResponses()) {
+           /* for (PermissionDeniedResponse response : report.getDeniedPermissionResponses()) {
                 activity.showPermissionDenied(response.getPermissionName(), response.isPermanentlyDenied());
-            }
+            }*/
 
 
         }
@@ -136,4 +136,3 @@ public class PermissionManager implements MultiplePermissionsListener{
     private boolean isApproved(String permission) {
         return ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
     }*/
-}
