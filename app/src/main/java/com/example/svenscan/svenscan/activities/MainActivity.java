@@ -1,7 +1,6 @@
 package com.example.svenscan.svenscan.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +14,6 @@ import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private Camera camera;
@@ -30,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
 
         SvenScanApplication app = (SvenScanApplication) getApplication();
         favoriteWords = app.getFavoriteWordRepository();
-
-        recreateFavoriteWords();
     }
 
     public void chooseImage(View view) {
@@ -90,32 +85,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         camera.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-        saveFavoriteWords();
-    }
-
-    public void recreateFavoriteWords(){
-        HashSet<String> set = new HashSet<String>();
-        SharedPreferences settings = getSharedPreferences("favoriteWords", 0);
-        set = (HashSet<String>) settings.getStringSet("favoriteWords", set);
-        favoriteWords.addSetToFavorites(set);
-    }
-
-    public void saveFavoriteWords(){
-        Set<String> set = new HashSet<String>();
-
-        if(favoriteWords.getFavorites() != null){
-            set.addAll(favoriteWords.getFavorites());
-        }
-
-        SharedPreferences settings = getSharedPreferences("favoriteWords", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putStringSet("favoriteWords", set);
-        editor.commit();
     }
 }
 
