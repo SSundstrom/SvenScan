@@ -50,7 +50,6 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     @Override
     protected void onPostExecute(String ocrResult) {
         TextView textBox = ((TextView)rootView.findViewById(R.id.wordText));
-        ocrResult = ocrResult.toUpperCase().trim();
         if(ocrResult != null) {
             textBox.setText(ocrResult);
         } else {

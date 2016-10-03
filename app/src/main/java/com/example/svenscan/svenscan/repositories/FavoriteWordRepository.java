@@ -1,14 +1,16 @@
 package com.example.svenscan.svenscan.repositories;
 
-import com.example.svenscan.svenscan.models.Word;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class FavoriteWordRepository {
 
-    private List<String> favorites = new ArrayList<String>();
+    private List<String> favorites;
+
+    public FavoriteWordRepository() {
+        favorites = new ArrayList<>();
+    }
 
     public void addFavorite(String word){
         if(!favorites.contains(word.toUpperCase())){

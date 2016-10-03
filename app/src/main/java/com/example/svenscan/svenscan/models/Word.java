@@ -31,5 +31,8 @@ public class Word {
         return imagePath;
     }
 
-
+    @Override
+    public String toString() {
+        return "Word = " + word + " | soundId = " + soundID;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.svenscan.svenscan.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,6 +20,9 @@ import com.example.svenscan.svenscan.utils.SoundManager;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class ShowScannedWordActivity extends AppCompatActivity implements OCRDecoderAsyncTask.ITaskCompleteHandler{
     private OCRDecoder ocr;
@@ -63,12 +67,28 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
-        if (favoriteWords.isFavoriteWord(word)) {
-            heart.setBackgroundResource(R.drawable.fav_gray);
-        } else {
-            heart.setBackgroundResource(R.drawable.fav_red);
-        }
         favoriteWords.toggleFavorite(word);
+
+        if (favoriteWords.isFavoriteWord(word)) {
+            heart.setBackgroundResource(R.drawable.fav_red);
+        } else {
+            heart.setBackgroundResource(R.drawable.fav_gray);
+        }
+
+        updateFavoriteWordsInMemory();
+    }
+
+    public void updateFavoriteWordsInMemory(){
+        Set<String> set = new HashSet<String>();
+
+        if(favoriteWords.getFavorites() != null){
+            set.addAll(favoriteWords.getFavorites());
+        }
+
+        SharedPreferences settings = getSharedPreferences("favoriteWords", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putStringSet("favoriteWords", set);
+        editor.commit();
     }
 
     @Override
@@ -82,12 +102,12 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
         }
-        favoriteWords.toggleFavorite(word.getWord());
 
         heart.setClickable(true);
+
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);
-            soundManager.start(currentWord.getSoundID());
+//            soundManager.start(currentWord.getSoundID());  // TODO: 2016-10-03 get real sound path
 
         }
     }
