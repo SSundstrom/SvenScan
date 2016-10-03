@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 
 import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.models.Word;
+import com.example.svenscan.svenscan.repositories.IWordRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,9 +23,11 @@ public class ArrayListAdapter extends BaseAdapter{
 
     ArrayList<String> arrayList;
     FavoriteItemViewHolder holder;
+    IWordRepository wordManager;
 
-    public ArrayListAdapter(ArrayList<String> al){
+    public ArrayListAdapter(ArrayList<String> al, SvenScanApplication application){
         arrayList = al;
+        wordManager = application.getWordRepository();
     }
 
     @Override
@@ -41,9 +45,9 @@ public class ArrayListAdapter extends BaseAdapter{
             holder = (FavoriteItemViewHolder) convertView.getTag();
         }
 
-        //Word word =
-        holder.word.setText(getItem(position));
-        //holder.wordImage.setImage
+        Word word = wordManager.getWordFromID(getItem(position));
+        holder.word.setText(word.getWord());
+        //holder.wordImage.
 
         return convertView;
     }

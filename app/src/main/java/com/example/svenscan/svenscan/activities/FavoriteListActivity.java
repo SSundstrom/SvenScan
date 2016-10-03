@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.adapters.ArrayListAdapter;
 
 import java.util.ArrayList;
@@ -23,6 +24,6 @@ public class FavoriteListActivity extends AppCompatActivity{
     }
     private void initList(ArrayList<String> list){
         ListView favorites = (ListView) findViewById(R.id.favorites);
-        favorites.setAdapter(new ArrayListAdapter(list));
+        favorites.setAdapter(new ArrayListAdapter(list,(SvenScanApplication) getApplication()));
     }
 }
