@@ -20,7 +20,6 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
     private Observable observable = new Observable();
     private DatabaseReference database;
     private HashMap<String, Word> wordMap;
-    private static int index;
 
     public FirebaseWordRepository() {
         wordMap = new HashMap<>();
@@ -37,7 +36,6 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         if (wordMap.containsKey(id)) return;
 
         wordMap.put(id.toUpperCase(), word);
-        index++;
 
         // Add to Firebase
         database.child("words").child(id).setValue(word);
@@ -49,7 +47,7 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
     }
 
     public Word getWordFromID(String id) {
-        return wordMap.get(id.toUpperCase());
+        return wordMap.get(id);
     }
 
     @Override
@@ -64,8 +62,11 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
     @Override
     public void onDataChange(DataSnapshot listSnapshot) {
         // todo: should probably do some try/catch here
-        wordMap = (HashMap<String, Word>) listSnapshot.getValue();
-        Log.d("FirebaseWordRepository", "size: " + wordMap.size());
+
+        for (DataSnapshot wordSnapshot : listSnapshot.getChildren()) {
+            Word word = wordSnapshot.getValue(Word.class);
+            wordMap.put(wordSnapshot.getKey(), word);
+        }
 
         debugPrintAllWords();
 
@@ -86,8 +87,9 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         Iterator<Map.Entry<String, Word>> mapIterator = wordMap.entrySet().iterator();
 
         while (mapIterator.hasNext()) {
-            String word = mapIterator.next().getKey();
+            Word word = mapIterator.next().getValue();
             Log.d("FirebaseWordRepository", "Added " + word);
+
         }
     }
 

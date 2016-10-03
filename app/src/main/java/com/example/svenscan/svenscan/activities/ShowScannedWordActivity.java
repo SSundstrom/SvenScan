@@ -63,12 +63,13 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
-        if (favoriteWords.isFavoriteWord(word)) {
-            heart.setBackgroundResource(R.drawable.fav_gray);
-        } else {
-            heart.setBackgroundResource(R.drawable.fav_red);
-        }
         favoriteWords.toggleFavorite(word);
+
+        if (favoriteWords.isFavoriteWord(word)) {
+            heart.setBackgroundResource(R.drawable.fav_red);
+        } else {
+            heart.setBackgroundResource(R.drawable.fav_gray);
+        }
     }
 
     @Override
@@ -82,11 +83,11 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
         }
-
         heart.setClickable(true);
+
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);
-            soundManager.start(currentWord.getSoundID());
+//            soundManager.start(currentWord.getSoundID());  // TODO: 2016-10-03 get real sound path
 
         }
     }
