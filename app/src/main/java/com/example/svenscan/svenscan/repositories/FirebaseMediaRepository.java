@@ -43,6 +43,15 @@ public class FirebaseMediaRepository implements IMediaRepository{
         getMediaUri("images", imageName, imageDir, handler);
     }
 
+    public void initialize(File dataDir) {
+        soundDir = new File(dataDir.getPath() + "/sounds");
+        if (!soundDir.exists()) soundDir.mkdir();
+
+        imageDir = new File(dataDir.getPath() + "/images");
+        if (!imageDir.exists()) imageDir.mkdir();
+
+    }
+
     private void getMediaUri(String mediaType, String mediaName, File mediaDir, IMediaHandler handler) {
         mediaName = "/" + mediaName;
         File mediaFile = new File(mediaDir + mediaName); // Local storage
@@ -51,15 +60,6 @@ public class FirebaseMediaRepository implements IMediaRepository{
         } else {
             downloadMedia(mediaType + mediaName, mediaFile, handler);
         }
-    }
-
-    public void initialize(File dataDir) {
-        soundDir = new File(dataDir.getPath() + "/sounds");
-        if (!soundDir.exists()) soundDir.mkdir();
-
-        imageDir = new File(dataDir.getPath() + "/images");
-        if (!imageDir.exists()) imageDir.mkdir();
-
     }
 
     private void downloadMedia(String firebasePath, File localFile, IMediaHandler handler) {
