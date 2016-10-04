@@ -1,10 +1,8 @@
 package com.example.svenscan.svenscan.adapters;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,7 +15,6 @@ import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ArrayListAdapter extends BaseAdapter{
 
@@ -47,7 +44,9 @@ public class ArrayListAdapter extends BaseAdapter{
 
         Word word = wordManager.getWordFromID(getItem(position));
         holder.word.setText(word.getWord());
-        //holder.wordImage.
+        //TODO: change to correct word picture
+        holder.wordImage.setImageResource(R.drawable.no_pic);
+        holder.moreInfo.setId(position);
 
         return convertView;
     }

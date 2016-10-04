@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         SvenScanApplication app = (SvenScanApplication) getApplication();
         favoriteWords = app.getFavoriteWordRepository();
 
-        favoriteWords.addFavorite("HEJ");
     }
 
     public void chooseImage(View view) {
