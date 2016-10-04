@@ -5,12 +5,13 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.svenscan.svenscan.R;
-import com.example.svenscan.svenscan.utils.permission.PermissionManager;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
 
@@ -18,26 +19,12 @@ public class RecordPronunciationActivity extends AppCompatActivity {
     final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
     private boolean isRecording = false;
     private MediaRecorder mediaRecorder;
-    private final static String[] PERMISSIONS = {
-            Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_pronunciation);
-
-        PermissionManager permissionManager = new PermissionManager(this);
-
-        permissionManager.require(PERMISSIONS, ()->{
-
-            mediaRecorder = new MediaRecorder();
-
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setMaxDuration(5000);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-        });
+        askForPermissions();
 
         File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "SvenScan");
 
@@ -48,7 +35,14 @@ public class RecordPronunciationActivity extends AppCompatActivity {
         final Button recordButton = (Button) findViewById(R.id.recordButton);
 
         recordButton.setOnClickListener((v) -> {
-            EditText swedishWord = (EditText)findViewById(R.id.swedishWord);
+            mediaRecorder = new MediaRecorder();
+
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mediaRecorder.setMaxDuration(5000);
+            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+            EditText swedishWord = (EditText) findViewById(R.id.swedishWord);
             String filename = swedishWord.getText().toString();
             mediaRecorder.setOutputFile(PATH + "/SvenScan/" + filename + ".3gp");
 
@@ -66,4 +60,17 @@ public class RecordPronunciationActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void askForPermissions() {
+        MultiplePermissionsListener permissions =
+            DialogOnAnyDeniedMultiplePermissionsListener.Builder
+                .withContext(this)
+                .withTitle("Microphone and storage permission")
+                .withMessage("Both microphone and storage permissions are needed to submit words")
+                .withButtonText(android.R.string.ok)
+                .build();
+        Dexter.checkPermissions(permissions, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
 }

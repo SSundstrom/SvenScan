@@ -16,7 +16,6 @@ public class SvenScanApplication extends Application {
         wordRepository = new FirebaseWordRepository();
         favoriteWordRepository = new FavoriteWordRepository();
         Dexter.initialize(this);
-
     }
 
     public IWordRepository getWordRepository() {
