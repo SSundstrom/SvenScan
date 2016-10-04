@@ -25,7 +25,7 @@
         android:layout_alignBottom="@id/camera_preview_view"
         android:background="@android:color/black"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/camera_tools_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,49 +34,54 @@
         android:padding="10dp"
         android:orientation="horizontal"
         android:background="@android:color/black"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/change_camera"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/squarecamera__camera"
-            android:layout_weight="1"/>
+        >
 
         <ImageView
             android:id="@+id/capture_image_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/squarecamera__capture_photo_button"
-            android:layout_weight="1"/>
+            android:layout_centerInParent="true"/>
 
-        <LinearLayout
-            android:id="@+id/flash"
-            android:layout_width="0dp"
+    </RelativeLayout>
+
+    
+    <!-- Keep these ImageView, if not break lose scan_fragment & scan_activity from third part dependencies.-->
+    <ImageView
+        android:id="@+id/change_camera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/squarecamera__camera"
+        android:layout_weight="1"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:id="@+id/flash"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/flash_icon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:src="@drawable/squarecamera__toggle_flash"
+            android:visibility="gone"/>
 
-            <ImageView
-                android:id="@+id/flash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/squarecamera__toggle_flash" />
-
-            <TextView
-                android:id="@+id/auto_flash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center_vertical"
-                android:text="Auto"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"/>
-
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/auto_flash_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:text="Auto"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:visibility="gone"/>
     </LinearLayout>
+    <!-- End of ImageViews to keep in xml-->
 
 </RelativeLayout>
