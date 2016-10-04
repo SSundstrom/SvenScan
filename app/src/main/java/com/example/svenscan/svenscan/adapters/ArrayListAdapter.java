@@ -46,7 +46,7 @@ public class ArrayListAdapter extends BaseAdapter{
         holder.word.setText(word.getWord());
         //TODO: change to correct word picture
         holder.wordImage.setImageResource(R.drawable.no_pic);
-        holder.moreInfo.setId(position);
+        holder.moreInfo.setTag(word.getWord());
 
         return convertView;
     }

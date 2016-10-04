@@ -38,6 +38,8 @@ public class FavoriteListActivity extends AppCompatActivity{
         */
     }
     public void showWord(View view){
-
+        Intent intent = new Intent(this, ShowFavoriteWordActivity.class);
+        intent.putExtra("word", (String) view.getTag());
+        startActivity(intent);
     }
 }
