@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Word {
 
-    private int soundID;
+    private String soundPath;
     private String imagePath;
     private String word;
 
@@ -13,18 +13,18 @@ public class Word {
         // Default constructor is required by Firebase
     }
 
-    public Word(String word, String imagePath, int soundPath) {
+    public Word(String word, String imagePath, String soundPath) {
         this.word = word;
         this.imagePath = imagePath;
-        this.soundID = soundPath;
+        this.soundPath = soundPath;
     }
 
     public String getWord() {
         return word;
     }
 
-    public int getSoundID() {
-        return soundID;
+    public String getSoundPath() {
+        return soundPath;
     }
 
     public String getImagePath() {
@@ -33,7 +33,7 @@ public class Word {
 
     @Override
     public String toString() {
-        return "Word = " + word + " | soundId = " + soundID;
+        return "Word = " + word + " | soundId = " + soundPath;
     }
 
 }
