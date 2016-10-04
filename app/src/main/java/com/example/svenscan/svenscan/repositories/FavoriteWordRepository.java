@@ -16,9 +16,9 @@ public class FavoriteWordRepository implements IFavoriteWordRepository {
         favorites = new ArrayList<>();
     }
 
-    private void addFavorite(String word){
-        if(!favorites.contains(word.toUpperCase())){
-            favorites.add(word.toUpperCase());
+    public void addFavorite(String word){
+        if(!favorites.contains(word)){
+            favorites.add(word);
         }
     }
 
@@ -35,6 +35,7 @@ public class FavoriteWordRepository implements IFavoriteWordRepository {
     }
 
     public void toggleFavorite(String word, Activity app){
+        word = word.toUpperCase();
         if(isFavoriteWord(word)){
             removeFavorite(word);
         }
@@ -45,7 +46,10 @@ public class FavoriteWordRepository implements IFavoriteWordRepository {
     }
 
     public boolean isFavoriteWord(String word){
-        return favorites.contains(word.toUpperCase());
+        if (word == null) return false;
+
+        word = word.toUpperCase();
+        return favorites.contains(word);
     }
 
     public List<String> getFavorites(){
