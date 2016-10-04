@@ -1,10 +1,11 @@
 package com.example.svenscan.svenscan.activities;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -19,12 +20,11 @@ import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.SoundManager;
 import com.example.svenscan.svenscan.utils.ocr.IOCR;
-import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
 
-import java.util.HashSet;
-import java.util.Set;
+import static android.R.attr.duration;
+import static android.R.attr.id;
 
 public class ShowScannedWordActivity extends AppCompatActivity implements OCRDecoderAsyncTask.ITaskCompleteHandler{
     private IOCR ocr;
@@ -89,9 +89,14 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
             handleCurrentWord();
 
         }
+        else {
+            Resources res = getResources();
+            String pretext = wordManager.containsWord(ocrResult.toUpperCase()) ? "" : "Word is not recognized: \n";
+            setText(pretext + ocrResult);
 
-        String pretext = wordManager.containsWord(ocrResult.toUpperCase()) ? "" : "Word is not recognized: \n";
-        setText(pretext + ocrResult);
+            Snackbar mySnackbar = Snackbar.make(R.id.wordText, res.getStringId(R.id.pop_up), duration);
+            mySnackbar.show();
+        }
     }
 
     private void currentWordFromFavorites() {
