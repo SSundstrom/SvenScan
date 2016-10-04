@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class FavoriteWordRepository implements IFavoriteWordRepository {
+public class FavoriteWordRepository implements IFavoriteRepository {
 
     private List<String> favorites;
 
@@ -35,7 +35,6 @@ public class FavoriteWordRepository implements IFavoriteWordRepository {
     }
 
     public void toggleFavorite(String word, Activity app){
-        word = word.toUpperCase();
         if(isFavoriteWord(word)){
             removeFavorite(word);
         }

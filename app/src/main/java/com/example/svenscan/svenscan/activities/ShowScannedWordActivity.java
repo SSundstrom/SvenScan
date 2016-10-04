@@ -15,6 +15,7 @@ import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
+import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.SoundManager;
@@ -26,7 +27,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
     private IOCR ocr;
     private SoundManager soundManager;
     private IWordRepository wordManager;
-    private FavoriteWordRepository favoriteWords;
+    private IFavoriteRepository favoriteWords;
     private IMediaRepository mediaRepository;
     private Word currentWord;
 
@@ -45,12 +46,10 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         if(getIntent().hasExtra("fav")) {
 
-            System.out.println("get word from Fav");
             currentWordFromFavorites();
 
         } else {
 
-            System.out.println("get word from OCR");
             currentWordFromOCR();
 
         }
@@ -59,7 +58,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
     public void playWord(@Nullable View view) {
         if (currentWord != null) {
-            soundManager.start(mediaRepository.getSoundUri(currentWord.getSoundPath()));
+            mediaRepository.getSoundUri(currentWord.getSoundPath(), (soundUri) -> soundManager.start(soundUri));
         }
     }
 
@@ -68,7 +67,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
             return;
         }
 
-        String word = currentWord.getWord();
+        String word = currentWord.getWordID();
 
         View heart = findViewById(R.id.favorite);
         favoriteWords.toggleFavorite(word, this);
@@ -123,7 +122,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         Button heart = (Button)findViewById(R.id.favorite);
 
-        if (currentWord != null && favoriteWords.isFavoriteWord(currentWord.getWord())) {
+        if (currentWord != null && favoriteWords.isFavoriteWord(currentWord.getWordID())) {
             heart.setBackgroundResource(R.drawable.fav_red);
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);

@@ -5,7 +5,7 @@ import android.app.Activity;
 import java.util.HashSet;
 import java.util.List;
 
-public interface IFavoriteWordRepository {
+public interface IFavoriteRepository {
 
     void toggleFavorite(String word, Activity app);
 

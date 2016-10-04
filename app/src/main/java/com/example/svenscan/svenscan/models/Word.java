@@ -8,15 +8,11 @@ public class Word {
     private String soundPath;
     private String imagePath;
     private String word;
+    private String wordID;
+
 
     public Word() {
         // Default constructor is required by Firebase
-    }
-
-    public Word(String word, String imagePath, String soundPath) {
-        this.word = word;
-        this.imagePath = imagePath;
-        this.soundPath = soundPath;
     }
 
     public String getWord() {
@@ -29,6 +25,14 @@ public class Word {
 
     public String getImagePath() {
         return imagePath;
+    }
+
+    public void setWordID(String wordID) {
+        this.wordID = wordID;
+    }
+
+    public String getWordID() {
+        return wordID;
     }
 
     @Override

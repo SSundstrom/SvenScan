@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseMediaRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
+import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.karumi.dexter.Dexter;
@@ -16,7 +17,7 @@ import java.util.HashSet;
 
 public class SvenScanApplication extends Application {
     private IWordRepository wordRepository;
-    private FavoriteWordRepository favoriteWordRepository; // todo: bör vara interface?
+    private IFavoriteRepository favoriteWordRepository; // todo: bör vara interface?
     private IOCR ocr;
     private IMediaRepository mediaRepository;
 
@@ -24,9 +25,11 @@ public class SvenScanApplication extends Application {
         super.onCreate();
         wordRepository = new FirebaseWordRepository();
         favoriteWordRepository = new FavoriteWordRepository();
-        System.out.println("Files dir = " + getApplicationContext().getFilesDir());
-        mediaRepository = new FirebaseMediaRepository(getApplicationContext().getFilesDir());
+        mediaRepository = new FirebaseMediaRepository();
         ocr = new OCRDecoder(this);
+
+        System.out.println("Files dir = " + getApplicationContext().getFilesDir());
+        mediaRepository.initialize(getApplicationContext().getFilesDir()); // TODO: 2016-10-04 move to after permissions
 
         recreateFavoriteWords();
         Dexter.initialize(this);
@@ -40,7 +43,7 @@ public class SvenScanApplication extends Application {
         return ocr;
     }
 
-    public FavoriteWordRepository getFavoriteWordRepository() {
+    public IFavoriteRepository getFavoriteWordRepository() {
         return favoriteWordRepository;
     }
 
