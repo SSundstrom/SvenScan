@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
+import com.karumi.dexter.Dexter;
 
 import java.util.HashSet;
 
@@ -17,8 +18,8 @@ public class SvenScanApplication extends Application {
         super.onCreate();
         wordRepository = new FirebaseWordRepository();
         favoriteWordRepository = new FavoriteWordRepository();
-
         recreateFavoriteWords();
+        Dexter.initialize(this);
     }
 
     public IWordRepository getWordRepository() {
