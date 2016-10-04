@@ -17,44 +17,44 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme"
-        android:name=".SvenScanApplication">
+        android:name=".SvenScanApplication"><![CDATA[
         android:name="android.support.multidex.MultiDexApplication">
-        <activity
-            android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        ]]>
         <activity
             android:name=".activities.PlayPronunciationActivity"
             android:label="@string/title_activity_play_pronunciation">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".activities.ScanActivity" />
         </activity>
 
-        <activity android:name=".activities.ScanActivity" />
+        <activity android:name=".activities.ScanActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+
 
         <activity android:name=".activities.ShowScannedWordActivity"
             android:label="@string/title_activity_play_pronunciation">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".activities.ScanActivity" />
         </activity>
         <activity
             android:name=".activities.RecordPronunciationActivity"
             android:label="RecordPronunciation">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".activities.ScanActivity" />
         </activity>
         <activity android:name=".activities.FavoriteListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".activities.ScanActivity" />
         </activity>
         <activity
             android:name="com.desmond.squarecamera.CameraActivity"
@@ -62,7 +62,7 @@
         <activity android:name=".activities.DebugWordListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".activities.ScanActivity" />
         </activity>
     </application>
 

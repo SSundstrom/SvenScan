@@ -1,16 +1,17 @@
 package com.example.svenscan.svenscan.activities;
 
-import com.desmond.squarecamera.SquareCameraPreview;
+import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.fragments.ScanFragment;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
-public class ScanActivity extends com.desmond.squarecamera.CameraActivity {
+public class ScanActivity extends CameraActivity  {
 
     public ScanActivity(){}
 
@@ -28,8 +29,37 @@ public class ScanActivity extends com.desmond.squarecamera.CameraActivity {
 
     }
 
+    public void onCameraCapture(String imagePath) {
+        Intent intent = new Intent(this, ShowScannedWordActivity.class);
+        intent.putExtra("picture", imagePath);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            //String imagePath = data.getData().getPath();
+            //onCameraCapture(imagePath);
+        } else if(data != null) {
+            Exception e = new Exception("Welp, this didn't work");
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void returnPhotoUri(Uri uri) {
+        Intent intent = new Intent(this,ShowScannedWordActivity.class);
+        intent.putExtra("picture", uri.getPath());
+        startActivity(intent);
+
+    }
+
     public void toFavoriteWords(View view){
         Intent intent = new Intent(this, FavoriteListActivity.class);
         startActivity(intent);
     }
+
+
 }
