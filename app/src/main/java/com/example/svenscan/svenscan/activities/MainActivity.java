@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements Camera.ICameraCaptureHandler {
     private Camera camera;
-    FavoriteWordRepository favoriteWords;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,8 +24,6 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         camera = new Camera(this, this);
         setContentView(R.layout.activity_main);
 
-        SvenScanApplication app = (SvenScanApplication) getApplication();
-        favoriteWords = app.getFavoriteWordRepository();
     }
 
     public void chooseImage(View view) {
@@ -47,28 +44,10 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
         Intent tmp = new Intent(this, DebugWordListActivity.class);
         startActivity(tmp);
 
-        //TODO: Where should this code be?
-    /*
-    public void favoriteWord(View view){
-        if (ocr.getText() == null || !wordManager.containsWord(ocr.getText())) {
-            return;
-        }
-        String word = ocr.getText();
-        View heart = findViewById(R.id.favorite);
-
-        if (favoriteWords.isFavoriteWord(word)) {
-            heart.setBackgroundResource(R.drawable.fav_gray);
-            favoriteWords.removeFavorite(word);
-        } else {
-            heart.setBackgroundResource(R.drawable.fav_red);
-            favoriteWords.addFavorite(word);
-
-        }*/
     }
 
     public void showFavoriteWords(View view){
         Intent intent = new Intent(this, FavoriteListActivity.class);
-        intent.putExtra("favoriteWords", (ArrayList<String>)favoriteWords.getFavorites());
         startActivity(intent);
     }
 

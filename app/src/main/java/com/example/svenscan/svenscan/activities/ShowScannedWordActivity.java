@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
@@ -41,6 +42,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         favoriteWords = app.getFavoriteWordRepository();
 
         soundManager = new SoundManager(this);
+
         setContentView(R.layout.activity_show_word);
         Intent intent = getIntent();
 
@@ -67,32 +69,18 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         String word = ocr.getText();
         View heart = findViewById(R.id.favorite);
-        favoriteWords.toggleFavorite(word);
+        favoriteWords.toggleFavorite(word, this);
 
         if (favoriteWords.isFavoriteWord(word)) {
             heart.setBackgroundResource(R.drawable.fav_red);
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
         }
-
-        updateFavoriteWordsInMemory();
-    }
-
-    public void updateFavoriteWordsInMemory(){
-        Set<String> set = new HashSet<String>();
-
-        if(favoriteWords.getFavorites() != null){
-            set.addAll(favoriteWords.getFavorites());
-        }
-
-        SharedPreferences settings = getSharedPreferences("favoriteWords", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putStringSet("favoriteWords", set);
-        editor.commit();
     }
 
     @Override
     public void onOCRComplete(String ocrResult) {
+        setText(ocrResult);
         Button heart = (Button)findViewById(R.id.favorite);
 
         Word word = wordManager.getWordFromID(ocrResult);
@@ -106,8 +94,20 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);
-//            soundManager.start(currentWord.getSoundID());  // TODO: 2016-10-03 get real sound path
+            soundManager.start(currentWord.getSoundID());  // TODO: 2016-10-03 get real sound path
 
+        }
+    }
+
+    private void setText(String ocrResult) {
+        TextView textBox = ((TextView)findViewById(R.id.wordText));
+        if(ocrResult != null) {
+
+            String pretext = wordManager.containsWord(ocrResult) ? "" : "Word is not recognized: \n";
+
+            textBox.setText(pretext + ocrResult);
+        } else {
+            textBox.setText("(null)");
         }
     }
 }

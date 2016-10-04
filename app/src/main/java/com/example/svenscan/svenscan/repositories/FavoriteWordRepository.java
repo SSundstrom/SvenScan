@@ -1,8 +1,12 @@
 package com.example.svenscan.svenscan.repositories;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FavoriteWordRepository {
 
@@ -30,13 +34,14 @@ public class FavoriteWordRepository {
         }
     }
 
-    public void toggleFavorite(String word){
+    public void toggleFavorite(String word, Activity app){
         if(isFavoriteWord(word)){
             removeFavorite(word);
         }
         else{
             addFavorite(word);
         }
+        updateFavoriteWordsInMemory(app);
     }
 
     public boolean isFavoriteWord(String word){
@@ -45,5 +50,19 @@ public class FavoriteWordRepository {
 
     public List<String> getFavorites(){
         return this.favorites;
+    }
+
+
+    public void updateFavoriteWordsInMemory(Activity app){ // TODO: 2016-10-04 Should not be in this class.. Should prob happen in FavoriteRepository.
+        Set<String> set = new HashSet<String>();
+
+        if(getFavorites() != null){
+            set.addAll(getFavorites());
+        }
+
+        SharedPreferences settings = app.getSharedPreferences("favoriteWords", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putStringSet("favoriteWords", set);
+        editor.commit();
     }
 }
