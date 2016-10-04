@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-public class OCRDecoder {
+public class OCRDecoder implements IOCR {
 
     private TessBaseAPI tess;
     private String text;
@@ -58,7 +58,7 @@ public class OCRDecoder {
         tess.init(langPath, "swe");
     }
 
-    public void saveOCRDataFileToStorage(Application app) throws IOException {
+    private void saveOCRDataFileToStorage(Application app) throws IOException {
         InputStream in = null;
         BufferedOutputStream fout = null;
         try {

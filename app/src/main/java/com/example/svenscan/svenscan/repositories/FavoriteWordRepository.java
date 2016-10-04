@@ -13,8 +13,8 @@ public class FavoriteWordRepository {
     }
 
     public void addFavorite(String word){
-        if(!favorites.contains(word.toUpperCase())){
-            favorites.add(word.toUpperCase());
+        if(!favorites.contains(word)){
+            favorites.add(word);
         }
     }
 
@@ -31,6 +31,7 @@ public class FavoriteWordRepository {
     }
 
     public void toggleFavorite(String word){
+        word = word.toUpperCase();
         if(isFavoriteWord(word)){
             removeFavorite(word);
         }
@@ -40,7 +41,10 @@ public class FavoriteWordRepository {
     }
 
     public boolean isFavoriteWord(String word){
-        return favorites.contains(word.toUpperCase());
+        if (word == null) return false;
+
+        word = word.toUpperCase();
+        return favorites.contains(word);
     }
 
     public List<String> getFavorites(){

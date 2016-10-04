@@ -57,11 +57,6 @@
                 android:value=".activities.MainActivity" />
         </activity>
 
-        <activity android:name=".activities.ShowFavoriteWordActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.FavoriteListActivity" />
-        </activity>
         <activity
             android:name="com.desmond.squarecamera.CameraActivity"
             android:theme="@style/AppTheme" />

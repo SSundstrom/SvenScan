@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.utils.ocr.IOCR;
 import com.example.svenscan.svenscan.utils.ocr.ImageProcessor;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
@@ -13,7 +14,7 @@ import com.googlecode.leptonica.android.WriteFile;
 
 public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     private View rootView;
-    private OCRDecoder ocr;
+    private IOCR ocr;
     private ITaskCompleteHandler resultHandler;
 
 
@@ -21,7 +22,7 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
         void onOCRComplete(String ocrResult);
     }
 
-    public OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, ITaskCompleteHandler resultHandler) {
+    public OCRDecoderAsyncTask(View rootView, IOCR ocr, ITaskCompleteHandler resultHandler) {
         this.rootView = rootView;
         this.ocr = ocr;
         this.resultHandler = resultHandler;

@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.adapters.ArrayListAdapter;
+import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,9 @@ public class FavoriteListActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
-        Intent intent = getIntent();
-        ArrayList<String> favoriteList = (ArrayList<String>) intent.getSerializableExtra("favoriteWords");
-        initList(favoriteList);
+        SvenScanApplication app = (SvenScanApplication) getApplication();
+        FavoriteWordRepository favoriteWordRepository = app.getFavoriteWordRepository();
+        initList((ArrayList<String>)favoriteWordRepository.getFavorites());  // TODO: ouch on typecast.. Should be able to handle all lists?
 
     }
     private void initList(ArrayList<String> list){
@@ -38,8 +39,9 @@ public class FavoriteListActivity extends AppCompatActivity{
         */
     }
     public void showWord(View view){
-        Intent intent = new Intent(this, ShowFavoriteWordActivity.class);
-        intent.putExtra("word", (String) view.getTag());
+        Intent intent = new Intent(this, ShowScannedWordActivity.class);
+        System.out.println(view.getTag());
+        intent.putExtra("fav", (String)view.getTag());
         startActivity(intent);
     }
 }

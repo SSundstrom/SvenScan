@@ -17,6 +17,7 @@ import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.SoundManager;
+import com.example.svenscan.svenscan.utils.ocr.IOCR;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
@@ -25,7 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ShowScannedWordActivity extends AppCompatActivity implements OCRDecoderAsyncTask.ITaskCompleteHandler{
-    private OCRDecoder ocr;
+    private IOCR ocr;
     private SoundManager soundManager;
     private IWordRepository wordManager;
     private FavoriteWordRepository favoriteWords;
@@ -34,23 +35,22 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ocr = new OCRDecoder(getApplication()); // todo: denna bör nog köras i async-tasken... den är långsam
-
-        SvenScanApplication app = (SvenScanApplication) getApplication();
+        setContentView(R.layout.activity_show_word);
+        SvenScanApplication app = (SvenScanApplication)getApplication();
+        soundManager = new SoundManager(this);
         wordManager = app.getWordRepository();
         favoriteWords = app.getFavoriteWordRepository();
+        ocr = app.getOCR();
 
-        soundManager = new SoundManager(this);
-        setContentView(R.layout.activity_show_word);
-        Intent intent = getIntent();
+        if(getIntent().hasExtra("fav")) {
 
-        Bitmap map = BitmapFactory.decodeFile(intent.getStringExtra("picture"));
-        ImageView mainView = (ImageView)findViewById((R.id.imageView4));
-        map = Bitmap.createScaledBitmap(map, 500, 500, false);
-        mainView.setImageBitmap(map);
-        View rootView = findViewById(android.R.id.content);
-        Pix picture = ReadFile.readBitmap(map);
-        new OCRDecoderAsyncTask(rootView, ocr, this).execute(picture);
+            currentWordFromFavorites();
+
+        } else {
+
+            currentWordFromOCR();
+
+        }
 
     }
 
@@ -61,11 +61,12 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
     }
 
     public void favoriteWord(View view) {
-        if (ocr.getText() == null || !wordManager.containsWord(ocr.getText())) {
+        if (currentWord == null) {
             return;
         }
 
-        String word = ocr.getText();
+        String word = currentWord.getWord();
+
         View heart = findViewById(R.id.favorite);
         favoriteWords.toggleFavorite(word);
 
@@ -93,11 +94,45 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
     @Override
     public void onOCRComplete(String ocrResult) {
+
+        if (wordManager.containsWord(ocrResult)) {
+            currentWord = wordManager.getWordFromID(ocrResult);
+//            soundManager.start(currentWord.getSoundID());  // TODO: 2016-10-03 get real sound path
+
+        }
+
+        handleCurrentWord();
+
+    }
+
+    private void currentWordFromFavorites() {
+        String wordID = getIntent().getStringExtra("fav").toUpperCase();
+
+        currentWord = wordManager.getWordFromID(wordID);
+
+        Bitmap map = BitmapFactory.decodeResource(getResources(), R.drawable.no_pic);
+
+        setLeftPicture(map);
+
+        handleCurrentWord();
+    }
+
+    private void currentWordFromOCR() {
+
+        Bitmap map = BitmapFactory.decodeFile(getIntent().getStringExtra("picture"));
+        setLeftPicture(map);
+        map = Bitmap.createScaledBitmap(map, 500, 500, false);
+        View rootView = findViewById(android.R.id.content);
+        Pix picture = ReadFile.readBitmap(map);
+
+        new OCRDecoderAsyncTask(rootView, ocr, this).execute(picture);
+
+    }
+    private void handleCurrentWord() {
+
         Button heart = (Button)findViewById(R.id.favorite);
 
-        Word word = wordManager.getWordFromID(ocrResult);
-
-        if (word != null && favoriteWords.isFavoriteWord(word.getWord())) {
+        if (currentWord != null && favoriteWords.isFavoriteWord(currentWord.getWord())) {
             heart.setBackgroundResource(R.drawable.fav_red);
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
@@ -105,11 +140,15 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         heart.setClickable(true);
 
-        if (wordManager.containsWord(ocrResult)) {
-            currentWord = wordManager.getWordFromID(ocrResult);
-//            soundManager.start(currentWord.getSoundID());  // TODO: 2016-10-03 get real sound path
 
-        }
+
+    }
+
+    private void setLeftPicture(Bitmap map) {
+
+        ImageView mainView = (ImageView) findViewById((R.id.imageView4));
+        mainView.setImageBitmap(map);
+
     }
 }
 
