@@ -7,23 +7,32 @@ import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.karumi.dexter.Dexter;
+import com.example.svenscan.svenscan.utils.ocr.IOCR;
+import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 
 import java.util.HashSet;
 
 public class SvenScanApplication extends Application {
     private IWordRepository wordRepository;
     private FavoriteWordRepository favoriteWordRepository; // todo: bör vara interface?
+    private IOCR ocr;
 
     public void onCreate() {
         super.onCreate();
         wordRepository = new FirebaseWordRepository();
         favoriteWordRepository = new FavoriteWordRepository();
+        ocr = new OCRDecoder(this);
+
         recreateFavoriteWords();
         Dexter.initialize(this);
     }
 
     public IWordRepository getWordRepository() {
         return wordRepository;
+    }
+
+    public IOCR getOCR () {
+        return ocr;
     }
 
     public FavoriteWordRepository getFavoriteWordRepository() {

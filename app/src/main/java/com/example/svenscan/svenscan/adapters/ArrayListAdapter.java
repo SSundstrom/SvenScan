@@ -3,42 +3,52 @@ package com.example.svenscan.svenscan.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.SvenScanApplication;
+import com.example.svenscan.svenscan.models.Word;
+import com.example.svenscan.svenscan.repositories.IWordRepository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ArrayListAdapter extends BaseAdapter{
 
     ArrayList<String> arrayList;
+    FavoriteItemViewHolder holder;
+    IWordRepository wordManager;
 
-    public ArrayListAdapter(ArrayList<String> al){
+    public ArrayListAdapter(ArrayList<String> al, SvenScanApplication application){
         arrayList = al;
+        wordManager = application.getWordRepository();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final View result;
         if (convertView == null) {
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_list_item, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_list_item, parent, false);
+
+            holder = new FavoriteItemViewHolder();
+            holder.word = (TextView) convertView.findViewById(R.id.favoriteWord);
+            holder.wordImage = (ImageView) convertView.findViewById(R.id.wordImage);
+            holder.moreInfo = (Button) convertView.findViewById(R.id.moreInfo);
+
+            convertView.setTag(holder);
         } else {
-            result = convertView;
+            holder = (FavoriteItemViewHolder) convertView.getTag();
         }
 
-        // TODO replace findViewById by FavoriteItemViewHolder
-        //FavoriteItemViewHolder holder = new FavoriteItemViewHolder();
-        //holder.textView = convertView.findViewById(R.id.favorites);
-        //convertView.setTag(holder);
-        ((TextView) result.findViewById(R.id.favoriteWord)).setText(getItem(position));
+        Word word = wordManager.getWordFromID(getItem(position));
+        holder.word.setText(word.getWord());
+        //TODO: change to correct word picture
+        holder.wordImage.setImageResource(R.drawable.no_pic);
+        holder.moreInfo.setTag(word.getWord());
 
-
-
-        return result;
+        return convertView;
     }
 
     @Override

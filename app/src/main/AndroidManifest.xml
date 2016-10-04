@@ -55,6 +55,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ScanActivity" />
         </activity>
+
         <activity
             android:name="com.desmond.squarecamera.CameraActivity"
             android:theme="@style/AppTheme" />
