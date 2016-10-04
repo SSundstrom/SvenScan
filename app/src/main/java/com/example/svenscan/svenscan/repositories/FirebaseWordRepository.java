@@ -61,10 +61,10 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
      */
     @Override
     public void onDataChange(DataSnapshot listSnapshot) {
-        // todo: should probably do some try/catch here
 
         for (DataSnapshot wordSnapshot : listSnapshot.getChildren()) {
             Word word = wordSnapshot.getValue(Word.class);
+            word.setWordID(wordSnapshot.getKey());
             wordMap.put(wordSnapshot.getKey(), word);
         }
 

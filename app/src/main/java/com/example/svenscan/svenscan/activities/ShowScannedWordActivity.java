@@ -1,37 +1,36 @@
 package com.example.svenscan.svenscan.activities;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.svenscan.svenscan.R;
+import com.example .svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
+import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
+import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.SoundManager;
 import com.example.svenscan.svenscan.utils.ocr.IOCR;
-import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class ShowScannedWordActivity extends AppCompatActivity implements OCRDecoderAsyncTask.ITaskCompleteHandler{
     private IOCR ocr;
     private SoundManager soundManager;
     private IWordRepository wordManager;
-    private FavoriteWordRepository favoriteWords;
+    private IFavoriteRepository favoriteWords;
+    private IMediaRepository mediaRepository;
     private Word currentWord;
+
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -41,25 +40,25 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         soundManager = new SoundManager(this);
         wordManager = app.getWordRepository();
         favoriteWords = app.getFavoriteWordRepository();
+        mediaRepository = app.getMediaRepository();
+
         ocr = app.getOCR();
 
         if(getIntent().hasExtra("fav")) {
 
-            System.out.println("get word from Fav");
             currentWordFromFavorites();
 
         } else {
 
-            System.out.println("get word from OCR");
             currentWordFromOCR();
 
         }
 
     }
 
-    public void playWord(View view) {
+    public void playWord(@Nullable View view) {
         if (currentWord != null) {
-            soundManager.start(currentWord.getSoundID());
+            mediaRepository.getSoundUri(currentWord.getSoundPath(), (soundUri) -> soundManager.start(soundUri));
         }
     }
 
@@ -68,7 +67,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
             return;
         }
 
-        String word = currentWord.getWord();
+        String word = currentWord.getWordID();
 
         View heart = findViewById(R.id.favorite);
         favoriteWords.toggleFavorite(word, this);
@@ -118,11 +117,12 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         new OCRDecoderAsyncTask(rootView, ocr, this).execute(picture);
 
     }
+
     private void handleCurrentWord() {
 
         Button heart = (Button)findViewById(R.id.favorite);
 
-        if (currentWord != null && favoriteWords.isFavoriteWord(currentWord.getWord())) {
+        if (currentWord != null && favoriteWords.isFavoriteWord(currentWord.getWordID())) {
             heart.setBackgroundResource(R.drawable.fav_red);
         } else {
             heart.setBackgroundResource(R.drawable.fav_gray);
@@ -130,8 +130,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         heart.setClickable(true);
         setText(currentWord.getWord());
-        soundManager.start(currentWord.getSoundID());  // TODO: 2016-10-03 get real sound path
-
+        playWord(null);
     }
 
     private void setLeftPicture(Bitmap map) {

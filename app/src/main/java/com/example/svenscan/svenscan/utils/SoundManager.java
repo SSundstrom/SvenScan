@@ -1,8 +1,15 @@
 package com.example.svenscan.svenscan.utils;
 import android.app.Activity;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.widget.Toast;
+
+import com.google.firebase.storage.StorageReference;
 
 import com.example.svenscan.svenscan.R;
+
+import java.io.IOException;
 
 public class SoundManager  {
 
@@ -16,9 +23,9 @@ public class SoundManager  {
         this.activity = activity;
     }
 
-    public void setSound(int soundID){
-//        mediaPlayer = MediaPlayer.create(activity, soundID);
-        mediaPlayer = MediaPlayer.create(activity, R.raw.giggity); // TODO: 2016-10-04 shits broken.. We need to make it work with external audio
+    public void setSound(Uri soundUri){
+
+        mediaPlayer = MediaPlayer.create(activity, soundUri);
         hasSound = true;
     }
 
@@ -28,8 +35,8 @@ public class SoundManager  {
         }
     }
 
-    public void start(int soundID){
-        setSound(soundID);
+    public void start(Uri soundUri){
+        setSound(soundUri);
         start();
     }
 

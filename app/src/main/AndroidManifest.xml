@@ -17,13 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
-        <activity
-            android:name=".activities.PlayPronunciationActivity"
-            android:label="@string/title_activity_play_pronunciation">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ScanActivity" />
-        </activity>
         <activity android:name=".activities.ScanActivity">
         </activity>
         <activity

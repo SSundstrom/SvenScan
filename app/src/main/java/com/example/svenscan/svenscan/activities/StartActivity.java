@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.SvenScanApplication;
+import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.utils.CameraAndStoragePermission;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
@@ -25,6 +27,8 @@ public class StartActivity extends AppCompatActivity {
     public void onAllPermissionsApproved() {
         Intent i = new Intent(this, ScanActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        IMediaRepository mediaRepository = ((SvenScanApplication)getApplication()).getMediaRepository();
+        mediaRepository.initialize(getFilesDir());
         startActivity(i);
     }
 

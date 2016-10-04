@@ -24,6 +24,7 @@ public class ArrayListAdapter extends BaseAdapter{
 
     public ArrayListAdapter(ArrayList<String> al, SvenScanApplication application){
         arrayList = al;
+        System.out.println(al);
         wordManager = application.getWordRepository();
     }
 
@@ -42,11 +43,13 @@ public class ArrayListAdapter extends BaseAdapter{
             holder = (FavoriteItemViewHolder) convertView.getTag();
         }
 
+        System.out.println(position);
+        System.out.println(getItem(position));
         Word word = wordManager.getWordFromID(getItem(position));
         holder.word.setText(word.getWord());
         //TODO: change to correct word picture
         holder.wordImage.setImageResource(R.drawable.no_pic);
-        holder.moreInfo.setTag(word.getWord());
+        holder.moreInfo.setTag(word.getWordID());
 
         return convertView;
     }
