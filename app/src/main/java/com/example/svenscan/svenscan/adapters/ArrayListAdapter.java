@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.models.Word;
+import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 
 import java.util.ArrayList;
@@ -21,11 +22,13 @@ public class ArrayListAdapter extends BaseAdapter{
     ArrayList<String> arrayList;
     FavoriteItemViewHolder holder;
     IWordRepository wordManager;
+    IMediaRepository mediaRepository;
 
     public ArrayListAdapter(ArrayList<String> al, SvenScanApplication application){
         arrayList = al;
         System.out.println(al);
         wordManager = application.getWordRepository();
+        mediaRepository = application.getMediaRepository();
     }
 
     @Override
@@ -47,8 +50,7 @@ public class ArrayListAdapter extends BaseAdapter{
         System.out.println(getItem(position));
         Word word = wordManager.getWordFromID(getItem(position));
         holder.word.setText(word.getWord());
-        //TODO: change to correct word picture
-        holder.wordImage.setImageResource(R.drawable.no_pic);
+        mediaRepository.getImageUri(word.getImagePath(), holder.wordImage::setImageURI);
         holder.moreInfo.setTag(word.getWordID());
 
         return convertView;

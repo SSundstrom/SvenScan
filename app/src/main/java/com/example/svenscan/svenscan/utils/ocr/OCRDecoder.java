@@ -29,9 +29,6 @@ public class OCRDecoder implements IOCR {
 
 
     public OCRDecoder(Application app){
-
-        System.out.println("startOCR");
-
         initiateOCR(app);
         //tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");  // Should make OCR only take numbers
     }

@@ -23,13 +23,13 @@ public class SoundManager  {
         this.activity = activity;
     }
 
-    public void setSound(Uri soundUri){
+    private void setSound(Uri soundUri){
 
         mediaPlayer = MediaPlayer.create(activity, soundUri);
         hasSound = true;
     }
 
-    public void start(){
+    private void start(){
         if (hasSound) {
             mediaPlayer.start();
         }
