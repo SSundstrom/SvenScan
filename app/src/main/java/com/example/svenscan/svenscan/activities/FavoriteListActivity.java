@@ -6,22 +6,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.example.svenscan.svenscan.R;
-import com.example.svenscan.svenscan.adapters.HashMapAdapter;
+import com.example.svenscan.svenscan.SvenScanApplication;
+import com.example.svenscan.svenscan.adapters.ArrayListAdapter;
+import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FavoriteListActivity extends AppCompatActivity{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
-        Intent intent = getIntent();
-        HashMap<String,Object> hm = (HashMap<String,Object>) intent.getSerializableExtra("favoriteWords");
-        initList(hm);
+
+        SvenScanApplication app = (SvenScanApplication) getApplication();
+        FavoriteWordRepository favoriteWords = app.getFavoriteWordRepository();
+
+        initList(favoriteWords.getFavorites());
 
     }
-    private void initList(HashMap<String, Object> hashMap){
+    private void initList(List<String> list){
         ListView favorites = (ListView) findViewById(R.id.favorites);
-        favorites.setAdapter(new HashMapAdapter(hashMap));
+        favorites.setAdapter(new ArrayListAdapter((ArrayList<String>) list));
     }
 }

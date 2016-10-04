@@ -1,13 +1,17 @@
 package com.example.svenscan.svenscan.models;
 
-import java.io.Serializable;
+import com.google.firebase.database.IgnoreExtraProperties;
 
-public class Word implements Serializable{
+@IgnoreExtraProperties
+public class Word {
 
     private int soundID;
     private String imagePath;
     private String word;
-    private boolean favorite;
+
+    public Word() {
+        // Default constructor is required by Firebase
+    }
 
     public Word(String word, String imagePath, int soundPath) {
         this.word = word;
@@ -27,11 +31,8 @@ public class Word implements Serializable{
         return imagePath;
     }
 
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean state) {
-        favorite = state;
+    @Override
+    public String toString() {
+        return "Word = " + word + " | soundId = " + soundID;
     }
 }

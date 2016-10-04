@@ -41,7 +41,7 @@ public class OCRDecoder {
         tess.setImage(picture);
         text = tess.getUTF8Text();
         tess.clear();
-        text = text.trim().toUpperCase();
+        text = text.trim(); // TODO: 2016-10-03 Trim is not working
         return text;
     }
 
@@ -91,6 +91,6 @@ public class OCRDecoder {
     }
 
     public String getText() {
-        return text;
+        return text.trim().toUpperCase();
     }
 }

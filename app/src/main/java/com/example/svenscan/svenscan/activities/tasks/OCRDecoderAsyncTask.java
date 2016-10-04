@@ -2,12 +2,10 @@ package com.example.svenscan.svenscan.activities.tasks;
 
 import android.os.AsyncTask;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.svenscan.svenscan.R;
-import com.example.svenscan.svenscan.repositories.WordRepository;
 import com.example.svenscan.svenscan.utils.ocr.ImageProcessor;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import com.googlecode.leptonica.android.Pix;
@@ -18,8 +16,9 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     private OCRDecoder ocr;
     private ITaskCompleteHandler resultHandler;
 
+
     public interface ITaskCompleteHandler {
-        void onOCRComplete(String word);
+        void onOCRComplete(String ocrResult);
     }
 
     public OCRDecoderAsyncTask(View rootView, OCRDecoder ocr, ITaskCompleteHandler resultHandler) {
@@ -42,7 +41,6 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
 
     @Override
     protected String doInBackground(Pix... params) {
-
         ImageProcessor leptonica = new ImageProcessor();
         Pix optimizedPicture = leptonica.getOptimizedPicture(params[0]);
         publishProgress(optimizedPicture);
@@ -51,13 +49,6 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
 
     @Override
     protected void onPostExecute(String ocrResult) {
-        TextView textBox = ((TextView)rootView.findViewById(R.id.wordText));
-        ocrResult = ocrResult.toUpperCase().trim();
-        if(ocrResult != null) {
-            textBox.setText(ocrResult);
-        } else {
-            textBox.setText("(null)");
-        }
         resultHandler.onOCRComplete(ocrResult);
     }
 }

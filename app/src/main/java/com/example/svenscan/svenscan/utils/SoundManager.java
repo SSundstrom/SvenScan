@@ -2,6 +2,8 @@ package com.example.svenscan.svenscan.utils;
 import android.app.Activity;
 import android.media.MediaPlayer;
 
+import com.example.svenscan.svenscan.R;
+
 public class SoundManager  {
 
     private boolean hasSound;
@@ -15,7 +17,8 @@ public class SoundManager  {
     }
 
     public void setSound(int soundID){
-        mediaPlayer = MediaPlayer.create(activity, soundID);
+//        mediaPlayer = MediaPlayer.create(activity, soundID);
+        mediaPlayer = MediaPlayer.create(activity, R.raw.giggity); // TODO: 2016-10-04 shits broken.. We need to make it work with external audio
         hasSound = true;
     }
 
