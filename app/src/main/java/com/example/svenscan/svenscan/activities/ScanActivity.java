@@ -5,8 +5,10 @@ import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.fragments.ScanFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class ScanActivity extends com.desmond.squarecamera.CameraActivity {
 
@@ -24,5 +26,10 @@ public class ScanActivity extends com.desmond.squarecamera.CameraActivity {
                     .commit();
         }
 
+    }
+
+    public void toFavoriteWords(View view){
+        Intent intent = new Intent(this, FavoriteListActivity.class);
+        startActivity(intent);
     }
 }

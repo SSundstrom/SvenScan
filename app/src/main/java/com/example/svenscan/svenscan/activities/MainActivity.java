@@ -22,35 +22,15 @@ public class MainActivity extends AppCompatActivity implements Camera.ICameraCap
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         camera = new Camera(this, this);
-        setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this, ScanActivity.class);
+        startActivity(intent);
+
 
     }
 
     public void chooseImage(View view) {
         camera.show();
     }
-
-    public void playSound(View view){
-        Intent tmp = new Intent(this, PlayPronunciationActivity.class);
-        startActivity(tmp);
-    }
-
-    public void recordPronunciation(View view){
-        Intent tmp = new Intent(this, RecordPronunciationActivity.class);
-        startActivity(tmp);
-    }
-
-    public void showAllWords(View view){
-        Intent tmp = new Intent(this, DebugWordListActivity.class);
-        startActivity(tmp);
-
-    }
-
-    public void showFavoriteWords(View view){
-        Intent intent = new Intent(this, FavoriteListActivity.class);
-        startActivity(intent);
-    }
-
 
     @Override
     public void onCameraCapture(String imagePath) {
