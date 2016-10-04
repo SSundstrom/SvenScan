@@ -44,7 +44,7 @@ public class RecordPronunciationActivity extends AppCompatActivity {
 
             EditText swedishWord = (EditText) findViewById(R.id.swedishWord);
             String filename = swedishWord.getText().toString();
-            mediaRecorder.setOutputFile(PATH + "/SvenScan/" + filename + ".3gp");
+            mediaRecorder.setOutputFile(PATH + "/SvenScan/" + filename + ".3gp");  // TODO: 2016-10-04 Snacka med Sawmill om var vi sparar ljud
 
             try {
                 mediaRecorder.prepare();

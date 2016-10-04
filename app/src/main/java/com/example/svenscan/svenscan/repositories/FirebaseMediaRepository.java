@@ -1,7 +1,5 @@
 package com.example.svenscan.svenscan.repositories;
 
-import android.app.Application;
-import android.content.Context;
 import android.net.Uri;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -9,6 +7,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
@@ -25,13 +24,13 @@ public class FirebaseMediaRepository implements IMediaRepository{
     }
 
     @Override
-    public void addSound(String absSoundPath) {
-
+    public void addSound(Uri fileName) {
+        uploadMedia("sounds/" + fileName.getLastPathSegment(), fileName);
     }
 
     @Override
-    public void addImage(String absImagePath) {
-
+    public void addImage(Uri fileName) {
+        uploadMedia("images/" + fileName.getLastPathSegment(), fileName);
     }
 
     @Override
@@ -63,8 +62,8 @@ public class FirebaseMediaRepository implements IMediaRepository{
 
     }
 
-    private void downloadMedia(String path, File localFile, IMediaHandler handler) {
-        StorageReference mediaRef = storageRef.child(path);
+    private void downloadMedia(String firebasePath, File localFile, IMediaHandler handler) {
+        StorageReference mediaRef = storageRef.child(firebasePath);
 
         mediaRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
@@ -76,6 +75,25 @@ public class FirebaseMediaRepository implements IMediaRepository{
             public void onFailure(Exception exception) {
                 System.out.println(exception.getMessage());
                 // Handle any errors
+            }
+        });
+    }
+
+    private void uploadMedia(String firebasePath, Uri localFileUri) {
+
+        StorageReference riversRef = storageRef.child(firebasePath);
+
+        riversRef.putFile(localFileUri).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception exception) {
+                // Handle unsuccessful uploads
+                // TODO: 2016-10-04 Show some nice "Upload fail" message
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                // TODO: 2016-10-04 Show some nice "Upload complete" message
             }
         });
     }
