@@ -29,18 +29,10 @@ public class ScanActivity extends CameraActivity  {
 
     }
 
-    public void onCameraCapture(String imagePath) {
-        Intent intent = new Intent(this, ShowScannedWordActivity.class);
-        intent.putExtra("picture", imagePath);
-        startActivity(intent);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            //String imagePath = data.getData().getPath();
-            //onCameraCapture(imagePath);
         } else if(data != null) {
             Exception e = new Exception("Welp, this didn't work");
             e.printStackTrace();
