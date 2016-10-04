@@ -4,17 +4,12 @@ import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.fragments.ScanFragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 public class ScanActivity extends CameraActivity  {
-
-    public ScanActivity(){}
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,21 +17,9 @@ public class ScanActivity extends CameraActivity  {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, ScanFragment.newInstance(), ScanFragment.TAG)
-                    .commit();
-        }
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-        } else if(data != null) {
-            Exception e = new Exception("Welp, this didn't work");
-            e.printStackTrace();
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                .beginTransaction()
+                .replace(R.id.fragment_container, ScanFragment.newInstance(), ScanFragment.TAG)
+                .commit();
         }
     }
 
@@ -52,6 +35,4 @@ public class ScanActivity extends CameraActivity  {
         Intent intent = new Intent(this, FavoriteListActivity.class);
         startActivity(intent);
     }
-
-
 }

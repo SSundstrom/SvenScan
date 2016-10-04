@@ -17,7 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
-        android:name="android.support.multidex.MultiDexApplication">
         <activity
             android:name=".activities.PlayPronunciationActivity"
             android:label="@string/title_activity_play_pronunciation">

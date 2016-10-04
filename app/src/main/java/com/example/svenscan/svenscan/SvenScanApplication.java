@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
+import com.google.firebase.FirebaseApp;
 import com.karumi.dexter.Dexter;
 import com.example.svenscan.svenscan.utils.ocr.IOCR;
 import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
@@ -13,17 +14,25 @@ import com.example.svenscan.svenscan.utils.ocr.OCRDecoder;
 import java.util.HashSet;
 
 public class SvenScanApplication extends Application {
-    private IWordRepository wordRepository;
-    private FavoriteWordRepository favoriteWordRepository; // todo: bör vara interface?
-    private IOCR ocr;
+    private static IWordRepository wordRepository;
+    private static FavoriteWordRepository favoriteWordRepository; // todo: bör vara interface?
+    private static IOCR ocr;
 
     public void onCreate() {
         super.onCreate();
-        wordRepository = new FirebaseWordRepository();
-        favoriteWordRepository = new FavoriteWordRepository();
-        ocr = new OCRDecoder(this);
+        FirebaseApp.initializeApp(this);
 
-        recreateFavoriteWords();
+        if (wordRepository == null)
+            wordRepository = new FirebaseWordRepository();
+
+        if (favoriteWordRepository == null) {
+            favoriteWordRepository = new FavoriteWordRepository();
+            recreateFavoriteWords();
+        }
+
+        if (ocr == null)
+            ocr = new OCRDecoder(this);
+
         Dexter.initialize(this);
     }
 
