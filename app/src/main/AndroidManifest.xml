@@ -39,9 +39,6 @@
                 android:value=".activities.ScanActivity" />
         </activity>
 
-        <activity
-            android:name="com.desmond.squarecamera.CameraActivity"
-            android:theme="@style/AppTheme" />
         <activity android:name=".activities.DebugWordListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -78,7 +78,7 @@
             android:layout_height="0dp" />
 
         <Button
-            android:background="@drawable/ic_favorite_black_24dp"
+            android:background="@drawable/ic_not_fav_24dp"
             android:layout_height="wrap_content"
             android:layout_width="50dp"
             android:id="@+id/favorite"
