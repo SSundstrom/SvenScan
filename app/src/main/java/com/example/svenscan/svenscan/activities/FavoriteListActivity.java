@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
-import com.example.svenscan.svenscan.adapters.ArrayListAdapter;
+import com.example.svenscan.svenscan.adapters.ListAdapter;
 import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 
 import java.util.ArrayList;
@@ -29,16 +30,15 @@ public class FavoriteListActivity extends AppCompatActivity{
     }
     private void initList(List<String> list){
         ListView favorites = (ListView) findViewById(R.id.favorites);
-        favorites.setAdapter(new ArrayListAdapter((ArrayList<String>)list ,(SvenScanApplication) getApplication()));
+        favorites.setAdapter(new ListAdapter(list ,(SvenScanApplication) getApplication()));
         //TODO: implement so that you can click on every object instead of "more" button
-        /*
         favorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.print("Clicked" + position +"");
+                showWord(view);
+                System.out.print("Clicked " + position +"" + view.getTag());
             }
         });
-        */
     }
     public void showWord(View view){
         Intent intent = new Intent(this, ShowScannedWordActivity.class);

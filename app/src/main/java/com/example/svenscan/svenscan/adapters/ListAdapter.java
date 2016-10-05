@@ -15,17 +15,17 @@ import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class ArrayListAdapter extends BaseAdapter{
+public class ListAdapter extends BaseAdapter{
 
-    ArrayList<String> arrayList;
+    List<String> list;
     FavoriteItemViewHolder holder;
     IWordRepository wordManager;
     IMediaRepository mediaRepository;
 
-    public ArrayListAdapter(ArrayList<String> al, SvenScanApplication application){
-        arrayList = al;
+    public ListAdapter(List<String> al, SvenScanApplication application){
+        list = al;
         System.out.println(al);
         wordManager = application.getWordRepository();
         mediaRepository = application.getMediaRepository();
@@ -37,21 +37,21 @@ public class ArrayListAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_list_item, parent, false);
 
             holder = new FavoriteItemViewHolder();
+            holder.view = convertView.findViewById(R.id.listItem);
             holder.word = (TextView) convertView.findViewById(R.id.favoriteWord);
             holder.wordImage = (ImageView) convertView.findViewById(R.id.wordImage);
-            holder.moreInfo = (Button) convertView.findViewById(R.id.moreInfo);
 
             convertView.setTag(holder);
         } else {
             holder = (FavoriteItemViewHolder) convertView.getTag();
         }
 
-        System.out.println(position);
-        System.out.println(getItem(position));
         Word word = wordManager.getWordFromID(getItem(position));
-        holder.word.setText(word.getWord());
-        mediaRepository.getImageUri(word.getImagePath(), holder.wordImage::setImageURI);
-        holder.moreInfo.setTag(word.getWordID());
+        if (word!=null) {
+            holder.view.setTag(word.getWordID());
+            holder.word.setText(word.getWord());
+            mediaRepository.getImageUri(word.getImagePath(), holder.wordImage::setImageURI);
+        }
 
         return convertView;
     }
@@ -63,11 +63,11 @@ public class ArrayListAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return arrayList.size();
+        return list.size();
     }
 
     @Override
     public String getItem(int position) {
-        return arrayList.get(position);
+        return list.get(position);
     }
 }
