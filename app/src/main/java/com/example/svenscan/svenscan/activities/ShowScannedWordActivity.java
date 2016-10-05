@@ -121,7 +121,7 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
         if (currentWord != null && favoriteWords.isFavoriteWord(currentWord.getWordID())) {
             heart.setBackgroundResource(R.drawable.ic_favorite_pink_24dp);
         } else {
-            heart.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+            heart.setBackgroundResource(R.drawable.ic_not_fav_24dp);
         }
 
         heart.setClickable(true);
