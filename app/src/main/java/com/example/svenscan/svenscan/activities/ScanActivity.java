@@ -43,7 +43,7 @@ public class ScanActivity extends CameraActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent i = new Intent(this, RecordPronunciationActivity.class);
+                Intent i = new Intent(this, AddNewWordActivity.class);
                 startActivity(i);
                 return true;
 

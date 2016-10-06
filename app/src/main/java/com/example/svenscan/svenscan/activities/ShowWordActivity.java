@@ -2,16 +2,13 @@ package com.example.svenscan.svenscan.activities;
 
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -86,7 +83,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
             ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
             imageButton.setBackgroundResource(R.drawable.redo_button);
             ImageView errorImage = (ImageView) findViewById((R.id.noWordErrorImage));
-            errorImage.setBackgroundResource(R.drawable.utropstecken);
+            errorImage.setBackgroundResource(R.drawable.exclamation_mark);
             TextView errorText = (TextView) findViewById(R.id.errorText);
             errorText.setText("Tyvärr hittas inte det scannade ordet, försök igen! \n"  + ocrResult);
 
@@ -133,7 +130,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
     private void setFavoriteColor() {
 
-        Button heart = (Button)findViewById(R.id.favorite);
+        ImageButton heart = (ImageButton)findViewById(R.id.favorite);
 
         if (currentWord != null && favoriteWords.isFavoriteWord(currentWord.getWordID())) {
             heart.setBackgroundResource(R.drawable.fav_icon_24dp);

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_new_word"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.example.svenscan.svenscan.activities.AddNewWordActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/add_word_margins_sides"
+        android:layout_marginLeft="@dimen/add_word_margins_sides">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_word_title"
+            style="@style/TextAddNewWord"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/WordExampleName"
+            style="@style/AddWordInput" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/add_word_margins_top"
+        android:layout_marginRight="@dimen/add_word_margins_sides"
+        android:layout_marginLeft="@dimen/add_word_margins_sides">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_word_image"
+            android:id="@+id/UrlInfoText"
+            style="@style/TextAddNewWord"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AddWordInput"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/add_word_margins_top">
+
+        <ImageButton
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:background="@drawable/ic_record"
+            />
+
+        <Space
+            android:layout_width="@dimen/basic_button_size"
+            android:layout_height="@dimen/basic_button_size" />
+
+        <LinearLayout
+            android:layout_width="@dimen/larger_button"
+            android:gravity="center"
+            android:layout_height="@dimen/larger_button">
+
+            <ImageButton
+                android:layout_width="@dimen/basic_button_size"
+                android:layout_height="@dimen/basic_button_size"
+                android:contentDescription="@string/favorite_word"
+                android:background="@drawable/ic_volume_up_black_24dp"/>
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+    <Button
+        android:layout_marginTop="@dimen/add_word_margins_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/okButton"
+        android:text="@string/ok"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/button_text_size"
+        />
+
+</LinearLayout>
