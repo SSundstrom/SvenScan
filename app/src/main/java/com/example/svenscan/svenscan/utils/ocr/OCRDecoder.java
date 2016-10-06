@@ -24,22 +24,20 @@ import java.io.InputStream;
 public class OCRDecoder implements IOCR {
 
     private TessBaseAPI tess;
-    private String text;
     private String langPath;
 
 
     public OCRDecoder(Application app){
         initiateOCR(app);
-        //tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "1234567890");  // Should make OCR only take numbers
+        tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö");
     }
 
     public String getStringFromPix(Pix picture) {
         tess.clear();
         tess.setImage(picture);
-        text = tess.getUTF8Text();
+        String text = tess.getUTF8Text();
         tess.clear();
-        text = text.trim(); // TODO: 2016-10-03 Trim is not working
-        return text;
+        return filterText(text);
     }
 
     private void initiateOCR(Application app) {
@@ -87,7 +85,7 @@ public class OCRDecoder implements IOCR {
         }
     }
 
-    public String getText() {
+    private String filterText(String text) {
         return text.trim().toUpperCase();
     }
 }
