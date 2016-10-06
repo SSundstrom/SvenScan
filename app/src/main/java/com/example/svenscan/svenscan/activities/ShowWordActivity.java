@@ -30,7 +30,7 @@ import com.googlecode.leptonica.android.ReadFile;
 import java.io.File;
 import com.example.svenscan.svenscan.R;
 
-public class ShowScannedWordActivity extends AppCompatActivity implements OCRDecoderAsyncTask.ITaskCompleteHandler{
+public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsyncTask.ITaskCompleteHandler{
     private IOCR ocr;
     private SoundManager soundManager;
     private IWordRepository wordManager;
