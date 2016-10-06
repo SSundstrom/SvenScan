@@ -8,24 +8,55 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
-public class ScanActivity extends CameraActivity  {
+public class ScanActivity extends CameraActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.squarecamera__CameraFullScreenTheme);
         setContentView(R.layout.activity_scan);
+        getActionBar().hide();
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().show();
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, ScanFragment.newInstance(), ScanFragment.TAG)
                 .commit();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                Intent i = new Intent(this, RecordPronunciationActivity.class);
+                startActivity(i);
+                return true;
+
+            case R.id.action_help:
+                // Intent i = new Intent(this, HelpActivity.class);
+                // startActivity(i);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
         }
     }
 
