@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#1E88E5</color>
     <color name="colorAccent">#FFEB3B</color>
     <color name="ITColor">#09CDDA</color>
+    <color name="colorPressedListItem">#6699ff</color>
+    <color name="colorDefaultListItem">#FFFFFF</color>
 </resources>
