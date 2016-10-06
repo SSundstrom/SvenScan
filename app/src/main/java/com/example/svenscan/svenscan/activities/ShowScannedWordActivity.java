@@ -1,6 +1,6 @@
 package com.example.svenscan.svenscan.activities;
 
-
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,10 +9,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
 import com.example.svenscan.svenscan.models.Word;
@@ -22,9 +22,7 @@ import com.example.svenscan.svenscan.utils.SoundManager;
 import com.example.svenscan.svenscan.utils.ocr.IOCR;
 import com.googlecode.leptonica.android.Pix;
 import com.googlecode.leptonica.android.ReadFile;
-
-import static android.R.attr.duration;
-import static android.R.attr.id;
+import com.example.svenscan.svenscan.R;
 
 public class ShowScannedWordActivity extends AppCompatActivity implements OCRDecoderAsyncTask.ITaskCompleteHandler{
     private IOCR ocr;
@@ -90,13 +88,18 @@ public class ShowScannedWordActivity extends AppCompatActivity implements OCRDec
 
         }
         else {
-            Resources res = getResources();
-            String pretext = wordManager.containsWord(ocrResult.toUpperCase()) ? "" : "Word is not recognized: \n";
-            setText(pretext + ocrResult);
+            setContentView(R.layout.no_word_match_view);
+            //ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
+            ImageView errorImage = (ImageView) findViewById((R.id.noWordErrorImage));
+            TextView errorText = (TextView) findViewById(R.id.errorText);
+            errorText.setText("Tyvärr hittas inte det scannade ordet, försök igen! \n"  + ocrResult);
 
-            Snackbar mySnackbar = Snackbar.make(R.id.wordText, res.getStringId(R.id.pop_up), duration);
-            mySnackbar.show();
         }
+    }
+
+    public void backToCamera(View view){
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
     }
 
     private void currentWordFromFavorites() {

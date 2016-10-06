@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
 import com.example.svenscan.svenscan.R;
+
 import com.example.svenscan.svenscan.utils.SoundManager;
 
 import java.io.File;
