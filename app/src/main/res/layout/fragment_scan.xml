@@ -4,48 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkGray"
     tools:context="com.desmond.squarecamera.CameraFragment">
 
     <com.desmond.squarecamera.SquareCameraPreview
         android:id="@+id/camera_preview_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-62dp"
+        android:minHeight="150dp"
+
+        />
 
     <View
         android:id="@+id/cover_top_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/squarecamera__cover_start_height"
         android:layout_alignTop="@id/camera_preview_view"
-        android:background="@color/colorPrimary"
+        android:background="@color/darkGray"
         />
 
     <View
         android:id="@+id/cover_bottom_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/squarecamera__cover_start_height"
+        android:layout_height="300dp"
         android:layout_alignBottom="@id/camera_preview_view"
-        android:background="@android:color/black"
-        android:visibility="invisible"/>
+        android:background="@color/darkGray" />
 
     <RelativeLayout
         android:id="@+id/camera_tools_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/camera_preview_view"
         android:layout_alignParentBottom="true"
-        android:padding="10dp"
-        android:background="@color/colorPrimary"
-        >
-
-        <ImageView
-            android:id="@+id/toFavoriteWords"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/fav_icon_24dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="10dp"
-            android:onClick="toFavoriteWords"
-            />
+        android:padding="@dimen/activity_vertical_margin"
+        android:background="@color/darkerGray">
 
         <ImageView
             android:id="@+id/capture_image_button"
@@ -53,14 +45,13 @@
             android:layout_height="wrap_content"
             android:src="@drawable/camera_button"
             android:layout_centerInParent="true"/>
-
-
         <LinearLayout
             android:id="@+id/flash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
 
             <ImageView
                 android:id="@+id/flash_icon"
@@ -80,6 +71,15 @@
                 android:textColor="@android:color/white"
                 android:textSize="14sp"/>
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/toFavoriteWords"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_heart_list"
+            android:onClick="toFavoriteWords"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"/>
 
     </RelativeLayout>
 

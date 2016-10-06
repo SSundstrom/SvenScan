@@ -4,17 +4,22 @@ import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.fragments.ScanFragment;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class ScanActivity extends CameraActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.squarecamera__CameraFullScreenTheme);
         setContentView(R.layout.activity_scan);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().show();
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()

@@ -6,4 +6,6 @@
     <color name="ITColor">#09CDDA</color>
     <color name="colorPressedListItem">#6699ff</color>
     <color name="colorDefaultListItem">#FFFFFF</color>
+    <color name="darkGray">#212121</color>
+    <color name="darkerGray">#151515</color>
 </resources>

@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">SvenScan</string>
     <string name="title_activity_play_pronunciation">PlayPronunciation</string>
-    <string name="enter_word">Enter a word!</string>
     <string name="title_activity_camera">CameraActivity</string>
+    <string name="no_word">Tyvärr hittas inte det scannade ordet, försök igen!</string>
+
 
 </resources>
+
+
