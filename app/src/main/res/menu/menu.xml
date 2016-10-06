@@ -5,12 +5,13 @@
     <item
         android:id="@+id/action_help"
         android:icon="@drawable/ic_help_outline_black_24dp"
-        android:title="Help"
-        app:showAsAction="always"/>
+        android:title="@string/help"
+        app:showAsAction="always"
+        />
 
     <!-- Settings, should always be in the overflow -->
     <item android:id="@+id/action_add"
-        android:title="Add word"
+        android:title="@string/add_word"
         app:showAsAction="never"/>
 
 </menu>

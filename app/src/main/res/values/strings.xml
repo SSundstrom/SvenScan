@@ -3,7 +3,8 @@
     <string name="title_activity_play_pronunciation">PlayPronunciation</string>
     <string name="title_activity_camera">CameraActivity</string>
     <string name="no_word">Tyvärr hittas inte det scannade ordet, försök igen!</string>
-
+    <string name="add_word">Lägg till ord</string>
+    <string name="help">Hjälp</string>
 
 </resources>
 
