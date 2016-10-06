@@ -20,7 +20,7 @@
         <activity android:name=".activities.ScanActivity">
         </activity>
         <activity
-            android:name=".activities.ShowScannedWordActivity"
+            android:name=".activities.ShowWordActivity"
             android:label="@string/title_activity_play_pronunciation">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
