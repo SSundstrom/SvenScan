@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/WordExampleName"
+            android:id="@+id/wordName"
             style="@style/AddWordInput" />
 
     </LinearLayout>
@@ -56,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/AddWordInput"
+            android:id="@+id/wordImageUrl"
             />
 
     </LinearLayout>
@@ -70,6 +72,7 @@
             android:layout_width="@dimen/larger_button"
             android:layout_height="@dimen/larger_button"
             android:background="@drawable/ic_record"
+            android:id="@+id/recordButton"
             />
 
         <Space
@@ -85,11 +88,12 @@
                 android:layout_width="@dimen/basic_button_size"
                 android:layout_height="@dimen/basic_button_size"
                 android:contentDescription="@string/favorite_word"
+                android:id="@+id/playRecordedSound"
                 android:background="@drawable/ic_volume_up_black_24dp"/>
 
         </LinearLayout>
 
-        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:layout_marginTop="@dimen/add_word_margins_top"
@@ -99,6 +103,7 @@
         android:text="@string/ok"
         android:textColor="@android:color/white"
         android:textSize="@dimen/button_text_size"
+        android:enabled="false"
         />
 
 </LinearLayout>

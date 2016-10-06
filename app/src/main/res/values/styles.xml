@@ -14,7 +14,7 @@
 
     <style name="AddWordInput">
         <item name="android:maxLines">1</item>
-        <item name="android:ellipsize">start</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textSize">@dimen/add_word_text</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:minWidth">150dp</item>
