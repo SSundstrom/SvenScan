@@ -15,6 +15,13 @@ public class Word {
         // Default constructor is required by Firebase
     }
 
+    public Word(String soundPath, String imagePath, String word, String wordID) {
+        this.soundPath = soundPath;
+        this.imagePath = imagePath;
+        this.word = word;
+        this.wordID = wordID;
+    }
+
     public String getWord() {
         return word;
     }
