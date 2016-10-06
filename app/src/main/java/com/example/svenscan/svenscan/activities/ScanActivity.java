@@ -4,7 +4,6 @@ import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.fragments.ScanFragment;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;

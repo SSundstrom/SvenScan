@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 public class ScanFragment extends CameraFragment {
 
     public static final String TAG = ScanFragment.class.getSimpleName();
@@ -19,7 +20,6 @@ public class ScanFragment extends CameraFragment {
         super.onCreate(savedInstanceState);
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
