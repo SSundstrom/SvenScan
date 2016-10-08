@@ -3,4 +3,5 @@
     <integer name="url">1337</integer>
     <integer name="name">420</integer>
     <integer name="PICK_IMAGE">666</integer>
+    <integer name="animationTimeSound">400</integer>
 </resources>

@@ -12,7 +12,7 @@
     android:orientation="vertical"
     tools:context="com.example.svenscan.svenscan.activities.AddNewWordActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -23,7 +23,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/wordPreText"
             android:text="@string/add_word_title"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             style="@style/TextAddNewWord"/>
 
         <EditText
@@ -31,36 +34,34 @@
             android:layout_height="wrap_content"
             android:hint="@string/WordExampleName"
             android:id="@+id/wordName"
-            android:imeActionId="5"
+            android:inputType="textCapWords"
+            android:imeOptions="actionDone"
+            android:imeActionLabel="Done"
+            android:layout_centerInParent="true"
             style="@style/AddWordInput" />
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/add_word_margins_top"
-        android:layout_marginRight="@dimen/add_word_margins_sides"
-        android:layout_marginLeft="@dimen/add_word_margins_sides">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_word_image"
-            android:id="@+id/UrlInfoText"
-            style="@style/TextAddNewWord"
-            />
+            android:id="@+id/add_new_word_error_text"
+            android:visibility="invisible"
+            android:text="@string/tooShort"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_alignParentRight="true"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wääh"
-            android:onClick="findImagePath"/>
+    </RelativeLayout>
 
-    </LinearLayout>
+
+    <ImageButton
+        android:onClick="findImagePath"
+        android:layout_marginTop="@dimen/add_word_margins_top"
+        android:layout_width="@dimen/larger_button"
+        android:layout_height="@dimen/larger_button"
+        android:background="@drawable/image_button"
+        android:id="@+id/findImageButton"
+        android:clickable="false"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,6 +74,8 @@
             android:layout_height="@dimen/larger_button"
             android:background="@drawable/ic_record"
             android:id="@+id/recordButton"
+            android:onClick="recordSound"
+            android:clickable="false"
             />
 
         <Space
@@ -89,21 +92,19 @@
                 android:layout_height="@dimen/basic_button_size"
                 android:contentDescription="@string/favorite_word"
                 android:id="@+id/playRecordedSound"
-                android:background="@drawable/ic_volume_up_black_24dp"/>
+                android:onClick="playRecordedSound"
+                android:clickable="false"
+                android:background="@drawable/ic_volume_max"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
-        android:layout_marginTop="@dimen/add_word_margins_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/AddWordTextButton"
         android:id="@+id/okButton"
         android:text="@string/ok"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/button_text_size"
-        android:enabled="false"
+        android:onClick="addNewWord"
+        android:clickable="false"
         />
-
 </LinearLayout>

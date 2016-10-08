@@ -11,6 +11,7 @@
     <string name="favorite_word">Favoritmarkera ordet</string>
     <string name="ok">OK</string>
     <string name="WordExampleName">T.ex. \"Bord\"</string>
+    <string name="tooShort">Ordet är \n för kort</string>
 
 
 </resources>

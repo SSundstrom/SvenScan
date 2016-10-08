@@ -73,7 +73,7 @@
             android:layout_alignParentRight="true"/>
 
         <ImageButton
-            android:background="@drawable/ic_volume_up_black_24dp"
+            android:background="@drawable/ic_volume_max"
             android:layout_height="@dimen/basic_button_size"
             android:layout_width="@dimen/basic_button_size"
             android:layout_marginLeft="@dimen/show_word_horizontal_margin"

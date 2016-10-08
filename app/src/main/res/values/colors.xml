@@ -8,4 +8,5 @@
     <color name="colorDefaultListItem">#FFFFFF</color>
     <color name="darkGray">#212121</color>
     <color name="darkerGray">#151515</color>
+    <color name="success_green">#00e676</color>
 </resources>

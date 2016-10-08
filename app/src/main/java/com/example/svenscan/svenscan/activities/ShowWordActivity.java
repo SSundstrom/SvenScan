@@ -4,6 +4,7 @@ package com.example.svenscan.svenscan.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -148,8 +149,24 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
     public void playWord(@Nullable View view) {
         if (currentWord != null) {
-            mediaRepository.getSoundUri(currentWord.getSoundPath(), soundManager::start);
+            mediaRepository.getSoundUri(currentWord.getSoundPath(), (uri) -> soundManager.start(uri, (v) -> stopSoundAnimation()));
+            startSoundAnimation();
         }
+    }
+    private void startSoundAnimation() {
+        System.out.println("Start animation");
+        View playWord = findViewById(R.id.playWord);
+        playWord.setBackgroundResource(R.drawable.sound_playing);
+        AnimationDrawable animation = (AnimationDrawable)playWord.getBackground();
+        animation.start();
+    }
+
+    private void stopSoundAnimation() {
+        View playWord = findViewById(R.id.playWord);
+        AnimationDrawable soundPlaying = (AnimationDrawable)playWord.getBackground();
+        soundPlaying.stop();
+        playWord.setBackgroundResource(R.drawable.ic_volume_max);
+        System.out.println("End animation");
     }
 
     private void setText(String word) {

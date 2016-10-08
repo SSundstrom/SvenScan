@@ -33,6 +33,10 @@ public class FirebaseMediaRepository implements IMediaRepository{
         uploadMedia("images/" + fileName.getLastPathSegment(), fileName);
     }
 
+    public File getSoundDir() {
+        return soundDir;
+    }
+
     @Override
     public void getSoundUri(String soundName, IMediaHandler handler) {
         getMediaUri("sounds", soundName, soundDir, handler);

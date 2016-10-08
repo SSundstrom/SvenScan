@@ -26,6 +26,7 @@ public class RecordPronunciationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_record_pronunciation);
         askForPermissions();
 
+
         File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "SvenScan");
 
         if (!folder.exists()) {
@@ -35,8 +36,6 @@ public class RecordPronunciationActivity extends AppCompatActivity {
         final Button recordButton = (Button) findViewById(R.id.recordButton);
 
         recordButton.setOnClickListener((v) -> {
-            mediaRecorder = new MediaRecorder();
-
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             mediaRecorder.setMaxDuration(5000);
@@ -57,6 +56,7 @@ public class RecordPronunciationActivity extends AppCompatActivity {
             } else {
                 mediaRecorder.stop();
                 isRecording = false;
+                mediaRecorder.reset();
             }
         });
     }

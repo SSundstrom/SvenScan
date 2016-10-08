@@ -22,6 +22,14 @@
         <item name="android:scrollHorizontally">true</item>
     </style>
 
+    <style name="AddWordTextButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/add_word_margins_top</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
     <style name="TextAddNewWord">
         <item name="android:textSize">@dimen/add_word_text</item>
         <item name="android:textColor">@android:color/darker_gray</item>

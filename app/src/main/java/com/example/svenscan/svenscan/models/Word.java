@@ -44,7 +44,7 @@ public class Word {
 
     @Override
     public String toString() {
-        return "Word = " + word + " | soundId = " + soundPath;
+        return "Word = " + word + "\nsoundId = " + soundPath + "\nimagepath = " + imagePath + "\nWordID = " + wordID;
     }
 
 }
