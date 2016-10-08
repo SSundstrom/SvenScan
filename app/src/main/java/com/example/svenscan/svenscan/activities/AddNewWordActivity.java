@@ -63,6 +63,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (v.getText().length() == 0) {
                     showWordToShortNotification(true);
+                    setMediaClickable(false);
+                    return false;
                 }
                 getName();
                 getWordID();
@@ -121,18 +123,21 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
             okButton.setBackgroundResource(R.color.success_green);
         } else {
             okButton.setClickable(false);
-            okButton.setBackgroundResource(R.color.darkGray);
+            okButton.setBackgroundResource(R.color.darkerGray);
         }
     }
 
 
     public void findImagePath(View view) {
-        if (view.isClickable()) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), getIntFromID(R.integer.PICK_IMAGE));
+        if (!view.isClickable()) {
+            System.out.println("not clickable yet");
+            return;
         }
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), getIntFromID(R.integer.PICK_IMAGE));
 
     }
 

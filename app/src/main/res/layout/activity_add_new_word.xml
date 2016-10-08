@@ -105,5 +105,6 @@
         android:text="@string/ok"
         android:onClick="addNewWord"
         android:clickable="false"
+        android:background="@color/darkerGray"
         />
 </LinearLayout>
