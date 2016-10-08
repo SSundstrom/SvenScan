@@ -58,8 +58,12 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
     private void setListeners() {
         EditText nameField = (EditText)findViewById(R.id.addWordTextField);
+        nameField.setSelectAllOnFocus(true);
         nameField.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (v.getText().length() == 0) {
+                    showWordToShortNotification(true);
+                }
                 getName();
                 getWordID();
                 setMediaClickable(true);
@@ -80,7 +84,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     public void addNewWord(View view) {
         getWordID();
         Word word = new Word(soundFileName, imageFileName, name, wordID);
-        System.out.println("final word \n" + word);
         mediaRepository.addImage(imageUri);
         mediaRepository.addSound(soundUri);
         wordRepository.addWord(wordID, word);
@@ -126,7 +129,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     public void findImagePath(View view) {
         if (view.isClickable()) {
             Intent intent = new Intent();
-
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), getIntFromID(R.integer.PICK_IMAGE));
@@ -136,6 +138,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
     private void getName() {
         name = ((EditText)(findViewById(R.id.addWordTextField))).getText().toString();
+        name = name.trim();
         name = makeStuffToCorrectCaseLettering(name);
     }
 
@@ -172,7 +175,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
 
     private void setMediaClickable(Boolean status) {
-        System.out.println("media clickable = " + status);
         findViewById(R.id.recordButton).setClickable(status);
         findViewById(R.id.findImageButton).setClickable(status);
     }
