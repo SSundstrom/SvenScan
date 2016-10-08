@@ -1,9 +1,12 @@
 package com.example.svenscan.svenscan.utils;
 import android.app.Activity;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.storage.StorageReference;
@@ -61,6 +64,31 @@ public class SoundManager  {
                 Log.d("Mediaplayer", e.getMessage());
             }
         }
+    }
+
+    public void start(Uri soundUri, View view) {
+        if (!playing) {
+            setSound(soundUri);
+            mediaPlayer.setOnCompletionListener((v) -> setAnimation(view, false));
+            mediaPlayer.setOnPreparedListener((v) -> mediaPlayer.start());
+            try {
+                mediaPlayer.start();
+                setAnimation(view, true);
+            } catch (IllegalStateException e) {
+                Log.d("Mediaplayer", e.getMessage());
+            }
+        }
+    }
+
+    private void setAnimation(View view, boolean value) {
+        if (value) {
+            view.setBackgroundResource(R.drawable.sound_playing);
+            AnimationDrawable frameAnimation = (AnimationDrawable)view.getBackground();
+            frameAnimation.start();
+        } else {
+            view.setBackgroundResource(R.drawable.ic_volume_max);
+        }
+
     }
 
 }

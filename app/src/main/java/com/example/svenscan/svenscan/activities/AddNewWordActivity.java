@@ -1,6 +1,7 @@
 package com.example.svenscan.svenscan.activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaRecorder;
@@ -11,15 +12,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
+import com.example.svenscan.svenscan.utils.RecordingManager;
 import com.example.svenscan.svenscan.utils.SoundManager;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
@@ -35,8 +38,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     private String wordID;
     private String imageFileName;
     private String soundFileName;
-    private boolean isRecording;
-    private MediaRecorder mediaRecorder;
+    private RecordingManager recordingManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +50,37 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         SvenScanApplication app = (SvenScanApplication)getApplication();
         mediaRepository = app.getMediaRepository();
         wordRepository = app.getWordRepository();
-        mediaRecorder = new MediaRecorder();
+        recordingManager = new RecordingManager(mediaRepository.getSoundDir());
+
+        setListeners();
 
     }
 
+    private void setListeners() {
+        EditText nameField = (EditText)findViewById(R.id.addWordTextField);
+        nameField.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                getName();
+                getWordID();
+                setMediaClickable(true);
+                hideSoftKeyboard();
+                return true;
+            }
+            return false;
+        });
+    }
+
+
+    private void hideSoftKeyboard() { // TODO: 2016-10-08 there is probably a better way to do this
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+    }
+
+
     public void addNewWord(View view) {
         getWordID();
-        System.out.println(imageUri);
-        System.out.println(soundUri);
-        System.out.println(wordID);
         Word word = new Word(soundFileName, imageFileName, name, wordID);
-        System.out.println(word);
+        System.out.println("final word \n" + word);
         mediaRepository.addImage(imageUri);
         mediaRepository.addSound(soundUri);
         wordRepository.addWord(wordID, word);
@@ -70,34 +92,22 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
 
     public void playRecordedSound(View view) {
-        SoundManager soundManager = new SoundManager(this);
-        soundManager.start(soundUri, (v) -> view.setBackgroundResource(R.drawable.ic_volume_max));
-        ImageButton playSoundButton = (ImageButton)findViewById(R.id.playRecordedSound);
-        playSoundButton.setBackgroundResource(R.drawable.sound_playing);
-        AnimationDrawable frameAnimation = (AnimationDrawable)playSoundButton.getBackground();
-        frameAnimation.start();
-
+        if (recordingManager.hasRecording()) {
+            SoundManager soundManager = new SoundManager(this);
+            soundManager.start(recordingManager.getUri(), view);
+        }
     }
 
     public void recordSound(View view) {
-        if (!view.isClickable()) return;  // TODO: 2016-10-07 fix visual feedback
-
-        if (!isRecording) {
-            startRecording();
-        } else {
-            endRecording();
+        if (!view.isClickable()) {
+            System.out.println("Not clickable");
+            return;  // TODO: 2016-10-07 fix visual feedback when unavailable
         }
-
-        isRecording = !isRecording;
-
-    }
-
-    private void endRecording() {
-        mediaRecorder.stop();
-        mediaRecorder.reset();
-        setRecordingButtonImage(R.drawable.ic_record);
-        findViewById(R.id.playRecordedSound).setClickable(true);
-        checkOkButton();
+        recordingManager.toggleRecording(name, (uri, fileName) -> {
+            soundUri = uri;
+            soundFileName = fileName;
+            checkOkButton();
+        }, view);
     }
 
     private void checkOkButton() {
@@ -112,31 +122,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         }
     }
 
-    private void startRecording() {
-        findViewById(R.id.playRecordedSound).setClickable(false);
-        soundFileName = name + ".3gp";
-
-        soundUri = new Uri.Builder().path(mediaRepository.getSoundDir() +"/" + soundFileName).build(); // TODO: 2016-10-07 Should prob remove files that arnt used
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setMaxDuration(5000);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        mediaRecorder.setOutputFile(soundUri.getPath());
-
-        try {
-            mediaRecorder.prepare();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        mediaRecorder.start();
-        setRecordingButtonImage(R.drawable.ic_recording_now);
-    }
-
-    private void setRecordingButtonImage(@DrawableRes int id) {
-        ImageButton recordButton = (ImageButton)findViewById(R.id.recordButton);
-        recordButton.setBackgroundResource(id);
-    }
 
     public void findImagePath(View view) {
         if (view.isClickable()) {
@@ -150,16 +135,16 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
 
     private void getName() {
-        name = ((EditText)(findViewById(R.id.wordName))).getText().toString();
+        name = ((EditText)(findViewById(R.id.addWordTextField))).getText().toString();
         name = makeStuffToCorrectCaseLettering(name);
     }
 
     private void getWordID() {
-        wordID = ((EditText)(findViewById(R.id.wordName))).getText().toString(); // TODO: WordID is atm just the name in uppercase
+        wordID = name; // TODO: WordID is atm just the name in uppercase
         wordID = wordID.toUpperCase();
     }
 
-    private String makeStuffToCorrectCaseLettering(String input) {
+    private String makeStuffToCorrectCaseLettering(String input) { // TODO: 2016-10-08 Should be done but maybe not like this
         String output;
         if (input.length() > 2) {
             input = input.toLowerCase();
@@ -187,6 +172,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
 
     private void setMediaClickable(Boolean status) {
+        System.out.println("media clickable = " + status);
         findViewById(R.id.recordButton).setClickable(status);
         findViewById(R.id.findImageButton).setClickable(status);
     }

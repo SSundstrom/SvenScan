@@ -4,4 +4,5 @@
     <integer name="name">420</integer>
     <integer name="PICK_IMAGE">666</integer>
     <integer name="animationTimeSound">400</integer>
+    <integer name="done">1</integer>
 </resources>

@@ -38,7 +38,7 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         wordMap.put(id.toUpperCase(), word);
 
         // Add to Firebase
-        database.child("words").child(id).setValue(word);
+        database.child(id).setValue(word);
     }
 
     @Override

@@ -12,6 +12,7 @@
     <string name="ok">OK</string>
     <string name="WordExampleName">T.ex. \"Bord\"</string>
     <string name="tooShort">Ordet är \n för kort</string>
+    <string name="soundFormat">.3gpp</string>
 
 
 </resources>
