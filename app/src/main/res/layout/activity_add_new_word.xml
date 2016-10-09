@@ -13,12 +13,8 @@
     tools:context="com.example.svenscan.svenscan.activities.AddNewWordActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginRight="@dimen/add_word_margins_sides"
-        android:layout_marginLeft="@dimen/add_word_margins_sides">
+        style="@style/AddWordBoxes">
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,6 +40,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/add_new_word_error_text"
             android:visibility="invisible"
+            android:gravity="right"
             android:text="@string/tooShort"
             android:layout_centerVertical="true"
             android:textColor="@android:color/holo_red_dark"
@@ -52,20 +49,34 @@
     </RelativeLayout>
 
 
-    <ImageButton
-        android:onClick="findImagePath"
+    <RelativeLayout
+        style="@style/AddWordBoxes"
         android:layout_marginTop="@dimen/add_word_margins_top"
-        android:layout_width="@dimen/larger_button"
-        android:layout_height="@dimen/larger_button"
-        android:background="@drawable/image_button"
-        android:id="@+id/findImageButton"
-        android:clickable="false"
-        />
+        >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        <ImageButton
+            android:onClick="findImagePath"
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:background="@drawable/image_button"
+            android:id="@+id/findImageButton"
+            android:clickable="false"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/basic_button_size"
+            android:layout_height="@dimen/basic_button_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/imageUploaded"
+            />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/AddWordBoxes"
         android:layout_marginTop="@dimen/add_word_margins_top">
 
         <ImageButton
@@ -75,16 +86,17 @@
             android:id="@+id/recordButton"
             android:onClick="recordSound"
             android:clickable="false"
-            />
+            android:layout_marginLeft="@dimen/add_word_margins_sides"
 
-        <Space
-            android:layout_width="@dimen/basic_button_size"
-            android:layout_height="@dimen/basic_button_size" />
+            />
 
         <LinearLayout
             android:layout_width="@dimen/larger_button"
             android:gravity="center"
-            android:layout_height="@dimen/larger_button">
+            android:layout_height="@dimen/larger_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/add_word_margins_sides"
+            >
 
             <ImageButton
                 android:layout_width="@dimen/basic_button_size"
@@ -97,7 +109,14 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="@dimen/basic_button_size"
+            android:layout_height="@dimen/basic_button_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/soundUploaded"/>
+
+    </RelativeLayout>
 
     <Button
         style="@style/AddWordTextButton"

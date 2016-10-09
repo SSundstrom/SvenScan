@@ -24,13 +24,13 @@ public class FirebaseMediaRepository implements IMediaRepository{
     }
 
     @Override
-    public void addSound(Uri fileName) {
-        uploadMedia("sounds/" + fileName.getLastPathSegment(), fileName);
+    public void addSound(Uri fileName, IUploadComplete handler) {
+        uploadMedia("sounds/" + fileName.getLastPathSegment(), fileName, handler);
     }
 
     @Override
-    public void addImage(Uri fileName) {
-        uploadMedia("images/" + fileName.getLastPathSegment(), fileName);
+    public void addImage(Uri fileName, IUploadComplete handler) {
+        uploadMedia("images/" + fileName.getLastPathSegment(), fileName, handler);
     }
 
     public File getSoundDir() {
@@ -83,7 +83,7 @@ public class FirebaseMediaRepository implements IMediaRepository{
         });
     }
 
-    private void uploadMedia(String firebasePath, Uri localFileUri) {
+    private void uploadMedia(String firebasePath, Uri localFileUri, IUploadComplete handler) {
 
         StorageReference riversRef = storageRef.child(firebasePath);
 
@@ -96,6 +96,7 @@ public class FirebaseMediaRepository implements IMediaRepository{
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                handler.onUploadComplete();
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 // TODO: 2016-10-04 Show some nice "Upload complete" message
             }

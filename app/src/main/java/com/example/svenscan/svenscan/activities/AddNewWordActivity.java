@@ -7,6 +7,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -86,9 +87,21 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     public void addNewWord(View view) {
         getWordID();
         Word word = new Word(soundFileName, imageFileName, name, wordID);
-        mediaRepository.addImage(imageUri);
-        mediaRepository.addSound(soundUri);
+
+        showUploading();
+        mediaRepository.addImage(imageUri, () -> setViewToDone(R.id.imageUploaded));
+        mediaRepository.addSound(soundUri, () -> setViewToDone(R.id.soundUploaded));
         wordRepository.addWord(wordID, word);
+        findViewById(R.id.okButton).setClickable(false);
+    }
+
+    private void showUploading() {
+        findViewById(R.id.soundUploaded).setBackgroundResource(R.drawable.ic_cloud_upload);
+        findViewById(R.id.imageUploaded).setBackgroundResource(R.drawable.ic_cloud_upload);
+    }
+
+    private void setViewToDone(@IdRes int id) {
+     findViewById(id).setBackgroundResource(R.drawable.ic_cloud_done);
     }
 
     private void getImagePath() {
