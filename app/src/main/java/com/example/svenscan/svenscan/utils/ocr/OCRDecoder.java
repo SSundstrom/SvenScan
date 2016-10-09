@@ -86,6 +86,6 @@ public class OCRDecoder implements IOCR {
     }
 
     private String filterText(String text) {
-        return text.trim().toUpperCase();
+        return text.toUpperCase().replaceAll("\\s+", "");
     }
 }
