@@ -9,13 +9,13 @@ public interface IMediaRepository {
      * Adds sound to media repo
      * @param filePath absPath to sound file
      */
-    void addSound(Uri filePath, IUploadComplete handler);
+    void addSound(Uri filePath, IUploadHandler handler);
 
     /**
      * Adds image to media repo
      * @param filePath abs path to image file
      */
-    void addImage(Uri filePath, IUploadComplete handler);
+    void addImage(Uri filePath, IUploadHandler handler);
 
     /**
      * Returns the Uri for a sound to the handler when the sound is available
@@ -46,7 +46,7 @@ public interface IMediaRepository {
         void onMediaAvailable(Uri path);
     }
 
-    interface IUploadComplete {
-        void onUploadComplete();
+    interface IUploadHandler {
+        void onUploadResult(boolean isUploaded);
     }
 }

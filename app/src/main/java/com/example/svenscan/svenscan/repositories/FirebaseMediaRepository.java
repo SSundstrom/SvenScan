@@ -24,12 +24,12 @@ public class FirebaseMediaRepository implements IMediaRepository{
     }
 
     @Override
-    public void addSound(Uri fileName, IUploadComplete handler) {
+    public void addSound(Uri fileName, IUploadHandler handler) {
         uploadMedia("sounds/" + fileName.getLastPathSegment(), fileName, handler);
     }
 
     @Override
-    public void addImage(Uri fileName, IUploadComplete handler) {
+    public void addImage(Uri fileName, IUploadHandler handler) {
         uploadMedia("images/" + fileName.getLastPathSegment(), fileName, handler);
     }
 
@@ -83,20 +83,21 @@ public class FirebaseMediaRepository implements IMediaRepository{
         });
     }
 
-    private void uploadMedia(String firebasePath, Uri localFileUri, IUploadComplete handler) {
+    private void uploadMedia(String firebasePath, Uri localFileUri, IUploadHandler handler) {
 
-        StorageReference riversRef = storageRef.child(firebasePath);
+        StorageReference mediaRef = storageRef.child(firebasePath);
 
-        riversRef.putFile(localFileUri).addOnFailureListener(new OnFailureListener() {
+        mediaRef.putFile(localFileUri).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(Exception exception) {
+                handler.onUploadResult(false);
                 // Handle unsuccessful uploads
                 // TODO: 2016-10-04 Show some nice "Upload fail" message
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                handler.onUploadComplete();
+                handler.onUploadResult(true);
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 // TODO: 2016-10-04 Show some nice "Upload complete" message
             }
