@@ -13,6 +13,10 @@
     <string name="WordExampleName">T.ex. \"Bord\"</string>
     <string name="tooShort">Ordet är \n för kort</string>
     <string name="soundFormat">.3gpp</string>
+    <string name="help1">1. Skriv lapp</string>
+    <string name="help2">2. Sätt upp lapp</string>
+    <string name="help3">3. Scanna lapp</string>
+    <string name="help4">4. Resultat!</string>
 
 
 </resources>
