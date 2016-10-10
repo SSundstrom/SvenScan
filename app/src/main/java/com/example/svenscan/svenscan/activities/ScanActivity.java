@@ -60,6 +60,7 @@ public class ScanActivity extends CameraActivity {
         }
     }
 
+
     @Override
     public void returnPhotoUri(Uri uri) {
         Intent intent = new Intent(this,ShowWordActivity.class);
