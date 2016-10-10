@@ -26,7 +26,7 @@ public class HelpActivity extends AppIntro {
         addSlide(AppIntroFragment.newInstance("1. Skriv lapp", "", R.drawable.help_1 , Color.parseColor("#2196F3")));
         addSlide(AppIntroFragment.newInstance("2. Sätt upp lapp", "", R.drawable.help_2 , Color.parseColor("#2196F3")));
         addSlide(AppIntroFragment.newInstance("3. Scanna lapp", "", R.drawable.help_3 , Color.parseColor("#2196F3")));
-        addSlide(AppIntroFragment.newInstance("4. Resultat", "", R.drawable.help_4 , Color.parseColor("#2196F3")));
+        addSlide(AppIntroFragment.newInstance("4. Resultat!", "", R.drawable.help_4 , Color.parseColor("#2196F3")));
 
         showSkipButton(true);
         setProgressButtonEnabled(true);
