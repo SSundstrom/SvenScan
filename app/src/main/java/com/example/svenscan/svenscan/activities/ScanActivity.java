@@ -3,6 +3,7 @@ package com.example.svenscan.svenscan.activities;
 import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.fragments.ScanFragment;
+import com.example.svenscan.svenscan.models.Points;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,8 +13,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class ScanActivity extends CameraActivity {
+
+    private Points points;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +26,12 @@ public class ScanActivity extends CameraActivity {
         setContentView(R.layout.activity_scan);
         getActionBar().hide();
 
+        points = new Points();
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView pointsView = (TextView) findViewById(R.id.points_view);
+        pointsView.setText(points.toString());
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
