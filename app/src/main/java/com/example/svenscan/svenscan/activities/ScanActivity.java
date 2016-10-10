@@ -19,6 +19,7 @@ public class ScanActivity extends CameraActivity {
         super.onCreate(savedInstanceState);
         setTheme(R.style.squarecamera__CameraFullScreenTheme);
         setContentView(R.layout.activity_scan);
+
         getActionBar().hide();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -37,6 +38,8 @@ public class ScanActivity extends CameraActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
+
+
     }
 
     @Override

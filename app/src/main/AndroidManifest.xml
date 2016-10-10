@@ -24,24 +24,15 @@
             android:name=".activities.ShowWordActivity"
             android:label="@string/title_activity_play_pronunciation"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ScanActivity" />
         </activity>
         <activity
             android:name=".activities.RecordPronunciationActivity"
             android:label="SvenScan"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ScanActivity" />
         </activity>
         <activity
             android:name=".activities.FavoriteListActivity"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ScanActivity" />
         </activity>
         <activity
             android:name="com.desmond.squarecamera.CameraActivity"
@@ -50,9 +41,6 @@
         <activity
             android:name=".activities.DebugWordListActivity"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ScanActivity" />
         </activity>
         <activity
             android:name=".activities.StartActivity"
@@ -65,9 +53,6 @@
         </activity>
         <activity android:name=".activities.AddNewWordActivity"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ScanActivity" />
         </activity>
     </application>
 

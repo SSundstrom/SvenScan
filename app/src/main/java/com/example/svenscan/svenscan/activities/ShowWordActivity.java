@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,7 +41,13 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_show_word);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         SvenScanApplication app = (SvenScanApplication)getApplication();
         soundManager = new SoundManager(this);
         wordManager = app.getWordRepository();
@@ -59,6 +66,17 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void favoriteWord(View view) {
