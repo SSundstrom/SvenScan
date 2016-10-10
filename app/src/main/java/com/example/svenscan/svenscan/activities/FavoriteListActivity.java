@@ -16,6 +16,7 @@ import java.util.List;
 
 public class FavoriteListActivity extends AppCompatActivity{
 
+    View selectedView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,16 +24,25 @@ public class FavoriteListActivity extends AppCompatActivity{
 
         SvenScanApplication app = (SvenScanApplication) getApplication();
         IFavoriteRepository favoriteWordRepository = app.getFavoriteWordRepository();
-        initList(favoriteWordRepository.getFavorites());  // TODO: ouch on typecast.. Should be able to handle all lists?
-
-
+        initList(favoriteWordRepository.getFavorites());
     }
     private void initList(List<String> list){
         ListView favorites = (ListView) findViewById(R.id.favorites);
-        favorites.setAdapter(new ListAdapter(list ,(SvenScanApplication) getApplication()));
+        ListAdapter adapter =  new ListAdapter(list ,(SvenScanApplication) getApplication());
+        favorites.setAdapter(adapter);
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        if(selectedView!=null){
+            selectedView.setSelected(false);
+            selectedView = null;
+        }
     }
 
     public void showWord(View view){
+        selectedView = view;
         view.setSelected(true);
         Intent intent = new Intent(this, ShowWordActivity.class);
         intent.putExtra("fav", (String)view.getTag());

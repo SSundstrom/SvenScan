@@ -29,7 +29,7 @@ public class OCRDecoder implements IOCR {
 
     public OCRDecoder(Application app){
         initiateOCR(app);
-        tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö");
+        tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijkmnopqrstuvwxyzåäö");
     }
 
     public String getStringFromPix(Pix picture) {

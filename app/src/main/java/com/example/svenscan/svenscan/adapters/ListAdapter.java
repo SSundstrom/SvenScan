@@ -47,6 +47,7 @@ public class ListAdapter extends BaseAdapter{
         }
 
         Word word = wordManager.getWordFromID(getItem(position));
+
         if (word!=null) {
             holder.view.setTag(word.getWordID());
             holder.word.setText(word.getWord());

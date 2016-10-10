@@ -19,7 +19,7 @@
         tools:replace="android:theme">
         <activity
             android:name=".activities.ScanActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ShowWordActivity"
             android:label="@string/title_activity_play_pronunciation"
@@ -63,12 +63,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AddNewWordActivity"
+        <activity
+            android:name=".activities.AddNewWordActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ScanActivity" />
         </activity>
+        <activity android:name=".activities.GameActivity"></activity>
     </application>
 
 </manifest>
