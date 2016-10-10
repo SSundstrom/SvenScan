@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,12 +36,29 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     private IFavoriteRepository favoriteWords;
     private IMediaRepository mediaRepository;
     private Word currentWord;
+    private boolean cameFromFav;
 
 
+    @Override
+    public void onBackPressed() {
+        if (cameFromFav){
+            super.onBackPressed();
+        } else {
+            Intent intent = new Intent(this, ScanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_show_word);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         SvenScanApplication app = (SvenScanApplication)getApplication();
         soundManager = new SoundManager(this);
         wordManager = app.getWordRepository();
@@ -50,15 +68,26 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         ocr = app.getOCR();
 
         if(getIntent().hasExtra("fav")) {
-
+            cameFromFav = true;
             currentWordFromFavorites();
 
         } else {
-
+            cameFromFav = false;
             currentWordFromOCR();
 
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void favoriteWord(View view) {
@@ -92,7 +121,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     }
 
     public void backToCamera(View view){
-        Intent intent = new Intent(this, StartActivity.class);
+        Intent intent = new Intent(this, ScanActivity.class);
         startActivity(intent);
     }
 
@@ -103,6 +132,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
         handleCurrentWord();
     }
+
 
     private void currentWordFromOCR() {
 

@@ -9,6 +9,7 @@ import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -41,6 +42,10 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         askForPermissions();
 
         setContentView(R.layout.activity_add_new_word);
@@ -52,6 +57,18 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         setListeners();
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setListeners() {
         EditText nameField = (EditText)findViewById(R.id.addWordTextField);
