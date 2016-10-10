@@ -46,13 +46,13 @@ public class ScanActivity extends CameraActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent i = new Intent(this, AddNewWordActivity.class);
-                startActivity(i);
+                Intent i1 = new Intent(this, AddNewWordActivity.class);
+                startActivity(i1);
                 return true;
 
             case R.id.action_help:
-                // Intent i = new Intent(this, HelpActivity.class);
-                // startActivity(i);
+                Intent i2 = new Intent(this, HelpActivity.class);
+                startActivity(i2);
                 return true;
 
             default:
