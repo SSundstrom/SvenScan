@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_new_word"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.example.svenscan.svenscan.activities.AddNewWordActivity">
+
+    <RelativeLayout
+        android:gravity="center"
+        style="@style/AddWordBoxes">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wordPreText"
+            android:text="@string/add_word_title"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            style="@style/TextAddNewWord"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/WordExampleName"
+            android:id="@+id/addWordTextField"
+            android:inputType="textCapWords"
+            android:imeOptions="actionDone"
+            android:layout_centerInParent="true"
+            style="@style/AddWordInput" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_new_word_error_text"
+            android:visibility="invisible"
+            android:gravity="right"
+            android:text="@string/tooShort"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        style="@style/AddWordBoxes"
+        android:layout_marginTop="@dimen/add_word_margins_top"
+        >
+
+        <ImageButton
+            android:onClick="findImagePath"
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:background="@drawable/image_button"
+            android:id="@+id/findImageButton"
+            android:clickable="false"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/basic_button_size"
+            android:layout_height="@dimen/basic_button_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/imageUploaded"
+            />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/AddWordBoxes"
+        android:layout_marginTop="@dimen/add_word_margins_top">
+
+        <ImageButton
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:background="@drawable/ic_record"
+            android:id="@+id/recordButton"
+            android:onClick="recordSound"
+            android:clickable="false"
+            android:layout_marginLeft="@dimen/add_word_margins_sides"
+
+            />
+
+        <LinearLayout
+            android:layout_width="@dimen/larger_button"
+            android:gravity="center"
+            android:layout_height="@dimen/larger_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/add_word_margins_sides"
+            >
+
+            <ImageButton
+                android:layout_width="@dimen/basic_button_size"
+                android:layout_height="@dimen/basic_button_size"
+                android:contentDescription="@string/favorite_word"
+                android:id="@+id/playRecordedSound"
+                android:onClick="playRecordedSound"
+                android:clickable="false"
+                android:background="@drawable/ic_volume_max"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/basic_button_size"
+            android:layout_height="@dimen/basic_button_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/soundUploaded"/>
+
+    </RelativeLayout>
+
+    <Button
+        style="@style/AddWordTextButton"
+        android:id="@+id/okButton"
+        android:text="@string/ok"
+        android:onClick="addNewWord"
+        android:clickable="false"
+        android:background="@color/darkerGray"
+        />
+</LinearLayout>

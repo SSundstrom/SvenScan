@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/ic_help_outline_black_24dp"
+        android:title="@string/help"
+        app:showAsAction="always"
+        />
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/action_add"
+        android:title="@string/add_word"
+        app:showAsAction="never"/>
+
+</menu>

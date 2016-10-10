@@ -38,7 +38,7 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
         wordMap.put(id.toUpperCase(), word);
 
         // Add to Firebase
-        database.child("words").child(id).setValue(word);
+        database.child(id).setValue(word);
     }
 
     @Override
@@ -61,10 +61,10 @@ public class FirebaseWordRepository implements ValueEventListener, IWordReposito
      */
     @Override
     public void onDataChange(DataSnapshot listSnapshot) {
-        // todo: should probably do some try/catch here
 
         for (DataSnapshot wordSnapshot : listSnapshot.getChildren()) {
             Word word = wordSnapshot.getValue(Word.class);
+            word.setWordID(wordSnapshot.getKey());
             wordMap.put(wordSnapshot.getKey(), word);
         }
 

@@ -4,65 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkGray"
     tools:context="com.desmond.squarecamera.CameraFragment">
 
     <com.desmond.squarecamera.SquareCameraPreview
         android:id="@+id/camera_preview_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-62dp"
+        android:minHeight="150dp"
+
+        />
 
     <View
         android:id="@+id/cover_top_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/squarecamera__cover_start_height"
         android:layout_alignTop="@id/camera_preview_view"
-        android:background="@android:color/black"/>
+        android:background="@color/darkGray"
+        />
 
     <View
         android:id="@+id/cover_bottom_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/squarecamera__cover_start_height"
+        android:layout_height="300dp"
         android:layout_alignBottom="@id/camera_preview_view"
-        android:background="@android:color/black"/>
+        android:background="@color/darkGray" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/camera_tools_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/camera_preview_view"
+        android:minHeight="128dp"
         android:layout_alignParentBottom="true"
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:background="@android:color/black"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/change_camera"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/squarecamera__camera"
-            android:layout_weight="1"/>
+        android:padding="@dimen/add_word_margins_sides"
+        android:background="@color/darkerGray">
 
         <ImageView
             android:id="@+id/capture_image_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/squarecamera__capture_photo_button"
-            android:layout_weight="1"/>
-
+            android:minHeight="64dp"
+            android:minWidth="64dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:src="@drawable/ic_camera_button"
+            android:layout_centerInParent="true"/>
         <LinearLayout
             android:id="@+id/flash"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_marginRight="12dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
 
             <ImageView
                 android:id="@+id/flash_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/squarecamera__toggle_flash" />
+                android:src="@drawable/squarecamera__toggle_flash"
+                />
 
             <TextView
                 android:id="@+id/auto_flash_icon"
@@ -74,9 +78,31 @@
                 android:text="Auto"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"/>
-
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/toFavoriteWords"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_heart_list"
+            android:onClick="toFavoriteWords"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"/>
+
+    </RelativeLayout>
+
+
+    <!-- Keep these ImageView, you have break free scan_fragment & scan_activity from third part dependencies.-->
+    <ImageView
+        android:id="@+id/change_camera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/squarecamera__camera"
+        android:layout_weight="1"
+        android:visibility="gone"/>
+    <!-- End of ImageViews to keep in xml-->
 
 </RelativeLayout>

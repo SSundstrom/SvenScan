@@ -11,6 +11,62 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AddWordBoxes">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginLeft">@dimen/add_word_margins_sides</item>
+        <item name="android:layout_marginRight">@dimen/add_word_margins_sides</item>
+    </style>
+
+    <style name="AddWordInput">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/add_word_text</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:minWidth">150dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="AddWordTextButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/add_word_margins_top</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
+    <style name="TextAddNewWord">
+        <item name="android:textSize">@dimen/add_word_text</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="squarecamera__CameraFullScreenTheme" parent="squarecamera__CameraFullScreenTheme.Base">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="squarecamera__CameraFullScreenTheme.Base" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="squarecamera__CameraFullScreenTheme.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="squarecamera__CameraFullScreenTheme.PopupOverlay"
+        parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="squarecamera__CameraFullScreenTheme.NoUI" parent="squarecamera__CameraFullScreenTheme.Base">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 </resources>

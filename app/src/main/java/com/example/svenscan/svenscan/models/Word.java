@@ -5,34 +5,46 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Word {
 
-    private int soundID;
+    private String soundPath;
     private String imagePath;
     private String word;
+    private String wordID;
+
 
     public Word() {
         // Default constructor is required by Firebase
     }
 
-    public Word(String word, String imagePath, int soundPath) {
-        this.word = word;
+    public Word(String soundPath, String imagePath, String word, String wordID) {
+        this.soundPath = soundPath;
         this.imagePath = imagePath;
-        this.soundID = soundPath;
+        this.word = word;
+        this.wordID = wordID;
     }
 
     public String getWord() {
         return word;
     }
 
-    public int getSoundID() {
-        return soundID;
+    public String getSoundPath() {
+        return soundPath;
     }
 
     public String getImagePath() {
         return imagePath;
     }
 
+    public void setWordID(String wordID) {
+        this.wordID = wordID;
+    }
+
+    public String getWordID() {
+        return wordID;
+    }
+
     @Override
     public String toString() {
-        return "Word = " + word + " | soundId = " + soundID;
+        return "Word = " + word + "\nsoundId = " + soundPath + "\nimagepath = " + imagePath + "\nWordID = " + wordID;
     }
+
 }

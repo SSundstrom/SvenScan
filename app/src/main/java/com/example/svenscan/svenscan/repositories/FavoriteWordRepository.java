@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class FavoriteWordRepository {
+public class FavoriteWordRepository implements IFavoriteRepository {
 
     private List<String> favorites;
 
@@ -17,8 +17,8 @@ public class FavoriteWordRepository {
     }
 
     public void addFavorite(String word){
-        if(!favorites.contains(word.toUpperCase())){
-            favorites.add(word.toUpperCase());
+        if(!favorites.contains(word)){
+            favorites.add(word);
         }
     }
 
@@ -26,7 +26,7 @@ public class FavoriteWordRepository {
         favorites.addAll(set);
     }
     
-    public void removeFavorite(String word){
+    private void removeFavorite(String word){
         if(!favorites.isEmpty()) {
             if(favorites.contains(word)){
                 favorites.remove(word);
@@ -45,7 +45,10 @@ public class FavoriteWordRepository {
     }
 
     public boolean isFavoriteWord(String word){
-        return favorites.contains(word.toUpperCase());
+        if (word == null) return false;
+
+        word = word.toUpperCase();
+        return favorites.contains(word);
     }
 
     public List<String> getFavorites(){
@@ -53,7 +56,7 @@ public class FavoriteWordRepository {
     }
 
 
-    public void updateFavoriteWordsInMemory(Activity app){ // TODO: 2016-10-04 Should not be in this class.. Should prob happen in FavoriteRepository.
+    private void updateFavoriteWordsInMemory(Activity app){ // TODO: 2016-10-04 Should not be in this class.. Should prob happen in FavoriteRepository.
         Set<String> set = new HashSet<String>();
 
         if(getFavorites() != null){

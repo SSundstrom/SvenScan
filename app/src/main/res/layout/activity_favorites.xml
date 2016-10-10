@@ -4,7 +4,9 @@
     android:layout_height="match_parent">
 
     <ListView
+        android:clickable="true"
+        android:listSelector="@color/cast_expanded_controller_background_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/favorites" />
+        android:id="@+id/favorites"/>
 </LinearLayout>
