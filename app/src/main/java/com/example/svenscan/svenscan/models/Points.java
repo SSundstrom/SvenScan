@@ -3,8 +3,9 @@ package com.example.svenscan.svenscan.models;
 public class Points {
 
     private int points;
+    private static Points instance = new Points();
 
-    public Points(){
+    private Points(){
         this.points = 0;
     }
 
@@ -22,6 +23,13 @@ public class Points {
 
     public String toString(){
         return "Points:" + this.points;
+    }
+
+    public static Points getInstance(){
+        if(instance == null){
+            instance = new Points();
+        }
+        return instance;
     }
 
 }

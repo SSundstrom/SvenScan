@@ -48,7 +48,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         wordManager = app.getWordRepository();
         favoriteWords = app.getFavoriteWordRepository();
         mediaRepository = app.getMediaRepository();
-        points.getPoints();
+        points = points.getInstance();
 
         ocr = app.getOCR();
 

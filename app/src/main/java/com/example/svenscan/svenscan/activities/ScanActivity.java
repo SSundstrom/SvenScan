@@ -26,7 +26,7 @@ public class ScanActivity extends CameraActivity {
         setContentView(R.layout.activity_scan);
         getActionBar().hide();
 
-        points = new Points();
+        points = points.getInstance();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
