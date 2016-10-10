@@ -36,8 +36,19 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     private IFavoriteRepository favoriteWords;
     private IMediaRepository mediaRepository;
     private Word currentWord;
+    private boolean cameFromFav;
 
 
+    @Override
+    public void onBackPressed() {
+        Intent intent;
+        if (cameFromFav){
+            intent = new Intent(this, FavoriteListActivity.class);
+        } else {
+            intent = new Intent(this, ScanActivity.class);
+        }
+        startActivity(intent);
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +68,11 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         ocr = app.getOCR();
 
         if(getIntent().hasExtra("fav")) {
-
+            cameFromFav = true;
             currentWordFromFavorites();
 
         } else {
-
+            cameFromFav = false;
             currentWordFromOCR();
 
         }
@@ -110,7 +121,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     }
 
     public void backToCamera(View view){
-        Intent intent = new Intent(this, StartActivity.class);
+        Intent intent = new Intent(this, ScanActivity.class);
         startActivity(intent);
     }
 
@@ -121,6 +132,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
         handleCurrentWord();
     }
+
 
     private void currentWordFromOCR() {
 
