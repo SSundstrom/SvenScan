@@ -54,6 +54,7 @@
         <activity android:name=".activities.AddNewWordActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".activities.HelpActivity"></activity>
     </application>
 
 </manifest>
