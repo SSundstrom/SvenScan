@@ -38,8 +38,6 @@ public class ScanActivity extends CameraActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
-
-
     }
 
     @Override
@@ -59,7 +57,6 @@ public class ScanActivity extends CameraActivity {
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -69,7 +66,6 @@ public class ScanActivity extends CameraActivity {
         Intent intent = new Intent(this,ShowWordActivity.class);
         intent.putExtra("picture", uri.getPath());
         startActivity(intent);
-
     }
 
     public void toFavoriteWords(View view){

@@ -9,6 +9,7 @@ import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
@@ -17,11 +18,11 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
 public class HelpActivity extends AppIntro {
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         addSlide(AppIntroFragment.newInstance("1. Skriv lapp", "", R.drawable.help_1 , Color.parseColor("#2196F3")));
         addSlide(AppIntroFragment.newInstance("2. Sätt upp lapp", "", R.drawable.help_2 , Color.parseColor("#2196F3")));
@@ -30,6 +31,23 @@ public class HelpActivity extends AppIntro {
 
         showSkipButton(true);
         setProgressButtonEnabled(true);
+
+        settings = getSharedPreferences("firstTimeUser", 0);
+
+        if (!isFirstTimeUser()) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -44,11 +62,12 @@ public class HelpActivity extends AppIntro {
         endHelp();
     }
 
-    public void endHelp(){
-        SharedPreferences settings = getSharedPreferences("firstTimeUser", 0);
-        boolean firstTimeUser = settings.getBoolean("firstTimeUser", true);
+    private boolean isFirstTimeUser() {
+        return settings.getBoolean("firstTimeUser", true);
+    }
 
-        if(firstTimeUser) {
+    public void endHelp(){
+        if(isFirstTimeUser()) {
             Intent i = new Intent(this, ScanActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             IMediaRepository mediaRepository = ((SvenScanApplication) getApplication()).getMediaRepository();
