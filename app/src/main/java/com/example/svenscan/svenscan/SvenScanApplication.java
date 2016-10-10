@@ -18,7 +18,7 @@ import java.util.HashSet;
 
 public class SvenScanApplication extends Application {
     private static IWordRepository wordRepository;
-    private static FavoriteWordRepository favoriteWordRepository; // todo: bör vara interface?
+    private static IFavoriteRepository favoriteWordRepository;
     private static IOCR ocr;
     private IMediaRepository mediaRepository;
 
