@@ -41,13 +41,13 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
     @Override
     public void onBackPressed() {
-        Intent intent;
         if (cameFromFav){
-            intent = new Intent(this, FavoriteListActivity.class);
+            super.onBackPressed();
         } else {
-            intent = new Intent(this, ScanActivity.class);
+            Intent intent = new Intent(this, ScanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
-        startActivity(intent);
     }
 
     public void onCreate(Bundle savedInstanceState) {
