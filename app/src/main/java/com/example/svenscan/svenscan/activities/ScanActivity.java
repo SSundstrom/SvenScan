@@ -19,6 +19,7 @@ public class ScanActivity extends CameraActivity {
         super.onCreate(savedInstanceState);
         setTheme(R.style.squarecamera__CameraFullScreenTheme);
         setContentView(R.layout.activity_scan);
+
         getActionBar().hide();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -43,29 +44,28 @@ public class ScanActivity extends CameraActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent i = new Intent(this, AddNewWordActivity.class);
-                startActivity(i);
+                Intent i1 = new Intent(this, AddNewWordActivity.class);
+                startActivity(i1);
                 return true;
 
             case R.id.action_help:
-                // Intent i = new Intent(this, HelpActivity.class);
-                // startActivity(i);
+                Intent i2 = new Intent(this, HelpActivity.class);
+                startActivity(i2);
                 return true;
 
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
+
 
     @Override
     public void returnPhotoUri(Uri uri) {
         Intent intent = new Intent(this,ShowWordActivity.class);
         intent.putExtra("picture", uri.getPath());
         startActivity(intent);
-
     }
 
     public void toFavoriteWords(View view){
