@@ -17,44 +17,53 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
-        <activity android:name=".activities.ScanActivity" android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".activities.ScanActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.ShowScannedWordActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_play_pronunciation">
+            android:label="@string/title_activity_play_pronunciation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ScanActivity" />
         </activity>
         <activity
             android:name=".activities.RecordPronunciationActivity"
-            android:screenOrientation="portrait"
-            android:label="SvenScan">
+            android:label="SvenScan"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ScanActivity" />
         </activity>
-        <activity android:name=".activities.FavoriteListActivity" android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ScanActivity" />
-        </activity>
-
         <activity
-            android:name="com.desmond.squarecamera.CameraActivity" android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".activities.DebugWordListActivity" android:screenOrientation="portrait">
+            android:name=".activities.FavoriteListActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ScanActivity" />
         </activity>
-        <activity android:name=".activities.StartActivity" android:screenOrientation="portrait">
+        <activity
+            android:name="com.desmond.squarecamera.CameraActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.DebugWordListActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ScanActivity" />
+        </activity>
+        <activity
+            android:name=".activities.StartActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.HelpActivity"></activity>
     </application>
 
 </manifest>
