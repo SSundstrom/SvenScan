@@ -3,10 +3,7 @@ package com.example.svenscan.svenscan.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaRecorder;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
@@ -89,8 +85,21 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         Word word = new Word(soundFileName, imageFileName, name, wordID);
 
         showUploading();
-        mediaRepository.addImage(imageUri, () -> setViewToDone(R.id.imageUploaded));
-        mediaRepository.addSound(soundUri, () -> setViewToDone(R.id.soundUploaded));
+        mediaRepository.addImage(imageUri, (success) -> {
+            if (success) {
+                setViewToDone(R.id.imageUploaded);
+            } else {
+                setViewToFail(R.id.imageUploaded);
+            }
+        });
+        mediaRepository.addSound(soundUri, (success) -> {
+            if (success) {
+                setViewToDone(R.id.soundUploaded);
+            } else {
+                setViewToFail(R.id.soundUploaded);
+            }
+        });
+
         wordRepository.addWord(wordID, word);
         findViewById(R.id.okButton).setClickable(false);
     }
@@ -101,7 +110,10 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
 
     private void setViewToDone(@IdRes int id) {
-     findViewById(id).setBackgroundResource(R.drawable.ic_cloud_done);
+        findViewById(id).setBackgroundResource(R.drawable.ic_cloud_done);
+    }
+    private void setViewToFail(@IdRes int id) {
+        findViewById(id).setBackgroundResource(R.drawable.ic_cloud_failed_24dp);
     }
 
     private void getImagePath() {
@@ -133,7 +145,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
         if (isEverythingFilled()) {
             okButton.setClickable(true);
-            okButton.setBackgroundResource(R.color.success_green);
+            okButton.setBackgroundResource(R.color.successGreen);
         } else {
             okButton.setClickable(false);
             okButton.setBackgroundResource(R.color.darkerGray);
@@ -157,7 +169,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     private void getName() {
         name = ((EditText)(findViewById(R.id.addWordTextField))).getText().toString();
         name = name.trim();
-        name = makeStuffToCorrectCaseLettering(name);
+        name = CorrectCaseLettering(name);
     }
 
     private void getWordID() {
@@ -165,7 +177,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         wordID = wordID.toUpperCase();
     }
 
-    private String makeStuffToCorrectCaseLettering(String input) { // TODO: 2016-10-08 Should be done but maybe not like this
+    private String CorrectCaseLettering(String input) { // TODO: 2016-10-08 Should be done but maybe not like this
         String output;
         if (input.length() > 2) {
             input = input.toLowerCase();

@@ -10,7 +10,7 @@ import java.io.File;
 
 public class RecordingManager implements IRecordingManager{
 
-    private static final String FILE_FORMAT = ".3gpp";
+    private static final String FILE_FORMAT = ".3gp";
 
     private MediaRecorder mediaRecorder;
     private boolean hasRecording;
