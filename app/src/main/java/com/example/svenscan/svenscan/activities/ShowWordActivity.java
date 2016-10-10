@@ -106,18 +106,21 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     public void onOCRComplete(String ocrResult) {
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);
+            setOcrText(ocrResult);
             handleCurrentWord();
         }
         else {
-            setContentView(R.layout.no_word_match_view);
-            ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
-            imageButton.setBackgroundResource(R.drawable.redo_button);
-            ImageView errorImage = (ImageView) findViewById((R.id.noWordErrorImage));
-            errorImage.setBackgroundResource(R.drawable.exclamation_mark);
-            TextView errorText = (TextView) findViewById(R.id.errorText);
-            errorText.setText("Tyvärr hittas inte det scannade ordet, försök igen! \n"  + ocrResult);
-
+            wordNotFound(ocrResult);
         }
+    }
+    public void wordNotFound(String s){
+        setContentView(R.layout.no_word_match_view);
+        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
+        imageButton.setBackgroundResource(R.drawable.redo_button);
+        ImageView errorImage = (ImageView) findViewById((R.id.noWordErrorImage));
+        errorImage.setBackgroundResource(R.drawable.exclamation_mark);
+        TextView errorText = (TextView) findViewById(R.id.errorText);
+        errorText.setText("Tyvärr hittas inte det scannade ordet, försök igen! \n"  + s);
     }
 
     public void backToCamera(View view){
@@ -155,7 +158,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     private void handleCurrentWord() {
         setFavoriteColor();
         setMainPicture();
-        setText(currentWord.getWord());
+        setWordText(currentWord.getWord());
         playWord(null);
     }
 
@@ -199,11 +202,19 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         System.out.println("End animation");
     }
 
-    private void setText(String word) {
+    private void setWordText(String word) {
         TextView textBox = ((TextView)findViewById(R.id.wordText));
+        setText(textBox, word);
 
-        if(word != null) {
-            textBox.setText(word);
+    }
+    private void setOcrText(String ocr){
+        TextView ocrText = (TextView)findViewById(R.id.ocrText);
+        ocrText.setVisibility(View.VISIBLE);
+        setText(ocrText, ocr);
+    }
+    private void setText(TextView textBox, String s){
+        if(s != null) {
+            textBox.setText(s);
         } else {
             textBox.setText("(null)");
         }
