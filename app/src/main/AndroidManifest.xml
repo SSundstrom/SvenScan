@@ -55,8 +55,20 @@
             android:name=".activities.AddNewWordActivity"
             android:screenOrientation="portrait">
         </activity>
+<<<<<<< HEAD
         <activity android:name=".activities.GameActivity"></activity>
         <activity android:name=".activities.HelpActivity"></activity>
+=======
+
+        <activity
+            android:name=".activities.MyPageActivity"
+            android:label="SvenScan"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ScanActivity" />
+        </activity>
+>>>>>>> us8Points
     </application>
 
 </manifest>

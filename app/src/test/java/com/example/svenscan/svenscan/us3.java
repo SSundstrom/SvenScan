@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 import java.util.Map;
 
-public class us3 {
+/*public class us3 {
 
     FavoriteWordRepository favoriteWords;
     Map<String, Object> favorites;
@@ -58,4 +58,5 @@ public class us3 {
 
 
 
+*/
 
