@@ -14,4 +14,8 @@
         android:title="@string/add_word"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/action_show_points"
+        android:title="@string/to_points"
+        app:showAsAction="never"/>
+
 </menu>

@@ -69,6 +69,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ScanActivity" />
         </activity>
+
+        <activity
+            android:name=".activities.MyPageActivity"
+            android:label="SvenScan"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ScanActivity" />
+        </activity>
     </application>
 
 </manifest>

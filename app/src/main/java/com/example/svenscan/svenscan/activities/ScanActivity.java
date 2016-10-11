@@ -3,7 +3,6 @@ package com.example.svenscan.svenscan.activities;
 import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.fragments.ScanFragment;
-import com.example.svenscan.svenscan.models.Points;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,10 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import com.example.svenscan.svenscan.SvenScanApplication;
 
 public class ScanActivity extends CameraActivity {
 
-    private Points points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +25,13 @@ public class ScanActivity extends CameraActivity {
         setContentView(R.layout.activity_scan);
         getActionBar().hide();
 
-        points = points.getInstance();
+        SvenScanApplication app = (SvenScanApplication)getApplication();
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView pointsView = (TextView) findViewById(R.id.points_view);
-        pointsView.setText(points.toString());
+        pointsView.setText(app.getPoints().toString());
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
@@ -61,6 +61,10 @@ public class ScanActivity extends CameraActivity {
                 // Intent i = new Intent(this, HelpActivity.class);
                 // startActivity(i);
                 return true;
+
+            case R.id.action_show_points:
+                Intent i2 = new Intent(this, MyPageActivity.class);
+                startActivity(i2);
 
             default:
                 // If we got here, the user's action was not recognized.
