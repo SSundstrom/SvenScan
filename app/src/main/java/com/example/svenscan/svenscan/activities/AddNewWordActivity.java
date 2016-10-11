@@ -37,6 +37,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     private String imageFileName;
     private String soundFileName;
     private RecordingManager recordingManager;
+    private boolean mediaUploaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         mediaRepository.addImage(imageUri, (success) -> {
             if (success) {
                 setViewToDone(R.id.imageUploaded);
+                showNewWord();
             } else {
                 setViewToFail(R.id.imageUploaded);
             }
@@ -112,6 +114,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         mediaRepository.addSound(soundUri, (success) -> {
             if (success) {
                 setViewToDone(R.id.soundUploaded);
+                showNewWord();
             } else {
                 setViewToFail(R.id.soundUploaded);
             }
@@ -119,6 +122,16 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
         wordRepository.addWord(wordID, word);
         findViewById(R.id.okButton).setClickable(false);
+    }
+
+    private void showNewWord() {
+        if (mediaUploaded) {
+            Intent showWordIntent = new Intent(this, ShowWordActivity.class);
+            showWordIntent.putExtra(getString(R.string.intent_extra_word), wordID);
+            startActivity(showWordIntent);
+        } else {
+            mediaUploaded = true;
+        }
     }
 
     private void showUploading() {

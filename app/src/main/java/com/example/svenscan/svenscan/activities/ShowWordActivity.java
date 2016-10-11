@@ -70,14 +70,12 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
         ocr = app.getOCR();
 
-        if(getIntent().hasExtra("fav")) {
-            cameFromFav = true;
-            currentWordFromFavorites();
-
+        if(getIntent().hasExtra(getString(R.string.intent_extra_word))) {
+            currentWordFromOtherSource();
+            if (getIntent().hasExtra(getString(R.string.special_parent)))
+                cameFromFav = true;
         } else {
-            cameFromFav = false;
             currentWordFromOCR();
-
         }
 
     }
@@ -132,8 +130,8 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         startActivity(intent);
     }
 
-    private void currentWordFromFavorites() {
-        String wordID = getIntent().getStringExtra("fav").toUpperCase();
+    private void currentWordFromOtherSource() {
+        String wordID = getIntent().getStringExtra(getString(R.string.intent_extra_word)).toUpperCase();
 
         currentWord = wordManager.getWordFromID(wordID);
 

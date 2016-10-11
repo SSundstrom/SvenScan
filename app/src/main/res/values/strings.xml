@@ -18,6 +18,9 @@
     <string name="help3">3. Scanna lapp</string>
     <string name="help4">4. Resultat!</string>
     <string name="to_points">Till min sida</string>
+    <string name="intent_extra_word">word_extra</string>
+    <string name="special_parent">activity_id</string>
+    <string name="favorite_activity">favorite_activity</string>
 
 
 </resources>
