@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.models.Word;
@@ -33,7 +34,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Callback {
-
+    private static final int REQUEST_CAMERA = 282;
     private IMediaRepository mediaRepository;
     private IWordRepository wordRepository;
     private Uri imageUri;
@@ -110,6 +111,11 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     private void hideSoftKeyboard() { // TODO: 2016-10-08 there is probably a better way to do this
         InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public void showCamera(View view) {
+        Intent startCustomCameraIntent = new Intent(this, CameraActivity.class);
+        startActivityForResult(startCustomCameraIntent, REQUEST_CAMERA);
     }
 
 
@@ -265,7 +271,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == getIntFromID(R.integer.PICK_IMAGE) && resultCode == RESULT_OK) {
+
+        if ((requestCode == getIntFromID(R.integer.PICK_IMAGE) || requestCode == REQUEST_CAMERA) && resultCode == RESULT_OK) {
             imageUri = data.getData();
 
             // todo: this should probably be the word as well as some random/unique ID
