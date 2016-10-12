@@ -143,7 +143,7 @@ public class GameActivity extends AppCompatActivity {
         int rand;
         while(i<NBR_OF_CHOICES){
             rand = randomGenerator.nextInt(NBR_OF_CHOICES);
-            if(rand<choices.size() && !choices.get(rand).equals(null)) {
+            if(rand<choices.size() && choices.get(rand) != null) {
                 buttons.get(i).setText(choices.get(rand));
                 buttons.get(i).setSelected(false);
                 choices.remove(rand);

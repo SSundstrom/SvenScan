@@ -71,6 +71,7 @@ public class ScanActivity extends CameraActivity {
             case R.id.action_show_points:
                 Intent i4 = new Intent(this, MyPageActivity.class);
                 startActivity(i4);
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
