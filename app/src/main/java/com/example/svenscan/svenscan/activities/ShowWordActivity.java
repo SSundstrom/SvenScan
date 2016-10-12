@@ -50,6 +50,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         }
     }
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

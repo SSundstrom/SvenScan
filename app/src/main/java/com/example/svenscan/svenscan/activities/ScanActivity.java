@@ -53,6 +53,11 @@ public class ScanActivity extends CameraActivity {
                 startActivity(i2);
                 return true;
 
+            case R.id.action_game:
+                Intent i3 = new Intent(this, GameActivity.class);
+                startActivity(i3);
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

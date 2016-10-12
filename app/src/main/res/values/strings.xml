@@ -13,6 +13,8 @@
     <string name="WordExampleName">T.ex. \"Bord\"</string>
     <string name="tooShort">Ordet är \n för kort</string>
     <string name="soundFormat">.3gpp</string>
+    <string name="game_mode">Spela ordlek</string>
+    <string name="next">Nästa</string>
 
 
 </resources>
