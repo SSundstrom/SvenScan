@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntegerRes;
 import android.support.design.widget.TextInputLayout;
@@ -61,6 +60,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         mediaRepository = app.getMediaRepository();
         wordRepository = app.getWordRepository();
         recordingManager = new RecordingManager(mediaRepository.getSoundDir());
+        findViewById(R.id.okButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.add_word_loading_icon).setVisibility(View.INVISIBLE);
 
         setListeners();
 
@@ -85,7 +86,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
                 if (validateWord(v.getText().toString().toUpperCase())) {
                     getName();
                     getWordID();
-                    setMediaClickable(true);
                     hideSoftKeyboard();
                 }
                 return true;
@@ -99,10 +99,14 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         boolean wordIsValid = true;
         if (wordRepository.containsWord(wordID)) {
             layout.setError(getString(R.string.add_new_word_exist));
+            layout.setErrorEnabled(true);
             wordIsValid = false;
         } else if (wordID.length() == 0) {
             layout.setError(getString(R.string.add_new_word_no_word));
+            layout.setErrorEnabled(true);
             wordIsValid = false;
+        } else {
+            layout.setErrorEnabled(false);
         }
         return wordIsValid;
     }
@@ -125,27 +129,11 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
         showUploading();
         scaleImage();
-        mediaRepository.addImage(imageUri, (success) -> {
-            if (success) {
-                setViewToDone(R.id.imageUploaded);
-                showNewWord();
-            } else {
-                setViewToFail(R.id.imageUploaded);
-            }
-        });
-        mediaRepository.addSound(soundUri, (success) -> {
-            if (success) {
-                setViewToDone(R.id.soundUploaded);
-                showNewWord();
-            } else {
-                setViewToFail(R.id.soundUploaded);
-            }
-        });
         mediaRepository.addImage(imageUri, (success) -> onUploadDone(success, R.id.imageUploaded));
         mediaRepository.addSound(soundUri, (success) -> onUploadDone(success, R.id.soundUploaded));
 
         wordRepository.addWord(wordID, word);
-        findViewById(R.id.okButton).setClickable(false);
+        findViewById(R.id.okButton).setEnabled(false);
     }
 
     private void scaleImage() {
@@ -184,6 +172,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     private void showUploading() {
         findViewById(R.id.soundUploaded).setBackgroundResource(R.drawable.ic_cloud_upload);
         findViewById(R.id.imageUploaded).setBackgroundResource(R.drawable.ic_cloud_upload);
+        findViewById(R.id.okButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.add_word_loading_icon).setVisibility(View.VISIBLE);
     }
 
     private void setViewToDone(@IdRes int id) {
@@ -201,10 +191,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
 
     public void recordSound(View view) {
-        if (!view.isClickable()) {
-            System.out.println("Not clickable");
-            return;  // TODO: 2016-10-07 fix visual feedback when unavailable
-        }
+        if (name == null) return;
         recordingManager.toggleRecording(name, (uri, fileName) -> {
             soundUri = uri;
             soundFileName = fileName;
@@ -216,21 +203,17 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         View okButton = findViewById(R.id.okButton);
 
         if (isEverythingFilled()) {
-            okButton.setClickable(true);
+            okButton.setEnabled(true);
             okButton.setBackgroundResource(R.color.successGreen);
         } else {
-            okButton.setClickable(false);
+            okButton.setEnabled(false);
             okButton.setBackgroundResource(R.color.darkerGray);
         }
     }
 
 
     public void findImagePath(View view) {
-        if (!view.isClickable()) {
-            System.out.println("not clickable yet");
-            return;
-        }
-
+        if (name == null) return;
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -284,11 +267,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
     private int getIntFromID(@IntegerRes int id) {
          return getResources().getInteger(id);
-    }
-
-    private void setMediaClickable(Boolean status) {
-        findViewById(R.id.recordButton).setClickable(status);
-        findViewById(R.id.findImageButton).setClickable(status);
     }
 
     private boolean isEverythingFilled() {
