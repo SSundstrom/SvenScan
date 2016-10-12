@@ -2,6 +2,7 @@ package com.example.svenscan.svenscan.activities;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -81,7 +82,8 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);
             handleCurrentWord();
-            progressManager.wordScanned();
+            progressManager.wordScanned(this);
+
         }
         else {
             setContentView(R.layout.no_word_match_view);
