@@ -38,6 +38,7 @@ public interface IMediaRepository {
     void initialize(File dataPath);
 
     File getSoundDir();
+    File getImageDir();
 
     /**
      * Used to access the Uri when available.
