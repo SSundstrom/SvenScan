@@ -60,14 +60,40 @@
         >
 
         <ImageButton
+            android:enabled="false"
             android:onClick="findImagePath"
             android:layout_width="@dimen/larger_button"
             android:layout_height="@dimen/larger_button"
             android:background="@drawable/image_button"
             android:id="@+id/findImageButton"
-            android:clickable="false"
-            android:layout_centerInParent="true"
             />
+
+        <ImageButton
+            android:onClick="showCamera"
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:background="@drawable/ic_photo_camera_black"
+            android:id="@+id/takeImageButton"
+            android:clickable="false"
+            android:layout_below="@+id/findImageButton"
+            />
+
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/takeImageButton">
+
+            <ImageView
+                android:layout_width="@dimen/add_word_image_preview"
+                android:layout_height="@dimen/add_word_image_preview"
+                android:id="@+id/add_new_word_image_preview"
+                android:layout_centerInParent="true"
+                />
+
+
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="@dimen/basic_button_size"
@@ -90,7 +116,7 @@
             android:background="@drawable/ic_record"
             android:id="@+id/recordButton"
             android:onClick="recordSound"
-            android:clickable="false"
+            android:enabled="false"
             android:layout_marginLeft="@dimen/add_word_margins_sides"
 
             />
@@ -109,7 +135,7 @@
                 android:contentDescription="@string/favorite_word"
                 android:id="@+id/playRecordedSound"
                 android:onClick="playRecordedSound"
-                android:clickable="false"
+                android:enabled="false"
                 android:background="@drawable/ic_volume_max"/>
 
         </LinearLayout>
@@ -124,14 +150,25 @@
     </RelativeLayout>
     <RelativeLayout
         style="@style/AddWordBoxes">
+
         <Button
             style="@style/AddWordTextButton"
             android:id="@+id/okButton"
             android:layout_centerInParent="true"
             android:text="@string/ok"
             android:onClick="addNewWord"
-            android:clickable="false"
+            android:enabled="false"
             android:background="@color/darkerGray"
+            />
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:indeterminate="true"
+            android:id="@+id/add_word_loading_icon"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Large.NoPadding"
             />
     </RelativeLayout>
 

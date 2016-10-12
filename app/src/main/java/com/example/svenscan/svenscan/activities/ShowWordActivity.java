@@ -2,6 +2,7 @@ package com.example.svenscan.svenscan.activities;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -52,6 +53,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         }
     }
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -109,7 +111,8 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
             currentWord = wordManager.getWordFromID(ocrResult);
             setOcrText(ocrResult);
             handleCurrentWord();
-            progressManager.wordScanned();
+            progressManager.wordScanned(this);
+
         }
         else {
             wordNotFound(ocrResult);
@@ -178,8 +181,18 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     }
 
     private void setMainPicture() {
+        showLoadingAnimation(true);
         ImageView mainView = (ImageView) findViewById((R.id.imageView4));
-        mediaRepository.getImageUri(currentWord.getImagePath(), mainView::setImageURI);
+        mediaRepository.getImageUri(currentWord.getImagePath(), (uri) -> {
+            mainView.setImageURI(uri);
+            showLoadingAnimation(false);
+        });
+    }
+
+    private void showLoadingAnimation(boolean value) {
+
+        findViewById(R.id.show_word_image_loading).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+
     }
 
     public void playWord(@Nullable View view) {

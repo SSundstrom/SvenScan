@@ -7,8 +7,12 @@
     <dimen name="add_word_margins_sides">50dp</dimen>
     <dimen name="basic_button_size">50dp</dimen>
     <dimen name="larger_button">75dp</dimen>
-    <dimen name="basic_larger_button_diff">25dp</dimen>
     <dimen name="show_word_horizontal_margin">75dp</dimen>
     <dimen name="button_text_size">25sp</dimen>
     <dimen name="add_word_text">20sp</dimen>
+    <dimen name="fab_button_padding">6dp</dimen>
+    <dimen name="image_width">300dp</dimen>
+    <dimen name="image_height">300dp</dimen>
+    <dimen name="add_word_image_preview">150dp</dimen>
+    <dimen name="list_item_fontsize">35sp</dimen>
 </resources>

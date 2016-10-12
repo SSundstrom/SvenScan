@@ -38,6 +38,11 @@ public class FirebaseMediaRepository implements IMediaRepository{
     }
 
     @Override
+    public File getImageDir() {
+        return imageDir;
+    }
+
+    @Override
     public void getSoundUri(String soundName, IMediaHandler handler) {
         getMediaUri("sounds", soundName, soundDir, handler);
     }

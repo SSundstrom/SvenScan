@@ -48,6 +48,7 @@ public class SvenScanApplication extends Application {
 
         if(progressManager == null){
             progressManager = new ProgressManager();
+            recreatePoints();
         }
 
 
@@ -78,6 +79,13 @@ public class SvenScanApplication extends Application {
         SharedPreferences settings = getSharedPreferences("favoriteWords", 0);
         set = (HashSet<String>) settings.getStringSet("favoriteWords", set);
         favoriteWordRepository.addSetToFavorites(set);
+    }
+
+    public void recreatePoints(){
+        SharedPreferences settings = getSharedPreferences("points", 0);
+        int points = settings.getInt("points", 0);
+        progressManager.setPoints(points);
+        progressManager.checkLevel();
     }
 
 

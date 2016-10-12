@@ -17,6 +17,7 @@ import java.util.List;
 
 public class FavoriteListActivity extends AppCompatActivity{
 
+    List<String> favorites;
     View selectedView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,8 @@ public class FavoriteListActivity extends AppCompatActivity{
 
         SvenScanApplication app = (SvenScanApplication) getApplication();
         IFavoriteRepository favoriteWordRepository = app.getFavoriteWordRepository();
-        initList(favoriteWordRepository.getFavorites());
+        favorites = favoriteWordRepository.getFavorites();
+        initList();
     }
 
     @Override
@@ -44,15 +46,15 @@ public class FavoriteListActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    private void initList(List<String> list){
-        ListView favorites = (ListView) findViewById(R.id.favorites);
-        ListAdapter adapter =  new ListAdapter(list ,(SvenScanApplication) getApplication());
-        favorites.setAdapter(adapter);
+    private void initList(){
+        ListView list = (ListView) findViewById(R.id.favorites);
+        ListAdapter adapter =  new ListAdapter(favorites,(SvenScanApplication) getApplication());
+        list.setAdapter(adapter);
     }
     @Override
     protected void onResume(){
         super.onResume();
-
+        initList();
         if(selectedView!=null){
             selectedView.setSelected(false);
             selectedView = null;
