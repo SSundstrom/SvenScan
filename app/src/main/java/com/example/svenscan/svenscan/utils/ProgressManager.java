@@ -3,7 +3,7 @@ package com.example.svenscan.svenscan.utils;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-public class ProgressManager {
+public class ProgressManager implements IProgressManager{
 
     private int points;
     private int level;

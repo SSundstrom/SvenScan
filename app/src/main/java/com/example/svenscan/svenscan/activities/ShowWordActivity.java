@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
+import com.example.svenscan.svenscan.utils.IProgressManager;
 import com.example.svenscan.svenscan.utils.ProgressManager;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
@@ -39,7 +40,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     private IMediaRepository mediaRepository;
     private Word currentWord;
     private boolean cameFromFav;
-    private ProgressManager progressManager;
+    private IProgressManager progressManager;
 
 
     @Override
