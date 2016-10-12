@@ -29,10 +29,9 @@ public class ImageProcessor {
 
     public File scaleToReasonableSize(Uri uri, ContentResolver contentResolver, File target) throws IOException {
         Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
-        Pix picture = ReadFile.readBitmap(bitmap);
+        Pix picture = ReadFile.readBitmap(bitmap);// TODO: 2016-10-12 it becomes gray...
         picture = Scale.scaleToSize(picture, 500, 500, Scale.ScaleType.FIT);
         WriteFile.writeImpliedFormat(picture, target);
-
         return target;
     }
 }

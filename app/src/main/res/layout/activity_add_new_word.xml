@@ -66,7 +66,6 @@
             android:layout_height="@dimen/larger_button"
             android:background="@drawable/image_button"
             android:id="@+id/findImageButton"
-            android:layout_centerInParent="true"
             />
 
         <ImageButton
@@ -76,8 +75,25 @@
             android:background="@drawable/ic_photo_camera_black"
             android:id="@+id/takeImageButton"
             android:clickable="false"
-            android:layout_toLeftOf="@id/findImageButton"
+            android:layout_below="@+id/findImageButton"
             />
+
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/takeImageButton">
+
+            <ImageView
+                android:layout_width="@dimen/add_word_image_preview"
+                android:layout_height="@dimen/add_word_image_preview"
+                android:id="@+id/add_new_word_image_preview"
+                android:layout_centerInParent="true"
+                />
+
+
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="@dimen/basic_button_size"
