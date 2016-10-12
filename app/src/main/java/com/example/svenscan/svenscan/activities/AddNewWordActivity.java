@@ -59,6 +59,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         mediaRepository = app.getMediaRepository();
         wordRepository = app.getWordRepository();
         recordingManager = new RecordingManager(mediaRepository.getSoundDir());
+        findViewById(R.id.okButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.add_word_loading_icon).setVisibility(View.INVISIBLE);
 
         setListeners();
 
@@ -121,22 +123,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
         showUploading();
         scaleImage();
-        mediaRepository.addImage(imageUri, (success) -> {
-            if (success) {
-                setViewToDone(R.id.imageUploaded);
-                showNewWord();
-            } else {
-                setViewToFail(R.id.imageUploaded);
-            }
-        });
-        mediaRepository.addSound(soundUri, (success) -> {
-            if (success) {
-                setViewToDone(R.id.soundUploaded);
-                showNewWord();
-            } else {
-                setViewToFail(R.id.soundUploaded);
-            }
-        });
         mediaRepository.addImage(imageUri, (success) -> onUploadDone(success, R.id.imageUploaded));
         mediaRepository.addSound(soundUri, (success) -> onUploadDone(success, R.id.soundUploaded));
 
@@ -180,6 +166,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     private void showUploading() {
         findViewById(R.id.soundUploaded).setBackgroundResource(R.drawable.ic_cloud_upload);
         findViewById(R.id.imageUploaded).setBackgroundResource(R.drawable.ic_cloud_upload);
+        findViewById(R.id.okButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.add_word_loading_icon).setVisibility(View.VISIBLE);
     }
 
     private void setViewToDone(@IdRes int id) {

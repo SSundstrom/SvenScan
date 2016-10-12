@@ -134,6 +134,16 @@
             android:enabled="false"
             android:background="@color/darkerGray"
             />
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:indeterminate="true"
+            android:id="@+id/add_word_loading_icon"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Large.NoPadding"
+            />
     </RelativeLayout>
 
 </LinearLayout>
