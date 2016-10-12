@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntegerRes;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -73,22 +75,31 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
     private void setListeners() {
         EditText nameField = (EditText)findViewById(R.id.addWordTextField);
-        nameField.setSelectAllOnFocus(true);
         nameField.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (v.getText().length() == 0) {
-                    showWordToShortNotification(true);
-                    setMediaClickable(false);
-                    return false;
+                if (validateWord(v.getText().toString().toUpperCase())) {
+                    getName();
+                    getWordID();
+                    setMediaClickable(true);
+                    hideSoftKeyboard();
                 }
-                getName();
-                getWordID();
-                setMediaClickable(true);
-                hideSoftKeyboard();
                 return true;
             }
             return false;
         });
+    }
+
+    private boolean validateWord(String wordID) {
+        TextInputLayout layout = (TextInputLayout)findViewById(R.id.addWordTextFieldLayout);
+        boolean wordIsValid = true;
+        if (wordRepository.containsWord(wordID)) {
+            layout.setError(getString(R.string.add_new_word_exist));
+            wordIsValid = false;
+        } else if (wordID.length() == 0) {
+            layout.setError(getString(R.string.add_new_word_no_word));
+            wordIsValid = false;
+        }
+        return wordIsValid;
     }
 
 
@@ -103,25 +114,20 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         Word word = new Word(soundFileName, imageFileName, name, wordID);
 
         showUploading();
-        mediaRepository.addImage(imageUri, (success) -> {
-            if (success) {
-                setViewToDone(R.id.imageUploaded);
-                showNewWord();
-            } else {
-                setViewToFail(R.id.imageUploaded);
-            }
-        });
-        mediaRepository.addSound(soundUri, (success) -> {
-            if (success) {
-                setViewToDone(R.id.soundUploaded);
-                showNewWord();
-            } else {
-                setViewToFail(R.id.soundUploaded);
-            }
-        });
+        mediaRepository.addImage(imageUri, (success) -> onUploadDone(success, R.id.imageUploaded));
+        mediaRepository.addSound(soundUri, (success) -> onUploadDone(success, R.id.soundUploaded));
 
         wordRepository.addWord(wordID, word);
         findViewById(R.id.okButton).setClickable(false);
+    }
+
+    private void onUploadDone(boolean success, @IdRes int view) {
+        if (success) {
+            setViewToDone(view);
+            showNewWord();
+        } else {
+            setViewToFail(view);
+        }
     }
 
     private void showNewWord() {
@@ -237,11 +243,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     private void setMediaClickable(Boolean status) {
         findViewById(R.id.recordButton).setClickable(status);
         findViewById(R.id.findImageButton).setClickable(status);
-    }
-
-    private void showWordToShortNotification(boolean value) {
-        if (value) findViewById(R.id.add_new_word_error_text).setVisibility(View.VISIBLE);
-        else findViewById(R.id.add_new_word_error_text).setVisibility(View.INVISIBLE);
     }
 
     private boolean isEverythingFilled() {

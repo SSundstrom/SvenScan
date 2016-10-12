@@ -10,8 +10,9 @@
     <string name="play_sound">Spela upp ljud</string>
     <string name="favorite_word">Favoritmarkera ordet</string>
     <string name="ok">OK</string>
-    <string name="WordExampleName">T.ex. \"Bord\"</string>
-    <string name="tooShort">Ordet är \n för kort</string>
+    <string name="add_new_word_hint">Ord</string>
+    <string name="add_new_word_no_word">Hittar inget ord</string>
+    <string name="add_new_word_exist">Ordet finns redan</string>
     <string name="soundFormat">.3gpp</string>
     <string name="help1">1. Skriv lapp</string>
     <string name="help2">2. Sätt upp lapp</string>
