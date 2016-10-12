@@ -2,11 +2,11 @@
     <string name="app_name">SvenScan</string>
     <string name="title_activity_play_pronunciation">PlayPronunciation</string>
     <string name="title_activity_camera">CameraActivity</string>
-    <string name="no_word">Tyvärr hittas inte det scannade ordet, försök igen!</string>
+    <string name="no_word">Tyvärr hittades inte det scannade ordet, försök igen!</string>
     <string name="add_word">Lägg till ord</string>
     <string name="help">Hjälp</string>
     <string name="add_word_title">Ord : </string>
-    <string name="add_word_image">Url till bild : </string>
+    <string name="add_word_image">URL till bild : </string>
     <string name="play_sound">Spela upp ljud</string>
     <string name="favorite_word">Favoritmarkera ordet</string>
     <string name="ok">OK</string>
@@ -18,7 +18,7 @@
     <string name="help2">2. Sätt upp lapp</string>
     <string name="help3">3. Scanna lapp</string>
     <string name="help4">4. Resultat!</string>
-    <string name="to_points">Till min sida</string>
+    <string name="to_points">Mina framsteg</string>
     <string name="intent_extra_word">word_extra</string>
     <string name="special_parent">activity_id</string>
     <string name="favorite_activity">favorite_activity</string>
