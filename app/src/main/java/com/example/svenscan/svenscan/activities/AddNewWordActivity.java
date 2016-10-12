@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntegerRes;
 import android.support.design.widget.TextInputLayout;
@@ -17,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.models.Word;
@@ -24,12 +24,16 @@ import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.RecordingManager;
 import com.example.svenscan.svenscan.utils.SoundManager;
+import com.example.svenscan.svenscan.utils.ocr.ImageProcessor;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Callback {
+import java.io.File;
+import java.io.IOException;
 
+public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Callback {
+    private static final int REQUEST_CAMERA = 282;
     private IMediaRepository mediaRepository;
     private IWordRepository wordRepository;
     private Uri imageUri;
@@ -56,6 +60,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         mediaRepository = app.getMediaRepository();
         wordRepository = app.getWordRepository();
         recordingManager = new RecordingManager(mediaRepository.getSoundDir());
+        findViewById(R.id.okButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.add_word_loading_icon).setVisibility(View.INVISIBLE);
 
         setListeners();
 
@@ -80,7 +86,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
                 if (validateWord(v.getText().toString().toUpperCase())) {
                     getName();
                     getWordID();
-                    setMediaClickable(true);
                     hideSoftKeyboard();
                 }
                 return true;
@@ -94,10 +99,14 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         boolean wordIsValid = true;
         if (wordRepository.containsWord(wordID)) {
             layout.setError(getString(R.string.add_new_word_exist));
+            layout.setErrorEnabled(true);
             wordIsValid = false;
         } else if (wordID.length() == 0) {
             layout.setError(getString(R.string.add_new_word_no_word));
+            layout.setErrorEnabled(true);
             wordIsValid = false;
+        } else {
+            layout.setErrorEnabled(false);
         }
         return wordIsValid;
     }
@@ -108,17 +117,37 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
 
+    public void showCamera(View view) {
+        Intent startCustomCameraIntent = new Intent(this, CameraActivity.class);
+        startActivityForResult(startCustomCameraIntent, REQUEST_CAMERA);
+    }
+
 
     public void addNewWord(View view) {
         getWordID();
         Word word = new Word(soundFileName, imageFileName, name, wordID);
 
         showUploading();
+        scaleImage();
         mediaRepository.addImage(imageUri, (success) -> onUploadDone(success, R.id.imageUploaded));
         mediaRepository.addSound(soundUri, (success) -> onUploadDone(success, R.id.soundUploaded));
 
         wordRepository.addWord(wordID, word);
-        findViewById(R.id.okButton).setClickable(false);
+        findViewById(R.id.okButton).setEnabled(false);
+    }
+
+    private void scaleImage() {
+        ImageProcessor leptonica = new ImageProcessor();
+
+        File targetImage = new File(mediaRepository.getImageDir(), imageFileName);
+
+        try {
+            targetImage = leptonica.scaleToReasonableSize(imageUri, getContentResolver(), targetImage);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        imageUri = Uri.fromFile(targetImage);
     }
 
     private void onUploadDone(boolean success, @IdRes int view) {
@@ -143,6 +172,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     private void showUploading() {
         findViewById(R.id.soundUploaded).setBackgroundResource(R.drawable.ic_cloud_upload);
         findViewById(R.id.imageUploaded).setBackgroundResource(R.drawable.ic_cloud_upload);
+        findViewById(R.id.okButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.add_word_loading_icon).setVisibility(View.VISIBLE);
     }
 
     private void setViewToDone(@IdRes int id) {
@@ -150,11 +181,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
     private void setViewToFail(@IdRes int id) {
         findViewById(id).setBackgroundResource(R.drawable.ic_cloud_failed_24dp);
-    }
-
-    private void getImagePath() {
-        imageFileName = imageUri.getLastPathSegment();
-
     }
 
     public void playRecordedSound(View view) {
@@ -165,10 +191,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
 
     public void recordSound(View view) {
-        if (!view.isClickable()) {
-            System.out.println("Not clickable");
-            return;  // TODO: 2016-10-07 fix visual feedback when unavailable
-        }
+        if (name == null) return;
         recordingManager.toggleRecording(name, (uri, fileName) -> {
             soundUri = uri;
             soundFileName = fileName;
@@ -180,21 +203,17 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         View okButton = findViewById(R.id.okButton);
 
         if (isEverythingFilled()) {
-            okButton.setClickable(true);
+            okButton.setEnabled(true);
             okButton.setBackgroundResource(R.color.successGreen);
         } else {
-            okButton.setClickable(false);
+            okButton.setEnabled(false);
             okButton.setBackgroundResource(R.color.darkerGray);
         }
     }
 
 
     public void findImagePath(View view) {
-        if (!view.isClickable()) {
-            System.out.println("not clickable yet");
-            return;
-        }
-
+        if (name == null) return;
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -226,23 +245,28 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         return output;
     }
 
+    /**
+     * Called when an image has been selected from the gallery
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == getIntFromID(R.integer.PICK_IMAGE) && resultCode == RESULT_OK) {
+
+        if ((requestCode == getIntFromID(R.integer.PICK_IMAGE) || requestCode == REQUEST_CAMERA) && resultCode == RESULT_OK) {
             imageUri = data.getData();
-            getImagePath();
+
+            // todo: this should probably be the word as well as some random/unique ID
+            imageFileName = imageUri.getLastPathSegment();
+
             checkOkButton();
         }
     }
 
     private int getIntFromID(@IntegerRes int id) {
          return getResources().getInteger(id);
-    }
-
-    private void setMediaClickable(Boolean status) {
-        findViewById(R.id.recordButton).setClickable(status);
-        findViewById(R.id.findImageButton).setClickable(status);
     }
 
     private boolean isEverythingFilled() {
