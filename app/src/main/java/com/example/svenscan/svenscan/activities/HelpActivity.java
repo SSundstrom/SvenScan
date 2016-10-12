@@ -15,15 +15,17 @@ import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.github.paolorotolo.appintro.AppIntro;
+import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
-public class HelpActivity extends AppIntro {
+public class HelpActivity extends AppIntro2 {
     private SharedPreferences settings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //TODO values
         addSlide(AppIntroFragment.newInstance(getString(R.string.help1), "", R.drawable.help_1 , Color.parseColor("#99ccff")));
         addSlide(AppIntroFragment.newInstance(getString(R.string.help2), "", R.drawable.help_2 , Color.parseColor("#77aaff")));
         addSlide(AppIntroFragment.newInstance(getString(R.string.help3), "", R.drawable.help_3 , Color.parseColor("#5588ff")));
