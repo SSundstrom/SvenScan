@@ -14,4 +14,5 @@
     <dimen name="image_width">300dp</dimen>
     <dimen name="image_height">300dp</dimen>
     <dimen name="add_word_image_preview">150dp</dimen>
+    <dimen name="list_item_fontsize">35sp</dimen>
 </resources>

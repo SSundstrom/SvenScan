@@ -16,9 +16,9 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/image_height"
             android:id="@+id/picLayout"
             android:layout_gravity="center"
             android:orientation="vertical"
@@ -26,12 +26,21 @@
             >
 
             <ImageView
-                android:layout_width="@dimen/image_width"
-                android:layout_height="@dimen/image_height"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/gamePicture"
+                android:layout_centerInParent="true"
                 />
-        </LinearLayout>
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/game_loading_image"
+                style="@style/Widget.MaterialProgressBar.ProgressBar.Large.NoPadding"/>
+
+        </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/firstButtons"
