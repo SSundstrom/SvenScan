@@ -13,7 +13,16 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"/>
+        android:background="?attr/colorPrimary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="22sp"
+            android:id="@+id/points_view" />
+
+    </android.support.v7.widget.Toolbar>
+
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.example.svenscan.svenscan.activities;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
+import com.example.svenscan.svenscan.utils.ProgressManager;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
@@ -37,6 +39,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     private IMediaRepository mediaRepository;
     private Word currentWord;
     private boolean cameFromFav;
+    private ProgressManager progressManager;
 
 
     @Override
@@ -65,17 +68,16 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         wordManager = app.getWordRepository();
         favoriteWords = app.getFavoriteWordRepository();
         mediaRepository = app.getMediaRepository();
+        progressManager = app.getPoints();
 
         ocr = app.getOCR();
 
-        if(getIntent().hasExtra("fav")) {
-            cameFromFav = true;
-            currentWordFromFavorites();
-
+        if(getIntent().hasExtra(getString(R.string.intent_extra_word))) {
+            currentWordFromOtherSource();
+            if (getIntent().hasExtra(getString(R.string.special_parent)))
+                cameFromFav = true;
         } else {
-            cameFromFav = false;
             currentWordFromOCR();
-
         }
 
     }
@@ -109,6 +111,8 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
             currentWord = wordManager.getWordFromID(ocrResult);
             setOcrText(ocrResult);
             handleCurrentWord();
+            progressManager.wordScanned(this);
+
         }
         else {
             wordNotFound(ocrResult);
@@ -129,8 +133,8 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         startActivity(intent);
     }
 
-    private void currentWordFromFavorites() {
-        String wordID = getIntent().getStringExtra("fav").toUpperCase();
+    private void currentWordFromOtherSource() {
+        String wordID = getIntent().getStringExtra(getString(R.string.intent_extra_word)).toUpperCase();
 
         currentWord = wordManager.getWordFromID(wordID);
 

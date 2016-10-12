@@ -63,7 +63,8 @@ public class FavoriteListActivity extends AppCompatActivity{
         selectedView = view;
         view.setSelected(true);
         Intent intent = new Intent(this, ShowWordActivity.class);
-        intent.putExtra("fav", (String)view.getTag());
+        intent.putExtra(getString(R.string.special_parent), getString(R.string.favorite_activity));
+        intent.putExtra(getString(R.string.intent_extra_word), (String)view.getTag());
         startActivity(intent);
     }
 }

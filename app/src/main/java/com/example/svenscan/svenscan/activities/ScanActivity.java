@@ -12,8 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import com.example.svenscan.svenscan.SvenScanApplication;
 
 public class ScanActivity extends CameraActivity {
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +26,13 @@ public class ScanActivity extends CameraActivity {
 
         getActionBar().hide();
 
+        SvenScanApplication app = (SvenScanApplication)getApplication();
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView pointsView = (TextView) findViewById(R.id.points_view);
+        pointsView.setText(app.getPoints().toString());
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
@@ -58,6 +68,9 @@ public class ScanActivity extends CameraActivity {
                 startActivity(i3);
                 return true;
 
+            case R.id.action_show_points:
+                Intent i4 = new Intent(this, MyPageActivity.class);
+                startActivity(i4);
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

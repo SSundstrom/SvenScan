@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_add_new_word"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,24 +17,28 @@
         android:gravity="center"
         style="@style/AddWordBoxes">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/wordPreText"
-            android:text="@string/add_word_title"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            style="@style/TextAddNewWord"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/WordExampleName"
-            android:id="@+id/addWordTextField"
-            android:inputType="textCapWords"
-            android:imeOptions="actionDone"
             android:layout_centerInParent="true"
-            style="@style/AddWordInput" />
+            android:gravity="center"
+            android:id="@+id/addWordTextFieldLayout"
+            android:textAlignment="center"
+            app:hintTextAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_new_word_hint"
+                android:id="@+id/addWordTextField"
+                android:inputType="textCapWords"
+                android:imeOptions="actionDone"
+                style="@style/AddWordInput"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +46,7 @@
             android:id="@+id/add_new_word_error_text"
             android:visibility="invisible"
             android:gravity="right"
-            android:text="@string/tooShort"
+            android:text="@string/add_new_word_no_word"
             android:layout_centerVertical="true"
             android:textColor="@android:color/holo_red_dark"
             android:layout_alignParentRight="true"/>
@@ -55,13 +60,23 @@
         >
 
         <ImageButton
+            android:enabled="false"
             android:onClick="findImagePath"
             android:layout_width="@dimen/larger_button"
             android:layout_height="@dimen/larger_button"
             android:background="@drawable/image_button"
             android:id="@+id/findImageButton"
-            android:clickable="false"
             android:layout_centerInParent="true"
+            />
+
+        <ImageButton
+            android:onClick="showCamera"
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:background="@drawable/ic_photo_camera_black"
+            android:id="@+id/takeImageButton"
+            android:clickable="false"
+            android:layout_toLeftOf="@id/findImageButton"
             />
 
         <ImageView
@@ -85,7 +100,7 @@
             android:background="@drawable/ic_record"
             android:id="@+id/recordButton"
             android:onClick="recordSound"
-            android:clickable="false"
+            android:enabled="false"
             android:layout_marginLeft="@dimen/add_word_margins_sides"
 
             />
@@ -104,7 +119,7 @@
                 android:contentDescription="@string/favorite_word"
                 android:id="@+id/playRecordedSound"
                 android:onClick="playRecordedSound"
-                android:clickable="false"
+                android:enabled="false"
                 android:background="@drawable/ic_volume_max"/>
 
         </LinearLayout>
@@ -117,13 +132,28 @@
             android:id="@+id/soundUploaded"/>
 
     </RelativeLayout>
+    <RelativeLayout
+        style="@style/AddWordBoxes">
 
-    <Button
-        style="@style/AddWordTextButton"
-        android:id="@+id/okButton"
-        android:text="@string/ok"
-        android:onClick="addNewWord"
-        android:clickable="false"
-        android:background="@color/darkerGray"
-        />
+        <Button
+            style="@style/AddWordTextButton"
+            android:id="@+id/okButton"
+            android:layout_centerInParent="true"
+            android:text="@string/ok"
+            android:onClick="addNewWord"
+            android:enabled="false"
+            android:background="@color/darkerGray"
+            />
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:indeterminate="true"
+            android:id="@+id/add_word_loading_icon"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Large.NoPadding"
+            />
+    </RelativeLayout>
+
 </LinearLayout>

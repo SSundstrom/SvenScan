@@ -3,6 +3,7 @@ package com.example.svenscan.svenscan;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.example.svenscan.svenscan.utils.ProgressManager;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseMediaRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
@@ -20,7 +21,8 @@ public class SvenScanApplication extends Application {
     private static IWordRepository wordRepository;
     private static IFavoriteRepository favoriteWordRepository;
     private static IOCR ocr;
-    private IMediaRepository mediaRepository;
+    private static IMediaRepository mediaRepository;
+    private static ProgressManager progressManager;
 
     public void onCreate() {
 
@@ -40,8 +42,15 @@ public class SvenScanApplication extends Application {
             ocr = new OCRDecoder(this);
         }
 
-        if (mediaRepository == null)
+        if (mediaRepository == null) {
             mediaRepository = new FirebaseMediaRepository();
+        }
+
+        if(progressManager == null){
+            progressManager = new ProgressManager();
+            recreatePoints();
+        }
+
 
         Dexter.initialize(this);
     }
@@ -62,11 +71,21 @@ public class SvenScanApplication extends Application {
         return mediaRepository;
     }
 
+    public ProgressManager getPoints(){ return progressManager;}
+
+
     public void recreateFavoriteWords(){
         HashSet<String> set = new HashSet<String>();
         SharedPreferences settings = getSharedPreferences("favoriteWords", 0);
         set = (HashSet<String>) settings.getStringSet("favoriteWords", set);
         favoriteWordRepository.addSetToFavorites(set);
+    }
+
+    public void recreatePoints(){
+        SharedPreferences settings = getSharedPreferences("points", 0);
+        int points = settings.getInt("points", 0);
+        progressManager.setPoints(points);
+        progressManager.checkLevel();
     }
 
 

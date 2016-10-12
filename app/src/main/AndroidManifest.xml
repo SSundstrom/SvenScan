@@ -22,7 +22,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ShowWordActivity"
-            android:label="@string/title_activity_play_pronunciation"
+            android:label="Ord"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -57,6 +57,15 @@
         </activity>
         <activity android:name=".activities.GameActivity"></activity>
         <activity android:name=".activities.HelpActivity"></activity>
+
+        <activity
+            android:name=".activities.MyPageActivity"
+            android:label="SvenScan"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ScanActivity" />
+        </activity>
     </application>
 
 </manifest>
