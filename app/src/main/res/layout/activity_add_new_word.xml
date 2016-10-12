@@ -60,12 +60,12 @@
         >
 
         <ImageButton
+            android:enabled="false"
             android:onClick="findImagePath"
             android:layout_width="@dimen/larger_button"
             android:layout_height="@dimen/larger_button"
             android:background="@drawable/image_button"
             android:id="@+id/findImageButton"
-            android:clickable="false"
             android:layout_centerInParent="true"
             />
 
@@ -90,7 +90,7 @@
             android:background="@drawable/ic_record"
             android:id="@+id/recordButton"
             android:onClick="recordSound"
-            android:clickable="false"
+            android:enabled="false"
             android:layout_marginLeft="@dimen/add_word_margins_sides"
 
             />
@@ -109,7 +109,7 @@
                 android:contentDescription="@string/favorite_word"
                 android:id="@+id/playRecordedSound"
                 android:onClick="playRecordedSound"
-                android:clickable="false"
+                android:enabled="false"
                 android:background="@drawable/ic_volume_max"/>
 
         </LinearLayout>
@@ -124,13 +124,14 @@
     </RelativeLayout>
     <RelativeLayout
         style="@style/AddWordBoxes">
+
         <Button
             style="@style/AddWordTextButton"
             android:id="@+id/okButton"
             android:layout_centerInParent="true"
             android:text="@string/ok"
             android:onClick="addNewWord"
-            android:clickable="false"
+            android:enabled="false"
             android:background="@color/darkerGray"
             />
     </RelativeLayout>
