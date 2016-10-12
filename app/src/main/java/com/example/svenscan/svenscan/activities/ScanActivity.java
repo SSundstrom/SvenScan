@@ -66,10 +66,12 @@ public class ScanActivity extends CameraActivity {
             case R.id.action_show_points:
                 Intent i3 = new Intent(this, MyPageActivity.class);
                 startActivity(i3);
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
+                System.out.println("User action not recognized, invoke superclass to handle");
                 return super.onOptionsItemSelected(item);
         }
     }

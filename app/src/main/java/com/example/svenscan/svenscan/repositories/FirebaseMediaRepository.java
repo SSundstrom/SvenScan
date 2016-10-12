@@ -49,10 +49,22 @@ public class FirebaseMediaRepository implements IMediaRepository{
 
     public void initialize(File dataDir) {
         soundDir = new File(dataDir.getPath() + "/sounds");
-        if (!soundDir.exists()) soundDir.mkdir();
+        if (!soundDir.exists()) {
+            boolean mkdir = soundDir.mkdir();
+            if (!mkdir){
+                // TODO: 2016-10-12 inform user directory failed to initialize
+                System.out.println("System failed to create sound directory '/sounds'");
+            }
+        }
 
         imageDir = new File(dataDir.getPath() + "/images");
-        if (!imageDir.exists()) imageDir.mkdir();
+        if (!imageDir.exists()){
+            boolean mkdir = imageDir.mkdir();
+            if (!mkdir){
+                // TODO: 2016-10-12 inform user directory failed to initialize
+                System.out.println("System failed to create image directory '/images'");
+            }
+        }
 
     }
 

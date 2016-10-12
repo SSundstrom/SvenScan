@@ -5,6 +5,7 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,43 +26,49 @@ public class RecordPronunciationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_pronunciation);
         askForPermissions();
-
+        initializeRecorder();
 
         File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "SvenScan");
 
         if (!folder.exists()) {
-            folder.mkdir();
+            boolean dir = folder.mkdir();
+            if (!dir){
+                // TODO: 2016-10-12 inform user directory failed to initialize
+                System.out.println("System failed to create directory");
+            }
         }
 
         final Button recordButton = (Button) findViewById(R.id.recordButton);
-
-        recordButton.setOnClickListener((v) -> {
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mediaRecorder.setMaxDuration(5000);
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-            EditText swedishWord = (EditText) findViewById(R.id.swedishWord);
-            String filename = swedishWord.getText().toString();
-            mediaRecorder.setOutputFile(PATH + "/SvenScan/" + filename + ".3gp");  // TODO: 2016-10-04 Snacka med Sawmill om var vi sparar ljud
-
-            try {
-                mediaRecorder.prepare();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (!isRecording) {
-                mediaRecorder.start();
-                isRecording = true;
-            } else {
-                mediaRecorder.stop();
-                isRecording = false;
-                mediaRecorder.reset();
-            }
-        });
+        recordButton.setOnClickListener(v -> record());
     }
 
+    private void record(){
+        try {
+            mediaRecorder.prepare();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!isRecording) {
+            mediaRecorder.start();
+            isRecording = true;
+        } else {
+            mediaRecorder.stop();
+            isRecording = false;
+            mediaRecorder.reset();
+        }
+    }
 
+    private void initializeRecorder(){
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setMaxDuration(5000);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        EditText swedishWord = (EditText) findViewById(R.id.swedishWord);
+        String filename = swedishWord.getText().toString();
+        mediaRecorder.setOutputFile(PATH + "/SvenScan/" + filename + ".3gp");  // TODO: 2016-10-04 Snacka med Sawmill om var vi sparar ljud
+
+    }
     private void askForPermissions() {
         MultiplePermissionsListener permissions =
             DialogOnAnyDeniedMultiplePermissionsListener.Builder
