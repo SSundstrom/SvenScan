@@ -22,9 +22,13 @@ import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.RecordingManager;
 import com.example.svenscan.svenscan.utils.SoundManager;
+import com.example.svenscan.svenscan.utils.ocr.ImageProcessor;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.io.File;
+import java.io.IOException;
 
 public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Callback {
 
@@ -103,6 +107,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         Word word = new Word(soundFileName, imageFileName, name, wordID);
 
         showUploading();
+        scaleImage();
         mediaRepository.addImage(imageUri, (success) -> {
             if (success) {
                 setViewToDone(R.id.imageUploaded);
@@ -122,6 +127,20 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
         wordRepository.addWord(wordID, word);
         findViewById(R.id.okButton).setClickable(false);
+    }
+
+    private void scaleImage() {
+        ImageProcessor leptonica = new ImageProcessor();
+
+        File targetImage = new File(mediaRepository.getImageDir(), imageFileName);
+
+        try {
+            targetImage = leptonica.scaleToReasonableSize(imageUri, getContentResolver(), targetImage);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        imageUri = Uri.fromFile(targetImage);
     }
 
     private void showNewWord() {
@@ -144,11 +163,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
     private void setViewToFail(@IdRes int id) {
         findViewById(id).setBackgroundResource(R.drawable.ic_cloud_failed_24dp);
-    }
-
-    private void getImagePath() {
-        imageFileName = imageUri.getLastPathSegment();
-
     }
 
     public void playRecordedSound(View view) {
@@ -220,12 +234,21 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         return output;
     }
 
+    /**
+     * Called when an image has been selected from the gallery
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == getIntFromID(R.integer.PICK_IMAGE) && resultCode == RESULT_OK) {
             imageUri = data.getData();
-            getImagePath();
+
+            // todo: this should probably be the word as well as some random/unique ID
+            imageFileName = imageUri.getLastPathSegment();
+
             checkOkButton();
         }
     }
