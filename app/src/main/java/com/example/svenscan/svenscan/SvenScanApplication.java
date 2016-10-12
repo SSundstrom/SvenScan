@@ -85,6 +85,7 @@ public class SvenScanApplication extends Application {
         SharedPreferences settings = getSharedPreferences("points", 0);
         int points = settings.getInt("points", 0);
         progressManager.setPoints(points);
+        progressManager.checkLevel();
     }
 
 
