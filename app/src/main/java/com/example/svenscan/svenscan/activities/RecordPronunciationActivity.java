@@ -27,7 +27,13 @@ public class RecordPronunciationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_record_pronunciation);
         askForPermissions();
         initializeRecorder();
+        createDirectory();
 
+        final Button recordButton = (Button) findViewById(R.id.recordButton);
+        recordButton.setOnClickListener(v -> record());
+    }
+
+    private void createDirectory(){
         File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "SvenScan");
 
         if (!folder.exists()) {
@@ -37,9 +43,6 @@ public class RecordPronunciationActivity extends AppCompatActivity {
                 System.out.println("System failed to create directory");
             }
         }
-
-        final Button recordButton = (Button) findViewById(R.id.recordButton);
-        recordButton.setOnClickListener(v -> record());
     }
 
     private void record(){
