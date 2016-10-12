@@ -65,16 +65,6 @@
 
     </RelativeLayout>
 
-
-    <!-- Keep these ImageView, you have break free scan_fragment & scan_activity from third part dependencies.-->
-    <ImageView
-        android:id="@+id/change_camera"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/squarecamera__camera"
-        android:layout_weight="1"
-        android:visibility="gone"/>
-
     <LinearLayout
         android:id="@+id/flash"
         android:layout_width="wrap_content"
@@ -107,6 +97,17 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
     </LinearLayout>
+
+
+
+    <!-- Keep these ImageView, you have break free scan_fragment & scan_activity from third part dependencies.-->
+    <ImageView
+        android:id="@+id/change_camera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/squarecamera__camera"
+        android:layout_weight="1"
+        android:visibility="gone"/>
     <!-- End of ImageViews to keep in xml-->
 
 </RelativeLayout>
