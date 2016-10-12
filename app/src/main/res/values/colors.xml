@@ -10,4 +10,5 @@
     <color name="darkerGray">#151515</color>
     <color name="successGreen">#00e676</color>
     <color name="failRed">#F44336</color>
+    <color name="pretty_yellow">#ffeb3b</color>
 </resources>

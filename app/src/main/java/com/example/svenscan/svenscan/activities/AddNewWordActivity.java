@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.desmond.squarecamera.CameraActivity;
 import com.example.svenscan.svenscan.R;
@@ -260,9 +261,14 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
             // todo: this should probably be the word as well as some random/unique ID
             imageFileName = imageUri.getLastPathSegment();
-
+            setPreviewImage();
             checkOkButton();
         }
+    }
+
+    private void setPreviewImage() {
+        ImageView image = (ImageView)findViewById(R.id.add_new_word_image_preview);
+        image.setImageURI(imageUri);
     }
 
     private int getIntFromID(@IntegerRes int id) {
