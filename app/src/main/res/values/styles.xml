@@ -69,4 +69,8 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
+    <style name="TextAppearance.AddNewWordHintLarge" parent="@android:style/TextAppearance.DeviceDefault.Large">
+
+    </style>
 </resources>

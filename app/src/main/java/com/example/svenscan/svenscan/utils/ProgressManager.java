@@ -1,5 +1,8 @@
 package com.example.svenscan.svenscan.utils;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+
 public class ProgressManager {
 
     private int points;
@@ -8,12 +11,20 @@ public class ProgressManager {
     public ProgressManager(){
         this.points = 0;
         this.level = 1;
+        checkLevel();
+
     }
 
-    public void wordScanned(){
+    public void wordScanned(Activity app){
         earnPoints();
+        SharedPreferences settings = app.getSharedPreferences("points", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("points", points);
+        editor.commit();
         checkIfLevelUp();
+
     }
+
 
     public void setPoints(int points){
         this.points = points;
@@ -34,16 +45,25 @@ public class ProgressManager {
         }
     }
 
+    public int checkLevel(){
+        int tempPoints = points;
+        while(tempPoints >= 100){
+            tempPoints = tempPoints - 100;
+            level = level + 1;
+        }
+        return level;
+    }
+
     private void levelUp(){
         level = level + 1;
     }
 
     public String showLevel(){
-        return "Nivå:" + level;
+        return "Nivå:" + " " + level;
     }
 
     public String toString(){
-        return "Poäng:" + this.points;
+        return "Poäng:" + " " + this.points;
     }
 
 
