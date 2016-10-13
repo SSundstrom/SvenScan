@@ -26,11 +26,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activities.RecordPronunciationActivity"
-            android:label="SvenScan"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".activities.FavoriteListActivity"
             android:screenOrientation="portrait">
         </activity>
