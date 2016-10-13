@@ -116,17 +116,17 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
         }
         else {
-            wordNotFound(ocrResult);
+            wordNotFound();
         }
     }
-    public void wordNotFound(String s){
+    public void wordNotFound(){
         setContentView(R.layout.no_word_match_view);
         ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
         imageButton.setBackgroundResource(R.drawable.redo_button);
         ImageView errorImage = (ImageView) findViewById((R.id.noWordErrorImage));
         errorImage.setBackgroundResource(R.drawable.exclamation_mark);
         TextView errorText = (TextView) findViewById(R.id.errorText);
-        errorText.setText("Tyvärr hittas inte det scannade ordet, försök igen! \n"  + s);
+        errorText.setText("Försök igen!");
     }
 
     public void backToCamera(View view){
