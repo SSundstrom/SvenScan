@@ -20,6 +20,16 @@
         android:gravity="center"
         android:layout_weight="1"
 
+
+        />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/trophy"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+
         />
 
 </LinearLayout>

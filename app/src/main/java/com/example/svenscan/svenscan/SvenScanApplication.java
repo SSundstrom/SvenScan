@@ -3,6 +3,7 @@ package com.example.svenscan.svenscan;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.example.svenscan.svenscan.utils.IProgressManager;
 import com.example.svenscan.svenscan.utils.ProgressManager;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseMediaRepository;
@@ -22,7 +23,7 @@ public class SvenScanApplication extends Application {
     private static IFavoriteRepository favoriteWordRepository;
     private static IOCR ocr;
     private static IMediaRepository mediaRepository;
-    private static ProgressManager progressManager;
+    private static IProgressManager progressManager;
 
     public void onCreate() {
 
@@ -71,7 +72,7 @@ public class SvenScanApplication extends Application {
         return mediaRepository;
     }
 
-    public ProgressManager getPoints(){ return progressManager;}
+    public IProgressManager getPoints(){ return progressManager;}
 
 
     public void recreateFavoriteWords(){
