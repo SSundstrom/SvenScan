@@ -17,13 +17,11 @@ import java.io.IOException;
 
 public class SoundManager  {
 
-    private boolean hasSound;
     private boolean playing;
     private MediaPlayer mediaPlayer;
     private Activity activity;
 
     public SoundManager(Activity activity){
-        hasSound = false;
         this.activity = activity;
     }
 
@@ -33,15 +31,7 @@ public class SoundManager  {
             playing = false;
             mediaPlayer.reset();
         });
-        hasSound = true;
 
-    }
-
-    private void start(){
-        if (hasSound) {
-            mediaPlayer.start();
-            playing = true;
-        }
     }
 
     public void start(Uri soundUri){
@@ -51,21 +41,7 @@ public class SoundManager  {
             mediaPlayer.prepareAsync();
         }
     }
-
-    public void start(Uri soundUri, MediaPlayer.OnCompletionListener onCompletionListener) {
-        if (!playing) {
-            setSound(soundUri);
-            mediaPlayer.setOnCompletionListener(onCompletionListener);
-            mediaPlayer.setOnPreparedListener((v) -> mediaPlayer.start());
-
-            try {
-                mediaPlayer.start();
-            } catch (IllegalStateException e) {
-                Log.d("Mediaplayer", e.getMessage());
-            }
-        }
-    }
-
+    
     public void start(Uri soundUri, View view) {
         if (!playing) {
             setSound(soundUri);

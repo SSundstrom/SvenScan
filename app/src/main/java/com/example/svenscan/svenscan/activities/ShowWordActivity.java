@@ -54,6 +54,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         }
     }
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -181,13 +182,23 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     }
 
     private void setMainPicture() {
+        showLoadingAnimation(true);
         ImageView mainView = (ImageView) findViewById((R.id.imageView4));
-        mediaRepository.getImageUri(currentWord.getImagePath(), mainView::setImageURI);
+        mediaRepository.getImageUri(currentWord.getImagePath(), (uri) -> {
+            mainView.setImageURI(uri);
+            showLoadingAnimation(false);
+        });
+    }
+
+    private void showLoadingAnimation(boolean value) {
+
+        findViewById(R.id.show_word_image_loading).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+
     }
 
     public void playWord(@Nullable View view) {
         if (currentWord != null) {
-            mediaRepository.getSoundUri(currentWord.getSoundPath(), (uri) -> soundManager.start(uri, (v) -> stopSoundAnimation()));
+            mediaRepository.getSoundUri(currentWord.getSoundPath(), (uri) -> soundManager.start(uri, view));
             startSoundAnimation();
         }
     }
@@ -197,14 +208,6 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         playWord.setBackgroundResource(R.drawable.sound_playing);
         AnimationDrawable animation = (AnimationDrawable)playWord.getBackground();
         animation.start();
-    }
-
-    private void stopSoundAnimation() {
-        View playWord = findViewById(R.id.playWord);
-        AnimationDrawable soundPlaying = (AnimationDrawable)playWord.getBackground();
-        soundPlaying.stop();
-        playWord.setBackgroundResource(R.drawable.ic_volume_max);
-        System.out.println("End animation");
     }
 
     private void setWordText(String word) {

@@ -14,7 +14,7 @@
         android:layout_marginTop="-62dp"
         android:minHeight="150dp"
 
-        />
+    />
 
     <View
         android:id="@+id/cover_top_view"
@@ -50,35 +50,6 @@
             android:clickable="true"
             android:src="@drawable/ic_camera_button"
             android:layout_centerInParent="true"/>
-        <LinearLayout
-            android:id="@+id/flash"
-            android:layout_width="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true">
-
-            <ImageView
-                android:id="@+id/flash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/squarecamera__toggle_flash"
-                />
-
-            <TextView
-                android:id="@+id/auto_flash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center_vertical"
-                android:text="Auto"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"/>
-        </LinearLayout>
 
         <ImageView
             android:id="@+id/toFavoriteWords"
@@ -93,6 +64,40 @@
             android:layout_alignParentLeft="true"/>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/flash"
+        android:layout_width="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/camera_tools_view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/flash_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/squarecamera__toggle_flash"
+            />
+
+        <TextView
+            android:id="@+id/auto_flash_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:text="Auto"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
 
 
     <!-- Keep these ImageView, you have break free scan_fragment & scan_activity from third part dependencies.-->
