@@ -1,7 +1,6 @@
 package com.example.svenscan.svenscan.activities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.IdRes;
@@ -13,7 +12,6 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -63,6 +61,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         recordingManager = new RecordingManager(mediaRepository.getSoundDir());
         findViewById(R.id.okButton).setVisibility(View.VISIBLE);
         findViewById(R.id.add_word_loading_icon).setVisibility(View.INVISIBLE);
+        showMediaPickers(false);
 
         setListeners();
 
@@ -84,20 +83,35 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         EditText nameField = (EditText)findViewById(R.id.addWordTextField);
         nameField.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (validateWord(v.getText().toString().toUpperCase())) {
-                    getName();
-                    getWordID();
-                    hideSoftKeyboard();
-                }
-                return true;
+                stuff();
             }
             return false;
         });
     }
 
+    private void forceClearFocus(View view) {
+        view.setFocusableInTouchMode(false);
+        view.setFocusable(false);
+        view.setFocusableInTouchMode(true);
+        view.setFocusable(true);
+    }
+
+    private void stuff() {
+        EditText textField = (EditText)findViewById(R.id.addWordTextField);
+        if (validateWord(textField.getText().toString().toUpperCase())) {
+            forceClearFocus(textField);
+            getName();
+            getWordID();
+            showMediaPickers(true);
+        } else {
+            showMediaPickers(false);
+        }
+    }
+
     private boolean validateWord(String wordID) {
         TextInputLayout layout = (TextInputLayout)findViewById(R.id.addWordTextFieldLayout);
         boolean wordIsValid = true;
+
         if (wordRepository.containsWord(wordID)) {
             layout.setError(getString(R.string.add_new_word_exist));
             layout.setErrorEnabled(true);
@@ -109,13 +123,13 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         } else {
             layout.setErrorEnabled(false);
         }
+
         return wordIsValid;
     }
 
-
-    private void hideSoftKeyboard() { // TODO: 2016-10-08 there is probably a better way to do this
-        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+    private void showMediaPickers(boolean displayItems) {
+        findViewById(R.id.add_new_word_image_box).setVisibility(displayItems ? View.VISIBLE : View.INVISIBLE);
+        findViewById(R.id.add_new_word_sound_box).setVisibility(displayItems ? View.VISIBLE : View.INVISIBLE);
     }
 
     public void showCamera(View view) {

@@ -2,12 +2,9 @@ package com.example.svenscan.svenscan.activities;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -165,7 +162,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
         setFavoriteColor();
         setMainPicture();
         setWordText(currentWord.getWord());
-        playWord(null);
+        playWord(findViewById(R.id.playWord));
     }
 
     private void setFavoriteColor() {
@@ -196,18 +193,12 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
 
     }
 
-    public void playWord(@Nullable View view) {
+    public void playWord(View view) {
         if (currentWord != null) {
-            mediaRepository.getSoundUri(currentWord.getSoundPath(), (uri) -> soundManager.start(uri, view));
-            startSoundAnimation();
+            mediaRepository.getSoundUri(currentWord.getSoundPath(), (uri) ->{
+                soundManager.start(uri, view);
+            });
         }
-    }
-    private void startSoundAnimation() {
-        System.out.println("Start animation");
-        View playWord = findViewById(R.id.playWord);
-        playWord.setBackgroundResource(R.drawable.sound_playing);
-        AnimationDrawable animation = (AnimationDrawable)playWord.getBackground();
-        animation.start();
     }
 
     private void setWordText(String word) {

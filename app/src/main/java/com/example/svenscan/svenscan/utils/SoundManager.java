@@ -41,7 +41,7 @@ public class SoundManager  {
             mediaPlayer.prepareAsync();
         }
     }
-    
+
     public void start(Uri soundUri, View view) {
         if (!playing) {
             setSound(soundUri);
