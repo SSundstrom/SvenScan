@@ -11,4 +11,8 @@
     <color name="successGreen">#00e676</color>
     <color name="failRed">#F44336</color>
     <color name="pretty_yellow">#ffeb3b</color>
+    <color name="help1">#99ccff</color>
+    <color name="help2">#77aaff</color>
+    <color name="help3">#5588ff</color>
+    <color name="help4">#3366ff</color>
 </resources>
