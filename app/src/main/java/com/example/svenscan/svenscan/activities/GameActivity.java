@@ -129,11 +129,15 @@ public class GameActivity extends AppCompatActivity {
         }
     }
     private void setView(){
+        View gameLoading = findViewById(R.id.game_loading_image);
+        gameLoading.setVisibility(View.VISIBLE);
         ImageView gameImage = (ImageView) findViewById(R.id.gamePicture);
+        gameImage.setVisibility(View.INVISIBLE);
         Word word = wordManager.getWordFromID(correctWord);
         mediaRepository.getImageUri(word.getImagePath(), (imageUri) -> {
             gameImage.setImageURI(imageUri);
-            findViewById(R.id.game_loading_image).setVisibility(View.INVISIBLE);
+            gameImage.setVisibility(View.VISIBLE);
+            gameLoading.setVisibility(View.INVISIBLE);
         });
 
 
