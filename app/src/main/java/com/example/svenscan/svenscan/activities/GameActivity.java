@@ -131,7 +131,12 @@ public class GameActivity extends AppCompatActivity {
     private void setView(){
         ImageView gameImage = (ImageView) findViewById(R.id.gamePicture);
         Word word = wordManager.getWordFromID(correctWord);
-        mediaRepository.getImageUri(word.getImagePath(), gameImage::setImageURI);
+        mediaRepository.getImageUri(word.getImagePath(), (imageUri) -> {
+            gameImage.setImageURI(imageUri);
+            findViewById(R.id.game_loading_image).setVisibility(View.INVISIBLE);
+        });
+
+
 
         setRandomChoicesButtons();
         setTextLevel();
