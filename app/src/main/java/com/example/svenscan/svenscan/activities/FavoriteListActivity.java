@@ -33,6 +33,8 @@ public class FavoriteListActivity extends AppCompatActivity{
         IFavoriteRepository favoriteWordRepository = app.getFavoriteWordRepository();
         favorites = favoriteWordRepository.getFavorites();
         initList();
+
+        setTitle(R.string.favorite_activity);
     }
 
     @Override

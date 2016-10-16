@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.svenscan.svenscan.SvenScanApplication;
 
@@ -28,11 +29,19 @@ public class ScanActivity extends CameraActivity {
 
         SvenScanApplication app = (SvenScanApplication)getApplication();
 
-
+        setTitle(null);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView pointsView = (TextView) findViewById(R.id.points_view);
-        pointsView.setText(app.getPoints().toString());
+        TextView levelView = (TextView) findViewById(R.id.level_text);
+        levelView.setText("" + app.getPoints().getLevel());
+
+        TextView pointsView = (TextView) findViewById(R.id.remaining_points_text);
+        int progress = app.getPoints().getLevelProgress();
+        pointsView.setText(progress + " / 100");
+
+        ProgressBar levelProgress = (ProgressBar) findViewById(R.id.remaining_points_progressbar);
+        levelProgress.setProgress(progress);
+
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
@@ -63,19 +72,7 @@ public class ScanActivity extends CameraActivity {
                 startActivity(i2);
                 return true;
 
-            case R.id.action_game:
-                Intent i3 = new Intent(this, GameActivity.class);
-                startActivity(i3);
-                return true;
-
-            case R.id.action_show_points:
-                Intent i4 = new Intent(this, MyPageActivity.class);
-                startActivity(i4);
-                return true;
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                System.out.println("User action not recognized, invoke superclass to handle");
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -90,6 +87,16 @@ public class ScanActivity extends CameraActivity {
 
     public void toFavoriteWords(View view){
         Intent intent = new Intent(this, FavoriteListActivity.class);
+        startActivity(intent);
+    }
+
+    public void toGame(View view){
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    public void toScore(View view){
+        Intent intent = new Intent(this, MyPageActivity.class);
         startActivity(intent);
     }
 }

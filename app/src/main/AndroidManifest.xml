@@ -34,10 +34,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.DebugWordListActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".activities.StartActivity"
             android:screenOrientation="portrait">
             <intent-filter>

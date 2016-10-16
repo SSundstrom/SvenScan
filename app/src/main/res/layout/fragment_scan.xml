@@ -37,7 +37,10 @@
         android:layout_height="wrap_content"
         android:minHeight="128dp"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/add_word_margins_sides"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
         android:background="@color/darkerGray">
 
         <ImageView
@@ -59,9 +62,19 @@
             android:onClick="toFavoriteWords"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:layout_marginLeft="12dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"/>
+
+        <ImageView
+            android:id="@+id/toGame"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_dice"
+            android:onClick="toGame"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
 
