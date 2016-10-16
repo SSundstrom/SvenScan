@@ -51,7 +51,7 @@
                     android:textSize="14sp"
                     android:id="@+id/remaining_points_text"/>
                 <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:indeterminate="false"
                     app:mpb_progressStyle="horizontal"

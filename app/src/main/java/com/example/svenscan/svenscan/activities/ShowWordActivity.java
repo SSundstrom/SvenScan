@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -110,20 +112,25 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
             setOcrText(ocrResult);
             handleCurrentWord();
             progressManager.wordScanned(this);
-
+            showProgressAlert();
         }
         else {
             wordNotFound();
         }
     }
+
+    private void showProgressAlert() {
+        CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.show_word_coordinator_layout);
+
+        Snackbar snackbar = Snackbar
+                .make(layout, "+10 XP", Snackbar.LENGTH_SHORT);
+
+        snackbar.show();
+    }
+
     public void wordNotFound(){
+        setTitle("?");
         setContentView(R.layout.no_word_match_view);
-        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
-        imageButton.setBackgroundResource(R.drawable.redo_button);
-        ImageView errorImage = (ImageView) findViewById((R.id.noWordErrorImage));
-        errorImage.setBackgroundResource(R.drawable.exclamation_mark);
-        TextView errorText = (TextView) findViewById(R.id.errorText);
-        errorText.setText("Försök igen!");
     }
 
     public void backToCamera(View view){
@@ -161,6 +168,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     private void handleCurrentWord() {
         setFavoriteColor();
         setMainPicture();
+        setTitle(currentWord.getWord());
         setWordText(currentWord.getWord());
         playWord(findViewById(R.id.playWord));
     }

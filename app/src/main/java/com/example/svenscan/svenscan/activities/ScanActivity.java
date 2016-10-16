@@ -33,11 +33,11 @@ public class ScanActivity extends CameraActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView levelView = (TextView) findViewById(R.id.level_text);
-        levelView.setText("" + app.getPoints().getLevel());
+        levelView.setText("Lv " + app.getPoints().getLevel());
 
         TextView pointsView = (TextView) findViewById(R.id.remaining_points_text);
         int progress = app.getPoints().getLevelProgress();
-        pointsView.setText(progress + " / 100");
+        pointsView.setText("XP: " + progress + " / 100");
 
         ProgressBar levelProgress = (ProgressBar) findViewById(R.id.remaining_points_progressbar);
         levelProgress.setProgress(progress);

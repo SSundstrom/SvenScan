@@ -24,8 +24,7 @@
     <string name="intent_extra_word">word_extra</string>
     <string name="special_parent">activity_id</string>
     <string name="favorite_activity">Favoriter</string>
-
-
+    <string name="retry">Försök igen</string>
 </resources>
 
 

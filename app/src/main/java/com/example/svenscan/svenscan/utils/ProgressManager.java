@@ -15,14 +15,13 @@ public class ProgressManager implements IProgressManager {
 
     }
 
-    public void wordScanned(Activity app){
+    public void wordScanned(Activity app) {
         earnPoints();
         SharedPreferences settings = app.getSharedPreferences("points", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt("points", points);
         editor.commit();
         checkIfLevelUp();
-
     }
 
 
