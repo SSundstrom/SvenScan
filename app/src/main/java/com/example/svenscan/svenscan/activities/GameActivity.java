@@ -1,5 +1,6 @@
 package com.example.svenscan.svenscan.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,11 +11,11 @@ import android.widget.TextView;
 
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
+import com.example.svenscan.svenscan.fragments.GameFragment;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
-import com.example.svenscan.svenscan.utils.SoundManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,8 +99,7 @@ public class GameActivity extends AppCompatActivity {
             setView();
             questionNbr++;
         }else{
-            //Visa poäng osv
-            //WOHO
+            gameFinished();
         }
     }
 
@@ -190,5 +190,29 @@ public class GameActivity extends AppCompatActivity {
         String answer = selectedButton.getText().toString();
         handleAnswer(answer);
         newQuestion();
+    }
+
+    public void gameFinished(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_game, GameFragment.newInstance(), GameFragment.TAG)
+                .commit();
+        TextView scoreView = (TextView)findViewById(R.id.score_view);
+
+        if(scoreView != null) {
+            scoreView.setText("\n" + correctAnswers + "/" + NBR_OF_QUESTIONS + "\n");
+        }
+        else{
+            System.out.println("null!");
+        }
+    }
+
+    public void endGame(View view){
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
+
+    public void playAgain(View view){
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
     }
 }
