@@ -196,14 +196,6 @@ public class GameActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_game, GameFragment.newInstance(), GameFragment.TAG)
                 .commit();
-        TextView scoreView = (TextView)findViewById(R.id.score_view);
-
-        if(scoreView != null) {
-            scoreView.setText("\n" + correctAnswers + "/" + NBR_OF_QUESTIONS + "\n");
-        }
-        else{
-            System.out.println("null!");
-        }
     }
 
     public void endGame(View view){
@@ -215,4 +207,13 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
+
+    public int getScore(){
+        return this.correctAnswers;
+    }
+
+    public int getNBR_OF_QUESTIONS(){
+        return this.NBR_OF_QUESTIONS;
+    }
+
 }

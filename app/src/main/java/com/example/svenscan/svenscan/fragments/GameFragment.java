@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.svenscan.svenscan.R;
+import com.example.svenscan.svenscan.activities.GameActivity;
 
 public class GameFragment extends Fragment{
 
@@ -20,7 +22,16 @@ public class GameFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_game, container, false);
+        View view = inflater.inflate(R.layout.fragment_game, container, false);
+
+        TextView scoreView = (TextView)view.findViewById(R.id.score_view);
+        GameActivity activity = (GameActivity) getActivity();
+        int score = activity.getScore();
+        int nbrOfQuestions = activity.getNBR_OF_QUESTIONS();
+
+        scoreView.setText("\n" + score + "/" + nbrOfQuestions + "\n");
+
+        return view;
     }
 
     public static Fragment newInstance() {
