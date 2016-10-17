@@ -115,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
         Random randomGenerator = new Random();
         String s = allCorrectWordsList.get(randomGenerator.nextInt(allCorrectWordsList.size()));
         allCorrectWordsList.remove(s);
+        System.out.print(s);
         return s;
     }
 
@@ -124,8 +125,20 @@ public class GameActivity extends AppCompatActivity {
     }
     private void setChoices(){
         for(int i = 1; i<NBR_OF_CHOICES; i++){
-            choices.add(randomWord());
-            System.out.println(choices.get(i));
+            boolean newWordIsSet = false;
+            while (!newWordIsSet){
+                boolean isUnique = true;
+                String randomword = randomWord();
+                for(int j = 0; j<i; j++){
+                    if(randomword.equals(choices.get(j))){
+                       isUnique=false;
+                    }
+                }if(isUnique){
+                    choices.add(i,randomword);
+                    newWordIsSet = true;
+                }
+            }
+
         }
     }
     private void setView(){
