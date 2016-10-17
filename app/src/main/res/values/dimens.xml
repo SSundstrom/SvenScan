@@ -15,4 +15,5 @@
     <dimen name="image_height">300dp</dimen>
     <dimen name="add_word_image_preview">150dp</dimen>
     <dimen name="list_item_fontsize">35sp</dimen>
+    <dimen name="game_score">80sp</dimen>
 </resources>
