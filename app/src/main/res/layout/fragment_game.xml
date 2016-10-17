@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDefaultListItem">
+
+    <TextView
+        android:text="\n 4/5 \n"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/game_score"
+        android:id="@+id/score_view" />
+
+    <Button
+        android:text="Spela igen"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:id="@+id/play_again_button"
+        android:onClick="playAgain" />
+
+    <Button
+        android:text="Avsluta spel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/button3"
+        android:onClick="endGame" />
+</LinearLayout>
