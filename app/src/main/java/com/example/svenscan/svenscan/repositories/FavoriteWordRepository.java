@@ -56,7 +56,7 @@ public class FavoriteWordRepository implements IFavoriteRepository {
     }
 
 
-    private void updateFavoriteWordsInMemory(Activity app){ // TODO: 2016-10-04 Should not be in this class.. Should prob happen in FavoriteRepository.
+    private void updateFavoriteWordsInMemory(Activity app){
         Set<String> set = new HashSet<String>();
 
         if(getFavorites() != null){

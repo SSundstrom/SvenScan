@@ -9,7 +9,6 @@ public class FavoriteItemViewHolder {
     View view;
     TextView word;
     ImageView wordImage;
-    //TODO: is this one neccesary?
 }
 
 

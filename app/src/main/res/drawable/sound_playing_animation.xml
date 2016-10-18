@@ -1,0 +1,5 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_volume_none" android:duration="@integer/animationtime_sound_playing" />
+    <item android:drawable="@drawable/ic_volume_middle" android:duration="@integer/animationtime_sound_playing" />
+    <item android:drawable="@drawable/ic_volume_max" android:duration="@integer/animationtime_sound_playing"/>
+</animation-list>

@@ -48,25 +48,28 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        askForPermissions();
+        initVariables();
+        initViews();
+        setListeners();
+        setTitle(R.string.add_word);
+
+    }
+    private void initViews() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        findViewById(R.id.okButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.add_word_loading_icon).setVisibility(View.INVISIBLE);
+        showMediaPickers(false);
+    }
 
-        askForPermissions();
-
+    private void initVariables() {
         setContentView(R.layout.activity_add_new_word);
         SvenScanApplication app = (SvenScanApplication)getApplication();
         mediaRepository = app.getMediaRepository();
         wordRepository = app.getWordRepository();
         recordingManager = new RecordingManager(mediaRepository.getSoundDir());
-        findViewById(R.id.okButton).setVisibility(View.VISIBLE);
-        findViewById(R.id.add_word_loading_icon).setVisibility(View.INVISIBLE);
-        showMediaPickers(false);
-
-        setListeners();
-
-        setTitle(R.string.add_word);
-
     }
 
     @Override
@@ -85,7 +88,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         EditText nameField = (EditText)findViewById(R.id.addWordTextField);
         nameField.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                stuff();
+                onTextTyped();
             }
             return false;
         });
@@ -98,7 +101,7 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         view.setFocusable(true);
     }
 
-    private void stuff() {
+    private void onTextTyped() {
         EditText textField = (EditText)findViewById(R.id.addWordTextField);
         if (validateWord(textField.getText().toString().toUpperCase())) {
             forceClearFocus(textField);
@@ -148,8 +151,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
         scaleImage();
         mediaRepository.addImage(imageUri, (success) -> onUploadDone(success, R.id.imageUploaded));
         mediaRepository.addSound(soundUri, (success) -> onUploadDone(success, R.id.soundUploaded));
-
         wordRepository.addWord(wordID, word);
+
         findViewById(R.id.okButton).setEnabled(false);
     }
 
@@ -208,7 +211,6 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
     }
 
     public void recordSound(View view) {
-        if (name == null) return;
         recordingManager.toggleRecording(name, (uri, fileName) -> {
             soundUri = uri;
             soundFileName = fileName;
