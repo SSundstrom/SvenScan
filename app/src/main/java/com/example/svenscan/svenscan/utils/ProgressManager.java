@@ -58,6 +58,8 @@ public class ProgressManager implements IProgressManager{
         level = level + 1;
     }
 
+
+
     public String showLevel(){
         return "Nivå:" + " " + level;
     }
@@ -65,6 +67,7 @@ public class ProgressManager implements IProgressManager{
     public String toString(){
         return "Poäng:" + " " + this.points;
     }
+
 
 
 }
