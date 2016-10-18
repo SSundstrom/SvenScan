@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.svenscan.svenscan.SvenScanApplication;
+import com.example.svenscan.svenscan.utils.IProgressManager;
 
 public class ScanActivity extends CameraActivity {
 
@@ -31,16 +32,16 @@ public class ScanActivity extends CameraActivity {
 
         setTitle(null);
 
+        IProgressManager progress = app.getProgressManager();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView levelView = (TextView) findViewById(R.id.level_text);
-        levelView.setText("Lv " + app.getPoints().getLevel());
+        levelView.setText("Lv " + progress.getLevel());
 
         TextView pointsView = (TextView) findViewById(R.id.remaining_points_text);
-        int progress = app.getPoints().getLevelProgress();
-        pointsView.setText("XP: " + progress + " / 100");
+        pointsView.setText("XP: " + progress.getPoints());
 
         ProgressBar levelProgress = (ProgressBar) findViewById(R.id.remaining_points_progressbar);
-        levelProgress.setProgress(progress);
+        levelProgress.setProgress(progress.getLevelProgress());
 
         setSupportActionBar(toolbar);
 

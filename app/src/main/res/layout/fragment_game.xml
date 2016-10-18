@@ -12,19 +12,53 @@
         android:textSize="@dimen/game_score"
         android:id="@+id/score_view" />
 
-    <Button
-        android:text="Spela igen"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
+    <LinearLayout
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/play_again_button"
-        android:onClick="playAgain" />
+        android:gravity="center">
 
-    <Button
-        android:text="Avsluta spel"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:drawable/ic_input_add"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:textSize="@dimen/add_word_text"
+            android:id="@+id/points_achieved"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_trophy_black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/button3"
-        android:onClick="endGame" />
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/play_again_button"
+            android:background="@drawable/ic_replay"
+            android:onClick="playAgain"/>
+        <Space
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button" />
+        <Button
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_home"
+            android:id="@+id/button3"
+            android:onClick="endGame" />
+    </LinearLayout>
+
 </LinearLayout>

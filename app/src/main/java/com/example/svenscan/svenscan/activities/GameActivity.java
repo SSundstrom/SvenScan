@@ -16,6 +16,7 @@ import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
+import com.example.svenscan.svenscan.utils.IProgressManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
     IWordRepository wordManager;
     IFavoriteRepository favoriteWords;
     IMediaRepository mediaRepository;
+    IProgressManager progressManager;
 
     String correctWord;
 
@@ -58,6 +60,7 @@ public class GameActivity extends AppCompatActivity {
         wordManager = app.getWordRepository();
         favoriteWords = app.getFavoriteWordRepository();
         mediaRepository = app.getMediaRepository();
+        progressManager = app.getProgressManager();
 
         answers = new ArrayList<>();
 
@@ -215,9 +218,16 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void gameFinished(){
+        givePlayerProgress();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_game, GameFragment.newInstance(), GameFragment.TAG)
                 .commit();
+    }
+
+    private void givePlayerProgress() {
+        for (int i = 0; i < correctAnswers; i++) {
+            progressManager.earnPoints("game");
+        }
     }
 
     public void endGame(View view){

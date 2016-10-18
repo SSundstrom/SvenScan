@@ -7,7 +7,9 @@ public class Points {
 
     public Points(int points){
         this.points = points;
-        checkIfLevelUp();
+        while (leveledUp()) {
+            increaseLevel();
+        }
     }
 
 
@@ -15,7 +17,7 @@ public class Points {
         return level;
     }
 
-    private void levelUp(){
+    private void increaseLevel(){
         level = level + 1;
     }
 
@@ -23,20 +25,31 @@ public class Points {
         return this.points;
     }
 
+    /**
+     * @return percentage to next level
+     */
     public int getLevelProgress() {
-        return points % 100;
+        return (points - getLastLevelLimit()) * 100 / (getNextLevelTarget() - getLastLevelLimit());
     }
 
-    public void earnPoints(){
-        this.points = points + 10;
-        checkIfLevelUp();
-    }
-
-
-    private void checkIfLevelUp(){
-        if(points % 100 == 0){
-            levelUp();
+    public void earnPoints(int value){
+        this.points = points + value;
+        if (leveledUp()) {
+            increaseLevel();
         }
+    }
+
+
+    private boolean leveledUp(){
+        return points > getNextLevelTarget();
+    }
+
+    private int getNextLevelTarget() {
+        return ((100 * level)-1);
+    }
+
+    private int getLastLevelLimit() {
+        return ((100 * (level-1))-1);
     }
 
 }

@@ -71,7 +71,7 @@ public class SvenScanApplication extends Application {
         return mediaRepository;
     }
 
-    public IProgressManager getPoints(){ return progressManager;}
+    public IProgressManager getProgressManager(){ return progressManager;}
 
 
     public void recreateFavoriteWords(){

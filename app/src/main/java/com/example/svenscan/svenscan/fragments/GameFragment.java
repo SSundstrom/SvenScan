@@ -25,11 +25,16 @@ public class GameFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_game, container, false);
 
         TextView scoreView = (TextView)view.findViewById(R.id.score_view);
+        TextView pointsView = (TextView)view.findViewById(R.id.points_achieved);
         GameActivity activity = (GameActivity) getActivity();
         int score = activity.getScore();
         int nbrOfQuestions = activity.getNBR_OF_QUESTIONS();
+        int points = score * 5;
 
+        System.out.println("wat = "  + points);
+        System.out.println(pointsView);
         scoreView.setText("\n" + score + "/" + nbrOfQuestions + "\n");
+        pointsView.setText("" + points);
 
         return view;
     }

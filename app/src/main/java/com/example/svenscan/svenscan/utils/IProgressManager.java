@@ -1,9 +1,8 @@
 package com.example.svenscan.svenscan.utils;
 
-import android.app.Activity;
 
 public interface IProgressManager {
-    void earnPoints();
+    void earnPoints(String source);
     int getLevel();
     int getPoints();
     int getLevelProgress();
