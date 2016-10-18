@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@color/cast_expanded_controller_ad_container_white_stripe_color"
-        android:layout_gravity="top"
-        android:id="@+id/noWordErrorImage"
-        android:layout_weight="0.67" />
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:gravity="center_horizontal"
-        android:id="@+id/errorText"
-        android:textSize="20sp"
-        android:layout_weight="0.19" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/camera_tips"
+            android:onClick="backToCamera"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="48dp"/>
 
-    <ImageButton
-        android:layout_height="64dp"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@color/cast_expanded_controller_ad_container_white_stripe_color"
-        android:id="@+id/imageButton"
-        android:onClick="backToCamera"
-        android:layout_width="64dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:onClick="backToCamera"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:layout_marginBottom="48dp"
+            android:gravity="center">
 
-</LinearLayout>
+            <ImageView
+            android:layout_height="64dp"
+            android:layout_width="64dp"
+            android:src="@drawable/redo_button"
+            android:id="@+id/imageButton"
+            android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/errorText"
+                android:textSize="20sp"
+                android:text="@string/retry" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

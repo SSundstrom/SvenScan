@@ -3,7 +3,7 @@ package com.example.svenscan.svenscan.utils;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-public class ProgressManager implements IProgressManager{
+public class ProgressManager implements IProgressManager {
 
     private int points;
     private int level;
@@ -15,14 +15,13 @@ public class ProgressManager implements IProgressManager{
 
     }
 
-    public void wordScanned(Activity app){
+    public void wordScanned(Activity app) {
         earnPoints();
         SharedPreferences settings = app.getSharedPreferences("points", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt("points", points);
         editor.commit();
         checkIfLevelUp();
-
     }
 
 
@@ -32,6 +31,11 @@ public class ProgressManager implements IProgressManager{
 
     public int getPoints(){
         return this.points;
+    }
+
+    @Override
+    public int getLevelProgress() {
+        return points % 100;
     }
 
     private void earnPoints(){
@@ -54,6 +58,11 @@ public class ProgressManager implements IProgressManager{
         return level;
     }
 
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
     private void levelUp(){
         level = level + 1;
     }
@@ -65,9 +74,8 @@ public class ProgressManager implements IProgressManager{
     }
 
     public String toString(){
-        return "Poäng:" + " " + this.points;
+        return "Poäng: " + this.points;
     }
-
 
 
 }

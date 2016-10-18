@@ -29,11 +29,11 @@ public class StartActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("firstTimeUser", 0);
         boolean firstTimeUser = settings.getBoolean("firstTimeUser", true);
 
-        if(firstTimeUser) {
+        if (firstTimeUser) {
             Intent i = new Intent(this, HelpActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
-        }
-        else {
+        } else {
             Intent i = new Intent(this, ScanActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             IMediaRepository mediaRepository = ((SvenScanApplication)getApplication()).getMediaRepository();

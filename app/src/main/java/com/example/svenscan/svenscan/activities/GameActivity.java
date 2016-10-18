@@ -1,5 +1,6 @@
 package com.example.svenscan.svenscan.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,11 +11,11 @@ import android.widget.TextView;
 
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
+import com.example.svenscan.svenscan.fragments.GameFragment;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
-import com.example.svenscan.svenscan.utils.SoundManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,8 +99,7 @@ public class GameActivity extends AppCompatActivity {
             setView();
             questionNbr++;
         }else{
-            //Visa poäng osv
-            //WOHO
+            gameFinished();
         }
     }
 
@@ -115,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
         Random randomGenerator = new Random();
         String s = allCorrectWordsList.get(randomGenerator.nextInt(allCorrectWordsList.size()));
         allCorrectWordsList.remove(s);
+        System.out.print(s);
         return s;
     }
 
@@ -124,8 +125,20 @@ public class GameActivity extends AppCompatActivity {
     }
     private void setChoices(){
         for(int i = 1; i<NBR_OF_CHOICES; i++){
-            choices.add(randomWord());
-            System.out.println(choices.get(i));
+            boolean newWordIsSet = false;
+            while (!newWordIsSet){
+                boolean isUnique = true;
+                String randomword = randomWord();
+                for(int j = 0; j<i; j++){
+                    if(randomword.equals(choices.get(j))){
+                       isUnique=false;
+                    }
+                }if(isUnique){
+                    choices.add(i,randomword);
+                    newWordIsSet = true;
+                }
+            }
+
         }
     }
     private void setView(){
@@ -200,4 +213,29 @@ public class GameActivity extends AppCompatActivity {
         handleAnswer(answer);
         newQuestion();
     }
+
+    public void gameFinished(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_game, GameFragment.newInstance(), GameFragment.TAG)
+                .commit();
+    }
+
+    public void endGame(View view){
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
+
+    public void playAgain(View view){
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    public int getScore(){
+        return this.correctAnswers;
+    }
+
+    public int getNBR_OF_QUESTIONS(){
+        return this.NBR_OF_QUESTIONS;
+    }
+
 }

@@ -65,6 +65,8 @@ public class AddNewWordActivity extends AppCompatActivity implements KeyEvent.Ca
 
         setListeners();
 
+        setTitle(R.string.add_word);
+
     }
 
     @Override

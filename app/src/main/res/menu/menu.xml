@@ -13,12 +13,5 @@
     <item android:id="@+id/action_add"
         android:title="@string/add_word"
         app:showAsAction="never"/>
-    <item android:id="@+id/action_game"
-        android:title="@string/game_mode"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/action_show_points"
-        android:title="@string/to_points"
-        app:showAsAction="never"/>
 
 </menu>
