@@ -48,8 +48,7 @@ public class SvenScanApplication extends Application {
         }
 
         if(progressManager == null){
-            progressManager = new ProgressManager();
-            recreatePoints();
+            progressManager = new ProgressManager(getSharedPreferences("points", 0));
         }
 
 
@@ -82,12 +81,6 @@ public class SvenScanApplication extends Application {
         favoriteWordRepository.addSetToFavorites(set);
     }
 
-    public void recreatePoints(){
-        SharedPreferences settings = getSharedPreferences("points", 0);
-        int points = settings.getInt("points", 0);
-        progressManager.setPoints(points);
-        progressManager.checkLevel();
-    }
 
 
 }

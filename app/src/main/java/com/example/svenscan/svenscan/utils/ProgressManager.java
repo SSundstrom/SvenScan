@@ -3,78 +3,48 @@ package com.example.svenscan.svenscan.utils;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
+import com.example.svenscan.svenscan.models.Points;
+
 public class ProgressManager implements IProgressManager {
 
-    private int points;
-    private int level;
+    private SharedPreferences sharedPreferences;
+    private Points points;
 
-    public ProgressManager(){
-        this.points = 0;
-        this.level = 1;
-        checkLevel();
+
+    public ProgressManager(SharedPreferences sharedPreferences){
+
+        this.sharedPreferences = sharedPreferences;
+        points = new Points(sharedPreferences.getInt("points", 0));
+
 
     }
 
-    public void wordScanned(Activity app) {
-        earnPoints();
-        SharedPreferences settings = app.getSharedPreferences("points", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("points", points);
-        editor.commit();
-        checkIfLevelUp();
-    }
+    private void wordScanned() {
+        points.earnPoints();
 
-
-    public void setPoints(int points){
-        this.points = points;
-    }
-
-    public int getPoints(){
-        return this.points;
     }
 
     @Override
-    public int getLevelProgress() {
-        return points % 100;
-    }
-
-    private void earnPoints(){
-        this.points = points + 10;
-    }
-
-
-    private void checkIfLevelUp(){
-        if(points % 100 == 0){
-            levelUp();
-        }
-    }
-
-    public int checkLevel(){
-        int tempPoints = points;
-        while(tempPoints >= 100){
-            tempPoints = tempPoints - 100;
-            level = level + 1;
-        }
-        return level;
+    public void earnPoints() {
+        wordScanned();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("points", points.getPoints());
+        editor.commit();
     }
 
     @Override
     public int getLevel() {
-        return level;
+        return points.getLevel();
     }
 
-    private void levelUp(){
-        level = level + 1;
+    @Override
+    public int getPoints() {
+        return points.getPoints();
     }
 
-
-
-    public String showLevel(){
-        return "Nivå:" + " " + level;
-    }
-
-    public String toString(){
-        return "Poäng: " + this.points;
+    @Override
+    public int getLevelProgress() {
+        return points.getLevelProgress();
     }
 
 

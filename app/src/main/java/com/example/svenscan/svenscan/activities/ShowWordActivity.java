@@ -111,7 +111,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
             currentWord = wordManager.getWordFromID(ocrResult);
             setOcrText(ocrResult);
             handleCurrentWord();
-            progressManager.wordScanned(this);
+            progressManager.earnPoints();
             showProgressAlert();
         }
         else {

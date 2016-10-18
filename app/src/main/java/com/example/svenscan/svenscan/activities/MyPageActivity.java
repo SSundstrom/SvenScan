@@ -27,12 +27,12 @@ public class MyPageActivity extends AppCompatActivity {
 
     public void showPoints(){
         TextView myPoints = (TextView) findViewById(R.id.points_view2);
-        myPoints.setText(app.getPoints().toString());
+        myPoints.setText("Poäng: " + app.getPoints());
     }
 
     public void showLevel(){
         TextView myLevel = (TextView) findViewById(R.id.level_view);
-        myLevel.setText(app.getPoints().showLevel());
+        myLevel.setText("Nivå: " + app.getPoints());
     }
 
 
