@@ -62,8 +62,7 @@
             android:onClick="toFavoriteWords"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"/>
+            android:layout_centerVertical="true"/>
 
         <ImageView
             android:id="@+id/toGame"
@@ -85,7 +84,7 @@
         android:clickable="true"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/scan_fragment_flash_margin"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
@@ -100,9 +99,9 @@
             android:id="@+id/auto_flash_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:text="Auto"
             android:textColor="@android:color/white"
             android:textSize="14sp"/>

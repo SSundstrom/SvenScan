@@ -16,4 +16,5 @@
     <dimen name="add_word_image_preview">150dp</dimen>
     <dimen name="list_item_fontsize">35sp</dimen>
     <dimen name="game_score">80sp</dimen>
+    <dimen name="scan_fragment_flash_margin">20dp</dimen>
 </resources>
