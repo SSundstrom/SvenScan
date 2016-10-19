@@ -3,6 +3,7 @@ package com.example.svenscan.svenscan.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -156,8 +157,6 @@ public class GameActivity extends AppCompatActivity {
             gameLoading.setVisibility(View.INVISIBLE);
         });
 
-
-
         setRandomChoicesButtons();
         setTextLevel();
     }
@@ -168,14 +167,25 @@ public class GameActivity extends AppCompatActivity {
         int rand;
         while(i<NBR_OF_CHOICES){
             rand = randomGenerator.nextInt(NBR_OF_CHOICES);
+
             if(rand<choices.size() && choices.get(rand) != null) {
-                buttons.get(i).setText(choices.get(rand));
+                String word = choices.get(rand);
+                handleWordSize(i,word);
+                buttons.get(i).setText(word);
                 buttons.get(i).setSelected(false);
                 choices.remove(rand);
                 i++;
             }
         }
     }
+    private void handleWordSize(int i, String word){
+        if(word.length()>8){
+            buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.button_text_size_smaller));
+        }else{
+            buttons.get(i).setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.button_text_size));
+        }
+    }
+
     private void setTextLevel(){
         TextView level = (TextView) findViewById(R.id.level);
         level.setText("" + questionNbr +"/" +NBR_OF_QUESTIONS);

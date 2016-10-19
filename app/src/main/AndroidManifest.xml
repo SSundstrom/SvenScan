@@ -12,7 +12,7 @@
     <application xmlns:tools="http://schemas.android.com/tools"
         android:name=".SvenScanApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/svenscan_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -46,8 +46,10 @@
             android:name=".activities.AddNewWordActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activities.GameActivity"></activity>
-        <activity android:name=".activities.HelpActivity"></activity>
+        <activity android:name=".activities.GameActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.HelpActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".activities.MyPageActivity"
