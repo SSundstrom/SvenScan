@@ -18,7 +18,7 @@ public class us8PointsTest {
     public void testCheckIfLevelUp() {
 
         Points points = new Points(130);
-        points.earnPoints();
+        points.earnPoints(10);
         assertTrue(points.getPoints() == 140);
 
 
