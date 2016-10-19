@@ -39,7 +39,7 @@ public class ProgressManager implements IProgressManager {
         }
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("points", points.getPoints());
-        editor.commit();
+        editor .commit();
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.example.svenscan.svenscan.models.Points;
 import org.junit.Test;
 import static junit.framework.Assert.assertTrue;
 
-public class us8PointsTest {
+public class Us8PointsTest {
 
 
     @Test
