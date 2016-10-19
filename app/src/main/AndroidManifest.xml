@@ -46,8 +46,10 @@
             android:name=".activities.AddNewWordActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activities.GameActivity"></activity>
-        <activity android:name=".activities.HelpActivity"></activity>
+        <activity android:name=".activities.GameActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.HelpActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".activities.MyPageActivity"
