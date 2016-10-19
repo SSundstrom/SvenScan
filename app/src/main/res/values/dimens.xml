@@ -7,7 +7,10 @@
     <!-- General dimens -->
     <dimen name="basic_button_size">50dp</dimen>
     <dimen name="larger_button">75dp</dimen>
+    <dimen name="button_width">160dp</dimen>
+    <dimen name="button_height">48dp</dimen>
     <dimen name="button_text_size">25sp</dimen>
+    <dimen name="button_text_size_smaller">15sp</dimen>
     <dimen name="fab_button_padding">6dp</dimen>
     <dimen name="image_width">300dp</dimen>
     <dimen name="image_height">300dp</dimen>
