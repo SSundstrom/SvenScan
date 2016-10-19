@@ -32,10 +32,14 @@ public class ProgressManager implements IProgressManager {
                 break;
             case "game" : questionAnsweredCorrectly();
                 break;
+            default:
+                //No points earned
+                System.out.println("Sämst, du skicka fel");
+                break;
         }
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("points", points.getPoints());
-        editor.commit();
+        editor .commit();
     }
 
     @Override
