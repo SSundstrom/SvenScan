@@ -128,7 +128,7 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     }
 
     public void wordNotFound(){
-        setTitle("?");
+        setTitle(null);
         setContentView(R.layout.no_word_match_view);
     }
 
