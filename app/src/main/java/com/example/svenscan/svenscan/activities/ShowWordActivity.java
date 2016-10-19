@@ -4,11 +4,12 @@ package com.example.svenscan.svenscan.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.activities.tasks.OCRDecoderAsyncTask;
+import com.example.svenscan.svenscan.utils.IProgressManager;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
@@ -35,30 +37,59 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     private IFavoriteRepository favoriteWords;
     private IMediaRepository mediaRepository;
     private Word currentWord;
+    private boolean cameFromFav;
+    private IProgressManager progressManager;
 
 
+    @Override
+    public void onBackPressed() {
+        if (cameFromFav){
+            super.onBackPressed();
+        } else {
+            Intent intent = new Intent(this, ScanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_show_word);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         SvenScanApplication app = (SvenScanApplication)getApplication();
         soundManager = new SoundManager(this);
         wordManager = app.getWordRepository();
         favoriteWords = app.getFavoriteWordRepository();
         mediaRepository = app.getMediaRepository();
+        progressManager = app.getProgressManager();
 
         ocr = app.getOCR();
 
-        if(getIntent().hasExtra("fav")) {
-
-            currentWordFromFavorites();
-
+        if(getIntent().hasExtra(getString(R.string.intent_extra_word))) {
+            currentWordFromOtherSource();
+            if (getIntent().hasExtra(getString(R.string.special_parent)))
+                cameFromFav = true;
         } else {
-
             currentWordFromOCR();
-
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void favoriteWord(View view) {
@@ -77,32 +108,43 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     public void onOCRComplete(String ocrResult) {
         if (wordManager.containsWord(ocrResult)) {
             currentWord = wordManager.getWordFromID(ocrResult);
+            setOcrText(ocrResult);
             handleCurrentWord();
+            progressManager.earnPoints("scan");
+            showProgressAlert();
         }
         else {
-            setContentView(R.layout.no_word_match_view);
-            ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
-            imageButton.setBackgroundResource(R.drawable.redo_button);
-            ImageView errorImage = (ImageView) findViewById((R.id.noWordErrorImage));
-            errorImage.setBackgroundResource(R.drawable.exclamation_mark);
-            TextView errorText = (TextView) findViewById(R.id.errorText);
-            errorText.setText("Tyvärr hittas inte det scannade ordet, försök igen! \n"  + ocrResult);
-
+            wordNotFound();
         }
+    }
+
+    private void showProgressAlert() {
+        CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.show_word_coordinator_layout);
+
+        Snackbar snackbar = Snackbar
+                .make(layout, "+10 XP", Snackbar.LENGTH_SHORT);
+
+        snackbar.show();
+    }
+
+    public void wordNotFound(){
+        setTitle(null);
+        setContentView(R.layout.no_word_match_view);
     }
 
     public void backToCamera(View view){
-        Intent intent = new Intent(this, StartActivity.class);
+        Intent intent = new Intent(this, ScanActivity.class);
         startActivity(intent);
     }
 
-    private void currentWordFromFavorites() {
-        String wordID = getIntent().getStringExtra("fav").toUpperCase();
+    private void currentWordFromOtherSource() {
+        String wordID = getIntent().getStringExtra(getString(R.string.intent_extra_word)).toUpperCase();
 
         currentWord = wordManager.getWordFromID(wordID);
 
         handleCurrentWord();
     }
+
 
     private void currentWordFromOCR() {
 
@@ -125,8 +167,9 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     private void handleCurrentWord() {
         setFavoriteColor();
         setMainPicture();
-        setText(currentWord.getWord());
-        playWord(null);
+        setTitle(currentWord.getWord());
+        setWordText(currentWord.getWord());
+        playWord(findViewById(R.id.playWord));
     }
 
     private void setFavoriteColor() {
@@ -143,37 +186,41 @@ public class ShowWordActivity extends AppCompatActivity implements OCRDecoderAsy
     }
 
     private void setMainPicture() {
+        showLoadingAnimation(true);
         ImageView mainView = (ImageView) findViewById((R.id.imageView4));
-        mediaRepository.getImageUri(currentWord.getImagePath(), mainView::setImageURI);
+        mediaRepository.getImageUri(currentWord.getImagePath(), (uri) -> {
+            mainView.setImageURI(uri);
+            showLoadingAnimation(false);
+        });
     }
 
-    public void playWord(@Nullable View view) {
+    private void showLoadingAnimation(boolean value) {
+
+        findViewById(R.id.show_word_image_loading).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+
+    }
+
+    public void playWord(View view) {
         if (currentWord != null) {
-            mediaRepository.getSoundUri(currentWord.getSoundPath(), (uri) -> soundManager.start(uri, (v) -> stopSoundAnimation()));
-            startSoundAnimation();
+            mediaRepository.getSoundUri(currentWord.getSoundPath(), (uri) ->{
+                soundManager.start(uri, view);
+            });
         }
     }
-    private void startSoundAnimation() {
-        System.out.println("Start animation");
-        View playWord = findViewById(R.id.playWord);
-        playWord.setBackgroundResource(R.drawable.sound_playing);
-        AnimationDrawable animation = (AnimationDrawable)playWord.getBackground();
-        animation.start();
-    }
 
-    private void stopSoundAnimation() {
-        View playWord = findViewById(R.id.playWord);
-        AnimationDrawable soundPlaying = (AnimationDrawable)playWord.getBackground();
-        soundPlaying.stop();
-        playWord.setBackgroundResource(R.drawable.ic_volume_max);
-        System.out.println("End animation");
-    }
-
-    private void setText(String word) {
+    private void setWordText(String word) {
         TextView textBox = ((TextView)findViewById(R.id.wordText));
+        setText(textBox, word);
 
-        if(word != null) {
-            textBox.setText(word);
+    }
+    private void setOcrText(String ocr){
+        TextView ocrText = (TextView)findViewById(R.id.ocrText);
+        ocrText.setVisibility(View.VISIBLE);
+        setText(ocrText, ocr);
+    }
+    private void setText(TextView textBox, String s){
+        if(s != null) {
+            textBox.setText(s);
         } else {
             textBox.setText("(null)");
         }

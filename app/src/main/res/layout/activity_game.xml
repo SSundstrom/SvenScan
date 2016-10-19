@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_game"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.svenscan.svenscan.activities.GameActivity">
+
+    <RelativeLayout
+        android:id="@+id/questionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_height"
+            android:id="@+id/picLayout"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:weightSum="1"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gamePicture"
+                android:layout_centerInParent="true"
+                />
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/game_loading_image"
+                style="@style/Widget.MaterialProgressBar.ProgressBar.Large.NoPadding"/>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/firstButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_button_padding"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_below="@+id/picLayout">
+            <Button
+                android:id="@+id/button_1"
+                android:background="@drawable/button_selector"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/fab_button_padding"
+                android:padding="@dimen/fab_button_padding"
+                android:textSize="@dimen/button_text_size"
+                android:text="@string/app_name"
+                android:onClick="selectButton"/>
+            <Button
+                android:id="@+id/button_2"
+                android:background="@drawable/button_selector"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/fab_button_padding"
+                android:padding="@dimen/fab_button_padding"
+                android:textSize="@dimen/button_text_size"
+                android:text="@string/app_name"
+                android:onClick="selectButton"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_below="@+id/firstButtons">
+            <Button
+                android:id="@+id/button_3"
+                android:background="@drawable/button_selector"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/fab_button_padding"
+                android:padding="@dimen/fab_button_padding"
+                android:textSize="@dimen/button_text_size"
+                android:text="@string/app_name"
+                android:onClick="selectButton"/>
+            <Button
+                android:id="@+id/button_4"
+                android:background="@drawable/button_selector"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/fab_button_padding"
+                android:padding="@dimen/fab_button_padding"
+                android:textSize="@dimen/button_text_size"
+                android:text="@string/app_name"
+                android:onClick="selectButton"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/resultView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_below="@id/questionLayout"
+        android:gravity="center"
+        android:textSize="@dimen/add_word_text"
+        android:visibility="invisible"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fab_button_padding"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="@dimen/button_text_size"/>
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:padding="@dimen/fab_button_padding"
+            android:text="@string/next"
+            android:enabled="false"
+            android:onClick="nextQuestion"/>
+
+    </LinearLayout>
+</RelativeLayout>

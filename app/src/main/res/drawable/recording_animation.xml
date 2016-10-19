@@ -1,0 +1,4 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_recording_now" android:duration="@integer/animationtime_recording" />
+    <item android:drawable="@android:color/transparent" android:duration="@integer/animationtime_recording" />
+</animation-list>

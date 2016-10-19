@@ -2,6 +2,7 @@ package com.example.svenscan.svenscan.activities;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,11 +26,20 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void onAllPermissionsApproved() {
-        Intent i = new Intent(this, ScanActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        IMediaRepository mediaRepository = ((SvenScanApplication)getApplication()).getMediaRepository();
-        mediaRepository.initialize(getFilesDir());
-        startActivity(i);
+        SharedPreferences settings = getSharedPreferences("firstTimeUser", 0);
+        boolean firstTimeUser = settings.getBoolean("firstTimeUser", true);
+
+        if (firstTimeUser) {
+            Intent i = new Intent(this, HelpActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        } else {
+            Intent i = new Intent(this, ScanActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            IMediaRepository mediaRepository = ((SvenScanApplication)getApplication()).getMediaRepository();
+            mediaRepository.initialize(getFilesDir());
+            startActivity(i);
+        }
     }
 
     public void onPermissionDenied() {

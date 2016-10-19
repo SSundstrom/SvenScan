@@ -14,7 +14,7 @@
         android:layout_marginTop="-62dp"
         android:minHeight="150dp"
 
-        />
+    />
 
     <View
         android:id="@+id/cover_top_view"
@@ -37,7 +37,10 @@
         android:layout_height="wrap_content"
         android:minHeight="128dp"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/add_word_margins_sides"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
         android:background="@color/darkerGray">
 
         <ImageView
@@ -50,35 +53,6 @@
             android:clickable="true"
             android:src="@drawable/ic_camera_button"
             android:layout_centerInParent="true"/>
-        <LinearLayout
-            android:id="@+id/flash"
-            android:layout_width="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true">
-
-            <ImageView
-                android:id="@+id/flash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/squarecamera__toggle_flash"
-                />
-
-            <TextView
-                android:id="@+id/auto_flash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center_vertical"
-                android:text="Auto"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"/>
-        </LinearLayout>
 
         <ImageView
             android:id="@+id/toFavoriteWords"
@@ -88,11 +62,51 @@
             android:onClick="toFavoriteWords"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/toGame"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_dice"
+            android:onClick="toGame"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/flash"
+        android:layout_width="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/scan_fragment_flash_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/flash_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/squarecamera__toggle_flash"
+            />
+
+        <TextView
+            android:id="@+id/auto_flash_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="Auto"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
 
 
     <!-- Keep these ImageView, you have break free scan_fragment & scan_activity from third part dependencies.-->

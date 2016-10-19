@@ -2,11 +2,17 @@
 <resources>
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1E88E5</color>
-    <color name="colorAccent">#FFEB3B</color>
+    <color name="colorAccent">#000000</color>
     <color name="ITColor">#09CDDA</color>
     <color name="colorPressedListItem">#6699ff</color>
     <color name="colorDefaultListItem">#FFFFFF</color>
     <color name="darkGray">#212121</color>
     <color name="darkerGray">#151515</color>
-    <color name="success_green">#00e676</color>
+    <color name="successGreen">#00e676</color>
+    <color name="failRed">#F44336</color>
+    <color name="pretty_yellow">#ffeb3b</color>
+    <color name="help1">#99ccff</color>
+    <color name="help2">#77aaff</color>
+    <color name="help3">#5588ff</color>
+    <color name="help4">#3366ff</color>
 </resources>

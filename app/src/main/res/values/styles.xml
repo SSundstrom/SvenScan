@@ -46,27 +46,30 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="squarecamera__CameraFullScreenTheme" parent="squarecamera__CameraFullScreenTheme.Base">
+    <!--<style name="squarecamera__CameraFullScreenTheme" parent="squarecamera__CameraFullScreenTheme.Base">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-    </style>
+    </style>-->
 
-    <style name="squarecamera__CameraFullScreenTheme.Base" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
+    <!--<style name="squarecamera__CameraFullScreenTheme.Base" parent="Theme.AppCompat.NoActionBar">
 
-    </style>
+    </style>-->
 
-    <style name="squarecamera__CameraFullScreenTheme.AppBarOverlay"
+    <!--<style name="squarecamera__CameraFullScreenTheme.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="squarecamera__CameraFullScreenTheme.PopupOverlay"
-        parent="ThemeOverlay.AppCompat.Light" />
+        parent="ThemeOverlay.AppCompat.Light" />-->
 
-    <style name="squarecamera__CameraFullScreenTheme.NoUI" parent="squarecamera__CameraFullScreenTheme.Base">
+    <!--<style name="squarecamera__CameraFullScreenTheme.NoUI" parent="squarecamera__CameraFullScreenTheme.Base">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsFloating">true</item>
+    </style>-->
+
+    <style name="TextAppearance.AddNewWordHintLarge" parent="@android:style/TextAppearance.DeviceDefault.Large">
+
     </style>
 </resources>

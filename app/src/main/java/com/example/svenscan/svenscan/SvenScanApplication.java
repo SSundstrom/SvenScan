@@ -3,6 +3,8 @@ package com.example.svenscan.svenscan;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.example.svenscan.svenscan.utils.IProgressManager;
+import com.example.svenscan.svenscan.utils.ProgressManager;
 import com.example.svenscan.svenscan.repositories.FavoriteWordRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseMediaRepository;
 import com.example.svenscan.svenscan.repositories.FirebaseWordRepository;
@@ -18,9 +20,10 @@ import java.util.HashSet;
 
 public class SvenScanApplication extends Application {
     private static IWordRepository wordRepository;
-    private static FavoriteWordRepository favoriteWordRepository; // todo: bör vara interface?
+    private static IFavoriteRepository favoriteWordRepository;
     private static IOCR ocr;
-    private IMediaRepository mediaRepository;
+    private static IMediaRepository mediaRepository;
+    private static IProgressManager progressManager;
 
     public void onCreate() {
 
@@ -40,8 +43,14 @@ public class SvenScanApplication extends Application {
             ocr = new OCRDecoder(this);
         }
 
-        if (mediaRepository == null)
+        if (mediaRepository == null) {
             mediaRepository = new FirebaseMediaRepository();
+        }
+
+        if(progressManager == null){
+            progressManager = new ProgressManager(getSharedPreferences("points", 0));
+        }
+
 
         Dexter.initialize(this);
     }
@@ -62,12 +71,16 @@ public class SvenScanApplication extends Application {
         return mediaRepository;
     }
 
+    public IProgressManager getProgressManager(){ return progressManager;}
+
+
     public void recreateFavoriteWords(){
         HashSet<String> set = new HashSet<String>();
         SharedPreferences settings = getSharedPreferences("favoriteWords", 0);
         set = (HashSet<String>) settings.getStringSet("favoriteWords", set);
         favoriteWordRepository.addSetToFavorites(set);
     }
+
 
 
 }

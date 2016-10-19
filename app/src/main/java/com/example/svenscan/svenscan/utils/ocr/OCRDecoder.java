@@ -29,7 +29,7 @@ public class OCRDecoder implements IOCR {
 
     public OCRDecoder(Application app){
         initiateOCR(app);
-        tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö");
+        tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijkmnopqrstuvwxyzåäö");
     }
 
     public String getStringFromPix(Pix picture) {
@@ -61,7 +61,10 @@ public class OCRDecoder implements IOCR {
             String path = app.getFilesDir() + "/tessdata/";
             File dir = new File(path);
             if (!dir.exists()) {
-                dir.mkdirs();
+                boolean mkdir = dir.mkdirs();
+                if (!mkdir){
+                    System.out.println("System failed to create ocrdata directory '/testdata'");
+                }
             }
 
             path += "swe.traineddata";

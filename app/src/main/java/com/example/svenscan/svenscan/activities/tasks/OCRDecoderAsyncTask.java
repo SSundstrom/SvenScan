@@ -31,14 +31,9 @@ public class OCRDecoderAsyncTask extends AsyncTask<Pix, Pix, String> {
     @Override
     protected void onPreExecute() {
         TextView textBox = ((TextView)rootView.findViewById(R.id.wordText));
-        textBox.setText("Processing OCR...");
+        textBox.setText("Laddar");
     }
 
-    @Override
-    protected void onProgressUpdate(Pix... params) {
-        ImageView mainView = (ImageView)rootView.findViewById((R.id.imageView3));
-        mainView.setImageBitmap(WriteFile.writeBitmap(params[0]));
-    }
 
     @Override
     protected String doInBackground(Pix... params) {

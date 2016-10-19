@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDefaultListItem">
+
+    <TextView
+        android:text="\n 4/5 \n"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/game_score"
+        android:id="@+id/score_view" />
+
+    <LinearLayout
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_score_added"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:textSize="@dimen/button_text_size"
+            android:text="25"
+            android:textColor="@android:color/black"
+            android:id="@+id/points_achieved"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_trophy_black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/play_again_button"
+            android:src="@drawable/ic_replay"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:onClick="playAgain"/>
+        <Space
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button" />
+        <ImageView
+            android:layout_width="@dimen/larger_button"
+            android:layout_height="@dimen/larger_button"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_home"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:id="@+id/button3"
+            android:onClick="endGame" />
+    </LinearLayout>
+
+</LinearLayout>

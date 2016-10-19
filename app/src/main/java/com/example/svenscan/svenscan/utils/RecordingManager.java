@@ -1,5 +1,6 @@
 package com.example.svenscan.svenscan.utils;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.view.View;
@@ -10,7 +11,7 @@ import java.io.File;
 
 public class RecordingManager implements IRecordingManager{
 
-    private static final String FILE_FORMAT = ".3gpp";
+    private static final String FILE_FORMAT = ".3gp";
 
     private MediaRecorder mediaRecorder;
     private boolean hasRecording;
@@ -70,7 +71,7 @@ public class RecordingManager implements IRecordingManager{
     @Override
     public void toggleRecording(String fileName, IOnRecordingComplete handler, View view) {
         toggleRecording(fileName, handler);
-        view.setBackgroundResource(isRecording ? R.drawable.ic_recording_now : R.drawable.ic_record);
+        toggleRecordingAnimation(view);
     }
 
     @Override
@@ -81,5 +82,15 @@ public class RecordingManager implements IRecordingManager{
     @Override
     public boolean hasRecording() {
         return hasRecording;
+    }
+
+    private void toggleRecordingAnimation(View view) {
+        if (isRecording) {
+            view.setBackgroundResource(R.drawable.recording_animation);
+            AnimationDrawable frameAnimation = (AnimationDrawable)view.getBackground();
+            frameAnimation.start();
+        } else {
+            view.setBackgroundResource(hasRecording ? R.drawable.ic_recording_complete : R.drawable.ic_record);
+        }
     }
 }
