@@ -108,7 +108,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void enableNextButton(boolean b){
-        findViewById(R.id.nextButton).setEnabled(b);
+        View nextButton = findViewById(R.id.nextButton);
+        nextButton.setEnabled(b);
+        nextButton.setBackgroundResource(b ? R.drawable.ic_arrow_forward_green : R.drawable.ic_arrow_forward_gray);
     }
 
     private void setRandomCorrectWord(){
