@@ -120,6 +120,12 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_alignParentBottom="true">
+        <Button
+            android:layout_width="@dimen/basic_button_size"
+            android:layout_height="@dimen/basic_button_size"
+            android:onClick="playRecordedSound"
+            android:background="@drawable/ic_volume_max"
+            android:layout_marginRight="@dimen/fab_margin"/>
         <TextView
             android:id="@+id/level"
             android:layout_width="wrap_content"
