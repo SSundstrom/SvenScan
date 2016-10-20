@@ -4,6 +4,7 @@ public class Points {
 
     private int points;
     private int level;
+    private int levelProgress;
 
     public Points(int points){
         this.points = points;
@@ -29,7 +30,7 @@ public class Points {
      * @return percentage to next level
      */
     public int getLevelProgress() {
-        return (points - getLastLevelLimit()) * 100 / (getNextLevelTarget() - getLastLevelLimit());
+        return levelProgress;
     }
 
     public void earnPoints(int value){
@@ -37,6 +38,7 @@ public class Points {
         if (leveledUp()) {
             increaseLevel();
         }
+        levelProgress = (points - getLastLevelLimit()) * 100 / (getNextLevelTarget() - getLastLevelLimit());
     }
 
 
