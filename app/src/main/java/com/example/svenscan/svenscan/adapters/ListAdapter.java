@@ -42,8 +42,6 @@ public class ListAdapter extends BaseAdapter{
             holder.wordImage = (ImageView) convertView.findViewById(R.id.wordImage);
 
             convertView.setTag(holder);
-        } else {
-            holder = (FavoriteItemViewHolder) convertView.getTag();
         }
 
         Word word = wordManager.getWordFromID(getItem(position));
