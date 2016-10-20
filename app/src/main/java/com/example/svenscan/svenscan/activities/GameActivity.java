@@ -243,8 +243,20 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void playAgain(View view){
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
+        getSupportFragmentManager().beginTransaction().
+                remove(getSupportFragmentManager().findFragmentByTag(GameFragment.TAG)).commit();
+        resetGame();
+    }
+
+    private void resetGame(){
+        TextView resultView = (TextView) findViewById(R.id.resultView);
+        resultView.setVisibility(View.INVISIBLE);
+        questionNbr = 1;
+        correctAnswers = 0;
+        answers.clear();
+
+        initAllWordsList();
+        newQuestion();
     }
 
     public int getScore(){
