@@ -216,10 +216,7 @@ public class GameActivity extends AppCompatActivity {
         resultView.setText(result);
         resultView.setVisibility(View.VISIBLE);
     }
-
-    public String presentAnswers(){
-        return null;
-    }
+    
 
     public void nextQuestion(View view){
         String answer = selectedButton.getText().toString();
