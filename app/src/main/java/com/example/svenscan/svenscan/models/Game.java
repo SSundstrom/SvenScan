@@ -7,21 +7,20 @@ import java.util.Random;
 
 public class Game {
 
-    final int NBR_OF_QUESTIONS = 5;
-    final int NBR_OF_CHOICES = 4;
+    private final int NBR_OF_CHOICES = 4;
 
-    int questionNbr = 1;
-    int correctAnswers = 0;
+    private int questionNbr = 1;
+    private int correctAnswers = 0;
 
-    Map allWords;
+    private Map allWords;
 
-    List<String> allWordsList;
-    List<String> allCorrectWordsList;
+    private List<String> allWordsList;
+    private List<String> allCorrectWordsList;
 
-    List<String> answers;
+    private List<String> answers;
 
-    List<String> choices;
-    String correctWord;
+    private List<String> choices;
+    private String correctWord;
 
     public Game(Map allWords){
         this.allWords = allWords;
@@ -37,10 +36,9 @@ public class Game {
 
 
     public void newQuestion(){
-        choices = new ArrayList<>();
-        setRandomCorrectWord();
-        setChoices();
-        questionNbr++;
+            choices = new ArrayList<>();
+            setRandomCorrectWord();
+            setChoices();
 
     }
 
@@ -83,7 +81,8 @@ public class Game {
 
 
     public int getNBR_OF_QUESTIONS(){
-        return this.NBR_OF_QUESTIONS;
+        final int NBR_OF_QUESTIONS = 5;
+        return  NBR_OF_QUESTIONS;
 
     }
 
@@ -133,6 +132,10 @@ public class Game {
 
     public void clearAnswers(){
         answers = null;
+    }
+
+    public void increaseQuestionNbr(){
+        this.questionNbr = questionNbr + 1;
     }
 
 }

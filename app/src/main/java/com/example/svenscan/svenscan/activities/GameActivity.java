@@ -88,9 +88,10 @@ public class GameActivity extends AppCompatActivity {
 
     private void newQuestion(){
         if(game.getQuestionNbr()<= game.getNBR_OF_QUESTIONS()){
+            game.newQuestion();
             enableNextButton(false);
             setView();
-            game.newQuestion();
+            game.increaseQuestionNbr();
 
         }else{
             gameFinished();
@@ -102,12 +103,6 @@ public class GameActivity extends AppCompatActivity {
         nextButton.setEnabled(b);
         nextButton.setBackgroundResource(b ? R.drawable.ic_arrow_forward_green : R.drawable.ic_arrow_forward_gray);
     }
-
-
-
-
-
-
 
     public void playRecordedSound(View view) {
         mediaRepository.getSoundUri(wordManager.getWordFromID(game.getCorrectWord()).getSoundPath(), (uri) -> new SoundManager(this).start(uri, view));
@@ -219,7 +214,7 @@ public class GameActivity extends AppCompatActivity {
     private void resetGame(){
         TextView resultView = (TextView) findViewById(R.id.resultView);
         resultView.setVisibility(View.INVISIBLE);
-        game.setQuestionNbr(1);
+        game.setQuestionNbr(0);
         game.setCorrectAnswers(0);
         game.clearAnswers();
 
