@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.svenscan.svenscan.R;
 import com.example.svenscan.svenscan.SvenScanApplication;
 import com.example.svenscan.svenscan.fragments.GameFragment;
+import com.example.svenscan.svenscan.models.Game;
 import com.example.svenscan.svenscan.models.Word;
 import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
@@ -26,18 +27,9 @@ import java.util.Map;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
-    final int NBR_OF_QUESTIONS = 5;
-    final int NBR_OF_CHOICES = 4;
 
-    int questionNbr = 1;
-    int correctAnswers = 0;
 
-    List<String> allWordsList;
-    List<String> allCorrectWordsList;
-
-    List<String> answers;
-
-    List<String> choices;
+    private Game game;
 
     List<Button> buttons;
     Button selectedButton;
@@ -47,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
     IMediaRepository mediaRepository;
     IProgressManager progressManager;
 
-    String correctWord;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +56,8 @@ public class GameActivity extends AppCompatActivity {
         mediaRepository = app.getMediaRepository();
         progressManager = app.getProgressManager();
 
-        answers = new ArrayList<>();
 
-        initAllWordsList();
+        initNewGame();
         initButtons();
         newQuestion();
     }
@@ -81,10 +72,10 @@ public class GameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initAllWordsList(){
+    private void initNewGame(){
         Map<String, Word> allWords = wordManager.getAllWords();
-        allWordsList = new ArrayList<>(allWords.keySet());
-        allCorrectWordsList = new ArrayList<>(allWords.keySet());
+        game = new Game(allWords);
+
     }
     private void initButtons(){
         buttons = new ArrayList<>();
@@ -96,13 +87,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void newQuestion(){
-        if(questionNbr<=NBR_OF_QUESTIONS){
-            choices = new ArrayList<>();
+        if(game.getQuestionNbr()<= game.getNBR_OF_QUESTIONS()){
             enableNextButton(false);
-            setRandomCorrectWord();
-            setChoices();
             setView();
-            questionNbr++;
+            game.newQuestion();
+
         }else{
             gameFinished();
         }
@@ -114,43 +103,14 @@ public class GameActivity extends AppCompatActivity {
         nextButton.setBackgroundResource(b ? R.drawable.ic_arrow_forward_green : R.drawable.ic_arrow_forward_gray);
     }
 
-    private void setRandomCorrectWord(){
-        correctWord = randomCorrectWord();
-        choices.add(correctWord);
-    }
-    private String randomCorrectWord(){
-        Random randomGenerator = new Random();
-        String s = allCorrectWordsList.get(randomGenerator.nextInt(allCorrectWordsList.size()));
-        allCorrectWordsList.remove(s);
-        System.out.print(s);
-        return s;
-    }
 
-    private String randomWord(){
-        Random randomGenerator = new Random();
-        return allWordsList.get(randomGenerator.nextInt(allWordsList.size()));
-    }
-    private void setChoices(){
-        for(int i = 1; i<NBR_OF_CHOICES; i++){
-            boolean newWordIsSet = false;
-            while (!newWordIsSet){
-                boolean isUnique = true;
-                String randomword = randomWord();
-                for(int j = 0; j<i; j++){
-                    if(randomword.equals(choices.get(j))){
-                       isUnique=false;
-                    }
-                }if(isUnique){
-                    choices.add(i,randomword);
-                    newWordIsSet = true;
-                }
-            }
 
-        }
-    }
+
+
+
 
     public void playRecordedSound(View view) {
-        mediaRepository.getSoundUri(wordManager.getWordFromID(correctWord).getSoundPath(), (uri) -> new SoundManager(this).start(uri, view));
+        mediaRepository.getSoundUri(wordManager.getWordFromID(game.getCorrectWord()).getSoundPath(), (uri) -> new SoundManager(this).start(uri, view));
     }
 
     private void setView(){
@@ -158,7 +118,7 @@ public class GameActivity extends AppCompatActivity {
         gameLoading.setVisibility(View.VISIBLE);
         ImageView gameImage = (ImageView) findViewById(R.id.gamePicture);
         gameImage.setVisibility(View.INVISIBLE);
-        Word word = wordManager.getWordFromID(correctWord);
+        Word word = wordManager.getWordFromID(game.getCorrectWord());
         mediaRepository.getImageUri(word.getImagePath(), (imageUri) -> {
             gameImage.setImageURI(imageUri);
             gameImage.setVisibility(View.VISIBLE);
@@ -173,15 +133,15 @@ public class GameActivity extends AppCompatActivity {
         Random randomGenerator = new Random();
         int i = 0;
         int rand;
-        while(i<NBR_OF_CHOICES){
-            rand = randomGenerator.nextInt(NBR_OF_CHOICES);
+        while(i<game.getNBR_OF_CHOICES()){
+            rand = randomGenerator.nextInt(game.getNBR_OF_CHOICES());
 
-            if(rand<choices.size() && choices.get(rand) != null) {
-                String word = choices.get(rand);
+            if(rand<game.getChoices().size() && game.getChoices().get(rand) != null) {
+                String word = game.getChoices().get(rand);
                 handleWordSize(i,word);
                 buttons.get(i).setText(word);
                 buttons.get(i).setSelected(false);
-                choices.remove(rand);
+                game.getChoices().remove(rand);
                 i++;
             }
         }
@@ -196,7 +156,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void setTextLevel(){
         TextView level = (TextView) findViewById(R.id.level);
-        level.setText("" + questionNbr +"/" +NBR_OF_QUESTIONS);
+        level.setText("" + game.getQuestionNbr() +"/" + game.getNBR_OF_QUESTIONS());
     }
 
     public void selectButton(View view){
@@ -211,16 +171,16 @@ public class GameActivity extends AppCompatActivity {
     public void handleAnswer(String answer){
         TextView resultView = (TextView) findViewById(R.id.resultView);
         String s;
-        if(answer.equals(correctWord)){
+        if(answer.equals(game.getCorrectWord())){
             s= "rätt!";
             resultView.setTextColor(getResources().getColor(R.color.successGreen));
-            correctAnswers++;
+            game.increaseCorrectAnswers();
         }else{
-            s="fel. Rätt svar var: " +correctWord;
+            s="fel. Rätt svar var: " + game.getCorrectWord();
             resultView.setTextColor(getResources().getColor(R.color.failRed));
         }
         String result = answer + " var " + s;
-        answers.add(result);
+        game.getAnswers().add(result);
         resultView.setText(result);
         resultView.setVisibility(View.VISIBLE);
     }
@@ -240,7 +200,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void givePlayerProgress() {
-        for (int i = 0; i < correctAnswers; i++) {
+        for (int i = 0; i < game.getCorrectAnswers(); i++) {
             progressManager.earnPoints("game");
         }
     }
@@ -259,20 +219,20 @@ public class GameActivity extends AppCompatActivity {
     private void resetGame(){
         TextView resultView = (TextView) findViewById(R.id.resultView);
         resultView.setVisibility(View.INVISIBLE);
-        questionNbr = 1;
-        correctAnswers = 0;
-        answers.clear();
+        game.setQuestionNbr(1);
+        game.setCorrectAnswers(0);
+        game.clearAnswers();
 
-        initAllWordsList();
+        initNewGame();
         newQuestion();
     }
 
     public int getScore(){
-        return this.correctAnswers;
+        return game.getCorrectAnswers();
     }
 
     public int getNBR_OF_QUESTIONS(){
-        return this.NBR_OF_QUESTIONS;
+        return game.getNBR_OF_QUESTIONS();
     }
 
 }
