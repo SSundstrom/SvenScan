@@ -18,6 +18,7 @@ import com.example.svenscan.svenscan.repositories.IFavoriteRepository;
 import com.example.svenscan.svenscan.repositories.IMediaRepository;
 import com.example.svenscan.svenscan.repositories.IWordRepository;
 import com.example.svenscan.svenscan.utils.IProgressManager;
+import com.example.svenscan.svenscan.utils.SoundManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +109,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void enableNextButton(boolean b){
-        findViewById(R.id.nextButton).setEnabled(b);
+        View nextButton = findViewById(R.id.nextButton);
+        nextButton.setEnabled(b);
+        nextButton.setBackgroundResource(b ? R.drawable.ic_arrow_forward_green : R.drawable.ic_arrow_forward_gray);
     }
 
     private void setRandomCorrectWord(){
@@ -145,6 +148,11 @@ public class GameActivity extends AppCompatActivity {
 
         }
     }
+
+    public void playRecordedSound(View view) {
+        mediaRepository.getSoundUri(wordManager.getWordFromID(correctWord).getSoundPath(), (uri) -> new SoundManager(this).start(uri, view));
+    }
+
     private void setView(){
         View gameLoading = findViewById(R.id.game_loading_image);
         gameLoading.setVisibility(View.VISIBLE);

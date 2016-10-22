@@ -120,6 +120,12 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_alignParentBottom="true">
+        <Button
+            android:layout_width="@dimen/basic_button_size"
+            android:layout_height="@dimen/basic_button_size"
+            android:onClick="playRecordedSound"
+            android:background="@drawable/ic_volume_max"
+            android:layout_marginRight="@dimen/fab_margin"/>
         <TextView
             android:id="@+id/level"
             android:layout_width="wrap_content"
@@ -128,11 +134,11 @@
             android:textSize="@dimen/button_text_size"/>
         <Button
             android:id="@+id/nextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/basic_button_size"
+            android:layout_height="@dimen/basic_button_size"
             android:layout_marginLeft="@dimen/fab_margin"
             android:padding="@dimen/fab_button_padding"
-            android:text="@string/next"
+            android:background="@drawable/ic_arrow_forward_gray"
             android:enabled="false"
             android:onClick="nextQuestion"/>
 
