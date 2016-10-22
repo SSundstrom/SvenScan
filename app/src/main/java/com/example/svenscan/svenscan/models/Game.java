@@ -26,10 +26,10 @@ public class Game {
         this.allWords = allWords;
         answers = new ArrayList<>();
         allWordsList = new ArrayList<>();
-        createAllWorsLists();
+        createAllWordLists();
     }
 
-    private void createAllWorsLists(){
+    private void createAllWordLists(){
         allWordsList = new ArrayList<>(allWords.keySet());
         allCorrectWordsList = new ArrayList<>(allWords.keySet());
     }
@@ -42,7 +42,7 @@ public class Game {
 
     }
 
-    private void setRandomCorrectWord(){
+    public  void setRandomCorrectWord(){
         correctWord = randomCorrectWord();
         choices.add(correctWord);
     }
