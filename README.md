@@ -12,7 +12,7 @@
 ## Product Vision
 > For newly arrived refugees who wants to learn Swedish words, the SvenScan is a language teaching application, that by the use of augmented reality helps with teaching words encountered in user’s everyday life. Unlike learning from written words, our product lets the user listen to the words pronunciation and track the user’s learning progress.
 
-## Resources
+## Resurser
 * Scrum board: [Trello Board](https://trello.com/b/DwtLc2Xl/svenscan)
 * Social contract: [Social contract.md](https://github.com/SSundstrom/get_rect-Beppy-/blob/master/Social%20contract.md)
 * Gitinspector (Appendix A i readme.md)
@@ -25,12 +25,12 @@ Projektet har analyserats med hjälp av ett externt program som heter FindBugs. 
 Applikationens funktionalitet kretsar kring komplexa system från tredjepart, så som textigenkänning, kamera och kommunikation med databas. Detta medför att enhetstester är svåra att genomföra. De enhetstester som finns gäller därav främst en mindre mängd funktionalitet som är byggd av oss och inte tredjepart.
 Androids utvecklingsmiljö tillhandahåller integrations tester för att verifiera att applikationen fungerar enligt önskemål när en användare interagerar med applikationen. Tyvärr var det såpass snävt med tid och vi lyckades inte få dessa tester att fungera.
 
-### Design rationale
+### Mjukvarudesign
 ![Overview](http://i.imgur.com/YYUSrUJ.png)
 Applikationens kodbas är uppdelad i paket beroende på vilket lager eller typ av klass det är. Vi eftersträvar att dölja tekniska detaljer utåt sett, med hjälp av “interfaces” och “repository pattern”. Applikationen använder idag Googles realtidsdatabas Firebase för att dela data mellan alla användare, men tack vare “repository pattern” behöver man inte känna till denna detaljen när man utvecklar applikationen.
 Overview
 
-### Overview
+### Översikt
 Svenscans kodbas är bygg på Java och Android, med Gradle som byggverktyg. Det är byggt kring flertal tredjepartsbibliotek såsom [Squarecamera](https://github.com/boxme/SquareCamera/tree/master/squarecamera/src/main/java/com/desmond/squarecamera) för att hantera kameran. [Tess-Two](https://github.com/rmtheis/tess-two) i kombination med ett svenskt språkpaket tillhandahåller textigenkänning. [Firebase](https://firebase.google.com) från Google har använts som applikationens databas. Interaktion med Firebase sker igenom “Repository Pattern”, vilken döljer den specifika databas-implementationen gentemot resten av applikationen.
 
 **Applikationens innehåller följande vyer:**
