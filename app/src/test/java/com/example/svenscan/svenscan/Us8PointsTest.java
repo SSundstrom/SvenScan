@@ -29,8 +29,8 @@ public class Us8PointsTest {
     public void testLevelProgress(){
         int currentLevelProgress = points.getLevelProgress();
         points.earnPoints(10);
-        assertFalse("Should not be equal 50 != 60", currentLevelProgress == points.getLevelProgress());
-        assertEquals("Should have same value (60). ", 60, points.getLevelProgress());
+        assertFalse("Should not be equal 51 != 61", currentLevelProgress == points.getLevelProgress());
+        assertEquals("Should have same value (61). ", 61, points.getLevelProgress());
     }
 
 
