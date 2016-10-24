@@ -78,7 +78,7 @@ Svenscans kodbas är bygg på Java och Android, med Gradle som byggverktyg. Det 
 
 ## Appendix
 ### A. Gitinspector
-// todo infoga gitinspector här
+![Gitinspector](http://i.imgur.com/aXQTSyj.png)
 
 ### B. FindBugs
 ![Findbugs](http://i.imgur.com/FZpPTpk.png)
