@@ -14,7 +14,8 @@
 
 ## Resurser
 * Scrum board: [Trello Board](https://trello.com/b/DwtLc2Xl/svenscan)
-* Social contract: [Social contract.md](https://github.com/SSundstrom/get_rect-Beppy-/blob/master/Social%20contract.md)
+* Social contract: [Social contract.md](https://github.com/SSundstrom/SvenScan/blob/master/Docs/SocialContract.md)
+* Reflection, D1, D2. See "Docs" folder.
 * Gitinspector (Appendix A i readme.md)
 
 ## Teknisk information
